@@ -7,16 +7,14 @@ import {AffidavitPage} from '../affidavit/affidavit';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController, navParams: NavParams, 
-              private menu: MenuController) {
+  constructor(public navCtrl: NavController) {
       this.navCtrl = navCtrl;
-      this.menu = menu;
   }
 
     onSubmit() {
         var that = this;
         try {
-            that.navCtrl.setRoot(AffidavitPage, {
+            that.navCtrl.push(AffidavitPage, {
             });
 
         } catch (EE) {
