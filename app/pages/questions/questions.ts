@@ -1,19 +1,29 @@
-import { Component } from '@angular/core';
+     import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {UnregisteredsigninPage} from '../unregisteredsignin/unregisteredsignin';
+import {RegisteredsigninPage} from '../registeredsignin/registeredsignin';
 
-/*
-  Generated class for the QuestionsPage page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+
 @Component({
   templateUrl: 'build/pages/questions/questions.html',
 })
 export class QuestionsPage {
 
   constructor(private navCtrl: NavController) {
-
+      this.navCtrl = navCtrl;
+     
   }
+
+    onSubmit() {
+        var that = this;
+        try {
+            that.navCtrl.push(UnregisteredsigninPage, {
+            })
+
+        } catch (EE) {
+            console.log('error in Submitting, exc='+ EE.toString())
+        }
+    }
 
 }
