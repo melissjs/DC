@@ -1,19 +1,28 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {AffidavitPage} from '../affidavit/affidavit';
 
-/*
-  Generated class for the VoterecordPage page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   templateUrl: 'build/pages/voterecord/voterecord.html',
 })
 export class VoterecordPage {
 
   constructor(private navCtrl: NavController) {
-
+  this.navCtrl = navCtrl;
   }
+
+
+      onSubmit() {
+        var that = this;
+        try {
+            that.navCtrl.push(AffidavitPage, {
+            })
+
+        } catch (EE) {
+            console.log('error in Submitting, exc='+ EE.toString())
+        }
+    }
+
 
 }
