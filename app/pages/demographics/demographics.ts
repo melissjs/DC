@@ -1,19 +1,27 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {VoterecordPage} from '../voterecord/voterecord';
 
-/*
-  Generated class for the DemographicsPage page.
 
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+
 @Component({
   templateUrl: 'build/pages/demographics/demographics.html',
 })
 export class DemographicsPage {
 
   constructor(private navCtrl: NavController) {
-
+  this.navCtrl = navCtrl;
   }
+
+    onSubmit() {
+        var that = this;
+        try {
+            that.navCtrl.setRoot(VoterecordPage, {
+            });
+
+        } catch (EE) {
+            console.log('error in Submitting, exc='+ EE.toString())
+        }
+    }
 
 }

@@ -10,9 +10,11 @@
 
                
         <ion-content padding>
+        <form name="affidavit" novalidate>
+        
+        
         <ion-card>
-            <form name="affidavit" novalidate>
-<ion-list>
+        <ion-list>
 
   <ion-item>
     <ion-label stacked>Full Name:</ion-label>
@@ -29,14 +31,25 @@
     <ion-input type="zip"></ion-input>
   </ion-item>
 
+        </ion-list>
+        </ion-card>
+
+        <ion-card>
+        <ion-list>
 
   <ion-item text-wrap>
    <ion-label stacked>I, the undersigned, do hereby affirm that I participate voluntarily in the 2016 election audit being conducted by Democracy Counts and that I chose the same candidate(s) as I voted for in the election. I further affirm that any and all other questions I chose to answer herein are truthful. <br><br>Signature:</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" style="height: 5em"></ion-input>
   </ion-item>
 
+        </ion-list>
+        </ion-card>
+
+        <ion-card>
+        <ion-list>
+
   <ion-item>
-     <ion-label stacked>Comments: </ion-label>
+     <ion-label stacked>*Comments: </ion-label>
     <ion-textarea></ion-textarea>
   </ion-item>
 
@@ -53,13 +66,12 @@
     <ion-input type="text"></ion-input>
   </ion-item>
 
-</ion-list>
-             </form>
+        </ion-list>
         </ion-card>  
 
         <button type="submit" (click)="onSubmit()" block large>
          Submit 
          </button>
 
-
+      </form>
       </ion-content>
