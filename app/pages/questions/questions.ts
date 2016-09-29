@@ -47,7 +47,7 @@ export class QuestionsPage {
 		  });
 		  break;
 	    default: 
-		alert('You must choose an option first!');
+		alert('Please choose an option first.');
 	    }
         } catch (EE) {
             console.log('error in Submitting, exc='+ EE.toString())
