@@ -10,8 +10,9 @@
 
                
         <ion-content padding>
+        <form name="eveningcheckout" novalidate>
         <ion-card>
-            <form name="eveningcheckout" novalidate>
+           
 <ion-list>
 
   <ion-item>
@@ -42,20 +43,30 @@
     <ion-input type="text"></ion-input>
   </ion-item>
 
-  <ion-item>
-     <ion-label stacked>Comments: </ion-label>
+     <ion-item>
+     <ion-label stacked style="height: 5em">Comments: </ion-label>
     <ion-textarea></ion-textarea>
-  </ion-item>
+    </ion-item>
 
+</ion-list>
+</ion-card>
+
+
+
+
+
+  <button block large type="submit" (click)="onSubmit">Check Out</button>
+
+
+<ion-card>
+<ion-list>
    <ion-item text-wrap>
 <span style="font-size:.8em">Thank you for all your hard work. Safeguarding the integrity of our election is essential for democracy; you are an important part of this historical event.</span>
   </ion-item>
-
-  <button block large style="margin-top: 20px">Check Out</button>
-
-
-
 </ion-list>
-             </form>
-        </ion-card>  
+</ion-card>
+
+             
+       
+        </form>
       </ion-content>

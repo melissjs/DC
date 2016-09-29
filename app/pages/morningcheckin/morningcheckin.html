@@ -4,11 +4,58 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Democracy Counts</ion-title>
+    <ion-title>Morning Check In</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
+        <form name="affidavit" novalidate>
+        
+        
+        <ion-card>
+        <ion-list>
 
-</ion-content>
+     <ion-item>
+     <ion-label stacked>Set Precint:</ion-label>
+     <ion-input type="text"></ion-input>
+     </ion-item>
+
+     <ion-item>
+     <ion-icon name="md-camera" item-right></ion-icon> 
+     <ion-icon name="md-image" item-right></ion-icon>
+     <ion-label stacked>Photos of Precinct Numbers: </ion-label>
+     <ion-input type="text"></ion-input>
+     </ion-item>
+
+     <ion-item>
+     <ion-icon name="md-locate" item-right></ion-icon> 
+     <ion-label stacked>Set Geolocation:</ion-label>
+     <ion-input type="text"></ion-input>
+     </ion-item>
+
+     <ion-item>
+     <ion-icon name="md-camera" item-right></ion-icon> 
+     <ion-icon name="md-image" item-right></ion-icon>
+     <ion-label stacked>Photos of Polling Address: </ion-label>
+     <ion-input type="text"></ion-input>
+     </ion-item>
+
+     <ion-item>
+     <ion-icon name="md-camera" item-right></ion-icon> 
+     <ion-icon name="md-image" item-right></ion-icon>
+     <ion-label stacked>Photos of 50' Measurement: </ion-label>
+     <ion-input type="text"></ion-input>
+     </ion-item>
+
+        
+
+        </ion-list>
+        </ion-card>  
+
+        <button type="submit" (click)="onSubmit()" block large>
+         Submit 
+         </button>
+
+      </form>
+      </ion-content>
