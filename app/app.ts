@@ -30,7 +30,7 @@ import {DemographicsPage} from './pages/demographics/demographics';
 import {VotePage} from './pages/vote/vote';
 import {QuestionsPage} from './pages/questions/questions';
 import {HomePage} from './pages/home/home';
-
+import {EndPage} from './pages/end/end';
 
 @Component({
   templateUrl: 'build/app.html'

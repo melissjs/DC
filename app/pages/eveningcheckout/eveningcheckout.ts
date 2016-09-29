@@ -1,19 +1,26 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { EndPage } from '../end/end';
 
-/*
-  Generated class for the EveningcheckoutPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
   templateUrl: 'build/pages/eveningcheckout/eveningcheckout.html',
 })
 export class EveningcheckoutPage {
 
   constructor(private navCtrl: NavController) {
-
+  this.navCtrl = navCtrl;
   }
+
+      onSubmit() {
+        var that = this;
+        try {
+            that.navCtrl.setRoot(EndPage, {
+            })
+
+        } catch (EE) {
+            console.log('error in Submitting, exc='+ EE.toString())
+        }
+    }
+    
 
 }
