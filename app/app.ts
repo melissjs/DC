@@ -1,6 +1,7 @@
 
 import {Component, ViewChild} from '@angular/core';
 import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
+import {provideForms, disableDeprecatedForms} from '@angular/forms';
 import {StatusBar} from 'ionic-native';
 
   // actual pages called from menu
@@ -84,4 +85,4 @@ class MyApp {
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp, [provideForms(), disableDeprecatedForms()]);
