@@ -13,10 +13,6 @@ import {RegisteredsigninPage} from '../registeredsignin/registeredsignin';
 })
 export class QuestionsPage {
 
-    registeredTeamLead: string = "registeredTeamLead";
-    registeredVolunteer: string = "registeredVolunteer";
-    newVolunteer: string = "newVolunteer";
-    checkingBackIn: string = "checkingBackIn";
     teamLeadOrVolunteer: string;
     selectedItem: any;
 
@@ -40,13 +36,13 @@ export class QuestionsPage {
     onSubmit() {
         try {
 	    switch (this.teamLeadOrVolunteer) {
-		case this.registeredTeamLead: 
-		case this.registeredVolunteer:
-		case this.checkingBackIn: 
+		case 'registeredTeamLead': 
+		case 'registeredVolunteer':
+		case 'checkingBackIn': 
 		  this.navCtrl.push(RegisteredsigninPage, {
 		  });
 		  break;
-		case this.newVolunteer:
+		case 'newVolunteer':
 		  this.navCtrl.push(UnregisteredsigninPage, {		  
 		  });
 		  break;
