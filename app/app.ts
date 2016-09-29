@@ -1,6 +1,7 @@
 
 import {Component, ViewChild} from '@angular/core';
 import {ionicBootstrap, Platform, MenuController, Nav} from 'ionic-angular';
+import {provideForms, disableDeprecatedForms} from '@angular/forms';
 import {StatusBar} from 'ionic-native';
 
   // actual pages called from menu
@@ -29,7 +30,7 @@ import {DemographicsPage} from './pages/demographics/demographics';
 import {VotePage} from './pages/vote/vote';
 import {QuestionsPage} from './pages/questions/questions';
 import {HomePage} from './pages/home/home';
-
+import {EndPage} from './pages/end/end';
 
 @Component({
   templateUrl: 'build/app.html'
@@ -84,4 +85,4 @@ class MyApp {
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp, [provideForms(), disableDeprecatedForms()]);
