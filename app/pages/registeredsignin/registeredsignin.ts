@@ -21,7 +21,7 @@ export class RegisteredsigninPage {
     password: string;
     vol_email: string;
     userDataSvc:UserDataService;
-    error: any;
+    dbError: any;
 
     constructor(private navCtrl: NavController, navParams: NavParams) {
 	this.navCtrl = navCtrl;
@@ -71,13 +71,13 @@ export class RegisteredsigninPage {
                     console.log('error onSubmit ' + error.toString());
                     let msg = "Error Logging In: " + error.toString();
                     Toast.show(msg, "3000", "center");
-                    if ((!that.error) ||
-                        (that.error !== that.userDataSvc.getNotAuthenticatedMsg())) {
-                        that.error = error.toString();
+                    if ((!that.dbError) ||
+                        (that.dbError !== that.userDataSvc.getNotAuthenticatedMsg())) {
+                        that.dbError = error.toString();
                     } else {
                         /* If we already got this error once, then we just allow
                            to go into a test mode... */
-                        that.error = null;
+                        that.dbError = null;
                         that.userDataSvc.setTestMode(true);
                         that.navCtrl.setRoot(AddnewrecordPage, {
                             userDataSvc: that.userDataSvc

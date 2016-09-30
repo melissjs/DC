@@ -72,7 +72,7 @@ export class UserDataService {
 
     public isAuthenticated() {
         if (this.baseRef) {
-            this.auth = firebase.auth();	    
+            this.auth = firebase.auth();            
             return (this.auth !== null)
         } else {
             return false;
@@ -108,13 +108,13 @@ export class UserDataService {
         } catch (exc) {
             console.log('error creating firebase..' + exc.toString());
             this.baseRef = null;
-	}
+        }
 
-	try {
-	    if (this.baseRef == null) {
-		firebase.initializeApp(config);
-		this.baseRef = firebase.database().ref();
-	    }
+        try {
+            if (this.baseRef == null) {
+                firebase.initializeApp(config);
+                this.baseRef = firebase.database().ref();
+            }
         } catch (exc) {
             console.log('error initializing App for firebase..' + exc.toString());
             this.baseRef = null;
@@ -153,7 +153,7 @@ export class UserDataService {
         var that = this
         var thisemail = this.email;
         console.log('logging in with:'+thisemail+','+
-		    _credentials.password /* + ',pin=' + _credentials.pin */);
+                    _credentials.password /* + ',pin=' + _credentials.pin */);
 
         if (!thisemail) {
             return Observable.create(observer => {
@@ -167,7 +167,7 @@ export class UserDataService {
             if (thisemail) {
                 if (that.authemail == thisemail) {
                     // same user.. check the password...
-		    /* 
+                    /* 
                     if (that.pin) {
                         if (that.pin === _credentials.pin) {
                             // everything ok... no need to reauthenticate..
@@ -193,7 +193,7 @@ export class UserDataService {
                     } else {
                         // no PIN stored.. must have been reset.. use next code...
                     }
-		    */
+                    */
                 } else {
                     // different email entered.. use next code
                 }
@@ -202,24 +202,24 @@ export class UserDataService {
             }
         }
         var password = _credentials.password;
-	/*
+        /*
         that.pin = _credentials.pin;
-	*/
+        */
         if (that.baseRef) {
             return new Observable(observer => {
-                var authData = that.auth.signInWithEmailAndPassword(
-                    thisemail,_credentials.password).catch(function(error) {
-			// Handle Errors here.
-			// [START_EXCLUDE]
-                        console.log("Login Failed!", error);
-                        observer.error(error);
-		    });
-                    {
-                        console.log("Authenticated successfully");
-                        that.authemail = thisemail;
-                        observer.next(authData)
-                    }
-                });
+                return that.auth.signInWithEmailAndPassword
+                (thisemail,_credentials.password)
+                .then(function(authData) {
+                    console.log("Authenticated successfully");
+                    that.authemail = thisemail;
+                    observer.next(authData)
+                }).catch(function(error) {
+                    // Handle Errors here.
+                    // [START_EXCLUDE]
+                    console.log("Login Failed!", error);
+                    observer.error(error);
+                })
+            });
         } else {
             // first time?
             // store the information for next time...

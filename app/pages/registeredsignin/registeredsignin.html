@@ -47,4 +47,7 @@
              </form>
 -->
         </ion-card>  
+    <div padding>
+      <p *ngIf="dbError" class="error">{{ dbError }}</p>
+    </div>
 	</ion-content>
