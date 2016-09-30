@@ -3,7 +3,15 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Set Up: Existing Volunteer</ion-title>
+    <div *ngIf="role=='registeredTeamLead'">
+      <ion-title>Login: Existing Team Lead</ion-title>
+    </div>
+    <div *ngIf="role=='registeredVolunteer'">
+      <ion-title>Login: Existing Volunteer</ion-title>
+    </div>
+    <div *ngIf="role=='checkingBackIn'">
+      <ion-title>Login: Checking Back In</ion-title>
+    </div>
   </ion-navbar>
 </ion-header>
 
@@ -11,20 +19,32 @@
                
         <ion-content padding>
         <ion-card>
+<!--
             <form name="signin" novalidate>
+-->
 <ion-list>
 
+  <div *ngIf="(role=='registeredVolunteer')||(role=='registeredTeamLead')">
   <ion-item>
-    <ion-label stacked>Email:</ion-label>
-    <ion-input type="email"></ion-input>
+    <ion-label stacked>Team Lead Email:</ion-label>
+    <ion-input [(ngModel)]="email" type="email" (change)="onChangeEmail(email)"></ion-input>
   </ion-item>
-
   <ion-item>
-    <ion-label stacked>QR Code:</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-label stacked>Team Lead password:</ion-label>
+    <ion-input [(ngModel)]="password" type="password" (change)="onChangePwd(password)"></ion-input>
   </ion-item>
+  </div>
+  <div *ngIf="(role=='registeredVolunteer')">
+  <ion-item>
+    <ion-label stacked>Volunteer Email:</ion-label>
+    <ion-input [(ngModel)]="vol_email" type="email" (change)="onChangeVolEmail(vol_email)"></ion-input>
+  </ion-item>
+  </div>
+  <button type="submit" (click)="onSubmit()" block large style="margin-top: 20px">Sign In</button>
 
 </ion-list>
+<!--
              </form>
+-->
         </ion-card>  
-      </ion-content>
+	</ion-content>
