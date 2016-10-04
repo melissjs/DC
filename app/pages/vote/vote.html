@@ -15,21 +15,40 @@
 
         <ion-item>
         <ion-label stacked>General Election Presidential Vote:</ion-label>
-          <ion-select [(ngModel)]="presVote" #item (change)="onChangePresVote(presVote)">
-            <ion-option value="highlySupport"><b>Highly</b> support.</ion-option>
-            <ion-option value="moderatelySupport"><b>Moderately</b> Support.</ion-option>
-            <ion-option value="dislike"><b>Dislike</b> but dislike other candidate(s) more.</ion-option>
+          <ion-select text-wrap [(ngModel)]="presVote" #item (change)="onChangePresVote(presVote)">
+            <ion-option value="donaldTrump">Donald Trump</ion-option>
+            <ion-option value="garyJohnson">Gary Johnson</ion-option>
+            <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
+            <ion-option value="jillStein">Jill Stein</ion-option>
+            <ion-option value="writeIn">Other</ion-option>
+          </ion-select>
+        </ion-item>
+
+<!--my try start-->
+        <ion-item *ngIf presVote="other">
+        <ion-label stacked>Please Write in Candidate Name:</ion-label>
+        <input type="text">
+        </ion-item>
+ <!--my try end-->       
+
+        <ion-item>
+        <ion-label stacked>Cast By:</ion-label>
+        <ion-select text-wrap [(ngModel)]="presVoteCastBy" #item (change)="onChangePresVoteCastBy(presVoteCastBy)">
+            <ion-option value="votingMachine">Voting Machine</ion-option>
+            <ion-option value="voteByMail">Vote by Mail</ion-option>
+            <ion-option value="absentee">Absentee Ballot</ion-option>
+            <ion-option value="provisional">Provisional Ballot</ion-option>
+            <ion-option value="paperBallot">Paper Ballot</ion-option>
           </ion-select>
         </ion-item>
 
         <ion-item>
-        <ion-label stacked>Cast By:</ion-label>
-        <ion-input type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
         <ion-label stacked>Level of Support:</ion-label>
-        <ion-input type="text"></ion-input>
+            <ion-select text-wrap [(ngModel)]="presVoteLOS" #item (change)="onChangePresVoteLOS(presVoteLOS)">
+            <ion-option value="highlySupport">Highly Support</ion-option>
+            <ion-option value="moderatelySupport">Moderately Support</ion-option>
+            <ion-option value="dislike">Dislike but dislike other candidate(s) more.</ion-option>
+            </ion-select>
         </ion-item>
 
         </ion-list>
@@ -40,17 +59,36 @@
 
     <ion-item text-wrap>
     <ion-label stacked>Primary Election Presidential Vote:</ion-label>
-    <ion-input type="text"></ion-input>
+          <ion-select text-wrap [(ngModel)]="pimaryPresVote" #item (change)="onChangePrimaryPresVote(primaryPresVote)">
+            <ion-option value="didNotVote">I did not vote in the primary.</ion-option>
+            <ion-option value="couldNotVote">I could not vote in the primary.</ion-option>
+            <ion-option value="bernieSanders">Bernie Sanders</ion-option>
+            <ion-option value="donaldTrump">Donald Trump</ion-option>
+            <ion-option value="garyJohnson">Gary Johnson</ion-option>
+            <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
+            <ion-option value="jillStein">Jill Stein</ion-option>
+            <ion-option value="writeIn">Other</ion-option>
+          </ion-select>
     </ion-item>
 
     <ion-item>
     <ion-label stacked>Cast By:</ion-label>
-    <ion-input type="text"></ion-input>
+        <ion-select text-wrap [(ngModel)]="pimaryPresVoteCastBy" #item (change)="onChangePrimaryPresVoteCastBy(primaryPresVoteCastBy)">
+            <ion-option value="votingMachine">Voting Machine</ion-option>
+            <ion-option value="voteByMail">Vote by Mail</ion-option>
+            <ion-option value="absentee">Absentee Ballot</ion-option>
+            <ion-option value="provisional">Provisional Ballot</ion-option>
+            <ion-option value="paperBallot">Paper Ballot</ion-option>
+          </ion-select>
     </ion-item>
 
     <ion-item>
     <ion-label stacked>Level of Support:</ion-label>
-    <ion-input type="text"></ion-input>
+            <ion-select text-wrap [(ngModel)]="primaryPresVoteLOS" #item (change)="onChangePrimaryPresVoteLOS(primaryPresVoteLOS)">
+            <ion-option value="highlySupport">Highly Support</ion-option>
+            <ion-option value="moderatelySupport">Moderately Support</ion-option>
+            <ion-option value="dislike">Dislike but dislike other candidate(s) more.</ion-option>
+            </ion-select>
     </ion-item>
 
 
@@ -64,17 +102,41 @@
 
     <ion-item text-wrap>
     <ion-label stacked>Presidential First Choice:</ion-label>
-    <ion-input type="text"></ion-input>
+          <ion-select text-wrap [(ngModel)]="firstPresVote" #item (change)="onChangeFirstPresVote(firstPresVote)">
+            <ion-option value="bernieSanders">Bernie Sanders</ion-option>
+            <ion-option value="donaldTrump">Donald Trump</ion-option>
+            <ion-option value="garyJohnson">Gary Johnson</ion-option>
+            <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
+            <ion-option value="jillStein">Jill Stein</ion-option>
+            <ion-option value="writeIn">Other</ion-option>
+            <ion-option value="none">None</ion-option>
+          </ion-select>
     </ion-item>
 
     <ion-item>
     <ion-label stacked>Presidential Second Choice:</ion-label>
-    <ion-input type="text"></ion-input>
+          <ion-select text-wrap [(ngModel)]="secondPresVote" #item (change)="onChangeSecondPresVote(secondPresVote)">
+            <ion-option value="bernieSanders">Bernie Sanders</ion-option>
+            <ion-option value="donaldTrump">Donald Trump</ion-option>
+            <ion-option value="garyJohnson">Gary Johnson</ion-option>
+            <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
+            <ion-option value="jillStein">Jill Stein</ion-option>
+            <ion-option value="writeIn">Other</ion-option>
+            <ion-option value="none">None</ion-option>
+          </ion-select>
     </ion-item>
 
     <ion-item>
     <ion-label stacked>Presidential Third Choice:</ion-label>
-    <ion-input type="text"></ion-input>
+          <ion-select text-wrap [(ngModel)]="thirdPresVote" #item (change)="onChangeThirdPresVote(thirdPresVote)">
+            <ion-option value="bernieSanders">Bernie Sanders</ion-option>
+            <ion-option value="donaldTrump">Donald Trump</ion-option>
+            <ion-option value="garyJohnson">Gary Johnson</ion-option>
+            <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
+            <ion-option value="jillStein">Jill Stein</ion-option>
+            <ion-option value="writeIn">Other</ion-option>
+            <ion-option value="none">None</ion-option>
+          </ion-select>
     </ion-item>
     </ion-list>
    </ion-card>
