@@ -32,7 +32,11 @@ import {QuestionsPage} from './pages/questions/questions';
 import {HomePage} from './pages/home/home';
 import {EndPage} from './pages/end/end';
 
+  // intermediate components called from others
+//import {LevelofsupportComponent} from './pages/levelofsupport/levelofsupport';
+
 import {UserDataService} from './user-data-service';
+
 
 @Component({
   templateUrl: 'build/app.html',

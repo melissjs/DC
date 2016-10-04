@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, MenuController, NavParams } from 'ionic-angular';
 import {QuestionsPage} from '../questions/questions';
-import {UserDataService} from '../../user-data-service.ts';
+import {UserDataService} from '../../user-data-service';
+
 
 
 @Component({
@@ -9,10 +10,12 @@ import {UserDataService} from '../../user-data-service.ts';
 })
 export class HomePage {
 
+
   userDataSvc: UserDataService;
 
   constructor(public navCtrl: NavController, navParams: NavParams,
   	      userDataSvc: UserDataService) {
+
       this.navCtrl = navCtrl;
       this.userDataSvc = userDataSvc; // navParams.get('userDataSvc');
       if (this.userDataSvc) {
@@ -31,5 +34,7 @@ export class HomePage {
             console.log('error in Submitting, exc='+ EE.toString())
         }
     }
+    
 
+    
 }
