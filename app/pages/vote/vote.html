@@ -10,15 +10,16 @@
 
                
           <ion-content padding>
-          <form name="vote" novalidate>
-
         <ion-card>
         <ion-list>
 
         <ion-item>
         <ion-label stacked>General Election Presidential Vote:</ion-label>
-        <ion-input type="text" (focus)="onFocusLOSGE(yes)"></ion-input>
-        <level-of-support *ngIf="yes"></level-of-support>
+	  <ion-select [(ngModel)]="presVote" #item (change)="onChangePresVote(presVote)">
+	    <ion-option value="highlySupport"><b>Highly</b> support.</ion-option>
+	    <ion-option value="moderatelySupport"><b>Moderately</b> Support.</ion-option>
+	    <ion-option value="dislike"><b>Dislike</b> but dislike other candidate(s) more.</ion-option>
+	  </ion-select>
         </ion-item>
 
         <ion-item>
@@ -77,8 +78,6 @@
     </ion-item>
     </ion-list>
    </ion-card>
-
-      </form>
 
       <button type="submit" (click)="onSubmit()" block large>
       Submit
