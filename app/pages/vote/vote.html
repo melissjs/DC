@@ -17,7 +17,8 @@
 
         <ion-item>
         <ion-label stacked>General Election Presidential Vote:</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" (focus)="onFocusLOSGE(yes)"></ion-input>
+        <level-of-support *ngIf="yes"></level-of-support>
         </ion-item>
 
         <ion-item>

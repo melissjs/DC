@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {DemographicsPage} from '../demographics/demographics';
-
+import {LevelofsupportComponent} from '../levelofsupport/levelofsupport';
 
 @Component({
   templateUrl: 'build/pages/vote/vote.html',
+  directives: [LevelofsupportComponent],
 })
 export class VotePage {
 
@@ -22,5 +23,11 @@ export class VotePage {
             console.log('error in Submitting, exc='+ EE.toString())
         }
     }
+
+   onFocusLOSGE(yesOrNo){
+       var isFocusedOn = yesOrNo;
+       if (isFocusedOn == "yes"){
+       return "yes";}
+   }
 
 }
