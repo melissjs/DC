@@ -9,11 +9,12 @@ import {VoterecordPage} from '../voterecord/voterecord';
 })
 export class AddnewrecordPage {
 
+
   constructor(private navCtrl: NavController) {
   this.navCtrl = navCtrl;
   }
 
-      onSubmit() {
+           onSubmit() {
         var that = this;
         try {
             that.navCtrl.push(VoterecordPage, {
@@ -22,6 +23,7 @@ export class AddnewrecordPage {
         } catch (EE) {
             console.log('error in Submitting, exc='+ EE.toString())
         }
-    }
-
+           }
 }
+
+
