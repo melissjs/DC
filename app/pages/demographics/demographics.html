@@ -11,43 +11,75 @@
                
         <ion-content padding>
         <ion-card>
+        <ion-list>
 
-<ion-list>
   <ion-item>
     <ion-label stacked>Sex:</ion-label>
-
          <ion-select text-wrap [(ngModel)]="enterSex" #item (change)="onChangeSex(enterSex)">
             <ion-option value="female">Female</ion-option>
             <ion-option value="male">Male</ion-option>
             <ion-option value="noAnswer">No Answer</ion-option>
           </ion-select> 
-
   </ion-item>
 
   <ion-item>
     <ion-label stacked>Age:</ion-label>
-    <ion-input type="text"></ion-input>
+         <ion-select text-wrap [(ngModel)]="enterAge" #item (change)="onChangeAge(enterAge)">
+            <ion-option value="18">18 - 24</ion-option>
+            <ion-option value="25">25 - 35</ion-option>
+            <ion-option value="36">36 - 45</ion-option>
+            <ion-option value="46">46 - 55</ion-option>
+            <ion-option value="56">56 - 66</ion-option>
+            <ion-option value="67">67 +</ion-option>
+          </ion-select> 
   </ion-item>
 
     <ion-item>
-    <ion-label stacked>Income:</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-label stacked>Annual Income:</ion-label>
+         <ion-select text-wrap [(ngModel)]="enterIncome" #item (change)="onChangeIncome(enterIncome)">
+            <ion-option value="24">$24,000 or less</ion-option>
+            <ion-option value="25">$25,000 - $50,000</ion-option>
+            <ion-option value="51">$51,000 - $100,000</ion-option>
+            <ion-option value="100">$100,001 - $200,000</ion-option>
+            <ion-option value="200">$200,001 - $500,000</ion-option>
+            <ion-option value="200">$500,001 - $1,000,000</ion-option>
+            <ion-option value="1">$1,000,001 - $5,000,000</ion-option>
+             <ion-option value="5">$5,000,000 or more</ion-option>
+          </ion-select> 
   </ion-item>
 
 
   <ion-item text-wrap>
    <ion-label stacked>Party Affiliation:</ion-label>
-    <ion-input type="text"></ion-input>
+         <ion-select text-wrap [(ngModel)]="enterParty" #item (change)="onChangeParty(enterParty)">
+            <ion-option value="noParty">No Party Preference</ion-option>
+            <ion-option value="democrat">Democratic Party</ion-option>
+            <ion-option value="green">Green Party</ion-option>
+            <ion-option value="republican">Republican Party</ion-option>
+            <ion-option value="other">Other Party</ion-option>
+          </ion-select> 
   </ion-item>
 
     <ion-item>
     <ion-label stacked>Ethnicity:</ion-label>
-    <ion-input type="text"></ion-input>
+         <ion-select text-wrap [(ngModel)]="enterEthnicity" #item (change)="onChangeEthnicity(enterEthnicity)">
+            <ion-option value="noAnswer">No Answer</ion-option>
+            <ion-option value="americanIndian">American Indian or Alaska Native</ion-option>
+            <ion-option value="asian">Asian</ion-option>
+            <ion-option value="black">Black or African American</ion-option>
+            <ion-option value="hispanic">Hispanic or Latino</ion-option>
+            <ion-option value="pacificIslander">Native Hawaiian or Other Pacific Islander</ion-option>
+            <ion-option value="white">White</ion-option>
+          </ion-select> 
   </ion-item>
+  <!--http://www.iowadatacenter.org/aboutdata/raceclassification-->
 
    <ion-item>
     <ion-label stacked>First Time Voter:</ion-label>
-    <ion-input type="text"></ion-input>
+         <ion-select text-wrap [(ngModel)]="enterFirstTimeVoter" #item (change)="onChangeFirstTimeVoter(enterFirstTimeVoter)">
+            <ion-option value="yes">Yes</ion-option>
+            <ion-option value="no">No</ion-option>
+          </ion-select> 
   </ion-item>
 
 

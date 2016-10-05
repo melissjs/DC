@@ -9,10 +9,20 @@ import {VoterecordPage} from '../voterecord/voterecord';
 })
 export class DemographicsPage {
 enterSex: string;
+enterAge: string;
+enterIncome: string;
+enterParty: string;
+enterEthnicity: string;
+enterFirstTimeVoter: string;
 
   constructor(private navCtrl: NavController) {
   this.navCtrl = navCtrl;
   this.enterSex = null;
+  this.enterAge = null;
+  this.enterIncome = null;
+  this.enterParty = null;
+  this.enterEthnicity = null;
+  this.enterFirstTimeVoter = null;
   }
 
     onSubmit() {
@@ -28,6 +38,26 @@ enterSex: string;
 
         onChangeSex(value){
         this.enterSex = value;
+   }
+
+           onChangeAge(value){
+        this.enterAge = value;
+   }
+
+           onChangeIncome(value){
+        this.enterIncome = value;
+   }
+
+              onChangeParty(value){
+        this.enterParty = value;
+   }
+
+              onChangeEthnicity(value){
+        this.enterEthnicity = value;
+   }
+
+              onChangeFirstTimeVoter(value){
+        this.enterFirstTimeVoter = value;
    }
 
 }
