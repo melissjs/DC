@@ -11,16 +11,15 @@
                
         <ion-content padding>
         <ion-card>
-            <form name="demographics" novalidate>
 <ion-list>
 
   <ion-item>
     <ion-label stacked>Sex:</ion-label>
-    <!--      <ion-select text-wrap [(ngModel)]="enterSex" #item (change)="onChangeSex(enterSex)">
-            <ion-option value="female">Female</ion-option>
-            <ion-option value="male">Male</ion-option>
-            <ion-option value="noAnswer">noAnswer</ion-option>
-          </ion-select> -->
+    <ion-select text-wrap [(ngModel)]="enterSex" #item (change)="onChangeSex(enterSex)">
+      <ion-option value="female">Female</ion-option>
+      <ion-option value="male">Male</ion-option>
+      <ion-option value="noAnswer">noAnswer</ion-option>
+    </ion-select>
   </ion-item>
 
   <ion-item>
@@ -51,7 +50,6 @@
 
 
 </ion-list>
-             </form>
         </ion-card>  
 
       <button type="submit" (click)="onSubmit()" block large>
