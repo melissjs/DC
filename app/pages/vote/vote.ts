@@ -7,10 +7,26 @@ import {DemographicsPage} from '../demographics/demographics';
 })
 export class VotePage {
     presVote: string;
+    presVoteCastBy: string;
+    presVoteLOS: string;
+    pimaryPresVote: string;
+    pimaryPresVoteCastBy: string;
+    primaryPresVoteLOS: string;
+    firstPresVote: string;
+    secondPresVote: string;
+    thirdPresVote: string;
 
     constructor(private navCtrl: NavController, private alertCtrl: AlertController) {
         this.navCtrl = navCtrl;
         this.presVote = null;
+        this.presVoteCastBy = null;
+        this.presVoteLOS = null;
+        this.pimaryPresVote = null;
+        this.pimaryPresVoteCastBy = null;
+        this.primaryPresVoteLOS = null;
+        this.firstPresVote = null;
+        this.secondPresVote = null;
+        this.thirdPresVote = null;
     }
 
     onSubmit() {
@@ -39,8 +55,41 @@ export class VotePage {
         }
     }
 
-    onChangePresVote(value){
+        onChangePresVote(value){
         this.presVote = value;
+        console.log(this.presVote);
+   }
+
+       onChangePresVoteCastBy(value){
+        this.presVoteCastBy = value;
+   }
+
+       onChangePresVoteLOS(value){
+        this.presVoteLOS = value;
+   }
+
+       onChangePrimaryPresVote(value){
+        this.pimaryPresVote = value;
+   }
+
+       onChangePrimaryPresVoteCastBy(value){
+        this.pimaryPresVoteCastBy = value;
+   }
+
+       onChangePrimaryPresVoteLOS(value){
+        this.primaryPresVoteLOS = value;
+   }
+
+          onChangeFirstPresVote(value){
+        this.firstPresVote = value;
+   }
+
+          onChangeSecondPresVote(value){
+        this.secondPresVote = value;
+   }
+
+          onChangeThirdPresVote(value){
+        this.thirdPresVote = value;
    }
 
 }
