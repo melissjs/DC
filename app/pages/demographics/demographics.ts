@@ -8,9 +8,11 @@ import {VoterecordPage} from '../voterecord/voterecord';
   templateUrl: 'build/pages/demographics/demographics.html',
 })
 export class DemographicsPage {
+enterSex: string;
 
   constructor(private navCtrl: NavController) {
   this.navCtrl = navCtrl;
+  this.enterSex = null;
   }
 
     onSubmit() {
@@ -23,5 +25,9 @@ export class DemographicsPage {
             console.log('error in Submitting, exc='+ EE.toString())
         }
     }
+
+        onChangeSex(value){
+        this.enterSex = value;
+   }
 
 }
