@@ -11,25 +11,63 @@
                
         <ion-content padding>
         <ion-card>
-            <form name="amendment" novalidate>
+            
 <ion-list>
 
   <ion-item>
-    <ion-label stacked>Incorrect Selection:</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+           <ion-label stacked>Incorrect Selection:</ion-label>
+
+            <ion-select text-wrap [(ngModel)]="incorrectSelection">
+            <ion-option value="donaldTrump">Donald Trump</ion-option>
+            <ion-option value="garyJohnson">Gary Johnson</ion-option>
+            <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
+            <ion-option value="jillStein">Jill Stein</ion-option>
+            <ion-option value="writeIn">Other</ion-option>
+            </ion-select>
+    </ion-item>
+
+    <!-- Show line if they need to write in a candidate -->
+        <ion-item *ngIf="incorrectSelection=='writeIn'">
+        <ion-label stacked>Please Write in Candidate Name:</ion-label>
+        <ion-input type="text"></ion-input>
+        </ion-item>
+ <!-- end--> 
+
 
   <ion-item>
     <ion-label stacked>Correct Selection:</ion-label>
-    <ion-input type="text"></ion-input>
-  </ion-item>
+
+            <ion-select text-wrap [(ngModel)]="correctSelection">
+            <ion-option value="donaldTrump">Donald Trump</ion-option>
+            <ion-option value="garyJohnson">Gary Johnson</ion-option>
+            <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
+            <ion-option value="jillStein">Jill Stein</ion-option>
+            <ion-option value="writeIn">Other</ion-option>
+            </ion-select>
+    </ion-item>
+
+    <!-- Show line if they need to write in a candidate -->
+        <ion-item *ngIf="correctSelection=='writeIn'">
+        <ion-label stacked>Please Write in Candidate Name:</ion-label>
+        <ion-input type="text"></ion-input>
+        </ion-item>
+ <!-- end--> 
+</ion-list>
+</ion-card>
+<ion-card>
+ <ion-list>
 
     <ion-item>
-    <ion-label stacked>Scan Team Lead QR Code:</ion-label>
-    <ion-input type="zip"></ion-input>
+    <ion-label stacked>Team Lead Passcode:</ion-label>
+    <ion-input [(ngModel)]="passcode" type="password"></ion-input>
   </ion-item>
 
 </ion-list>
-             </form>
+             
         </ion-card>  
+
+      <button type="submit" (click)="onSubmit()" block large>
+      Submit
+      </button>
+
       </ion-content>
