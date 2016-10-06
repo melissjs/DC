@@ -8,7 +8,6 @@ import {VoterecordPage} from '../voterecord/voterecord';
   templateUrl: 'build/pages/addnewrecord/addnewrecord.html',
 })
 export class AddnewrecordPage {
-recordType: string;
 
   constructor(private navCtrl: NavController) {
   this.navCtrl = navCtrl;
@@ -16,12 +15,11 @@ recordType: string;
   }
 
       onSubmit(value) {
-        var that = this;
         var recordType = value;
-        console.log("string works, but variable appears to be undefined still"); 
-        console.log(recordType); 
-        if(that.recordType == 'voterRecord'){
-        console.log("this should type out the string of chosen record, my if statement is wrong?"); 
+	//        console.log("string works, but variable appears to be undefined still"); 
+        console.log('recordType='+recordType); 
+        if(recordType == 'voterRecord'){
+	        console.log("this should type out the string of chosen record, my if statement is wrong?"); 
         }
       }
 }
