@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import {VoterecordPage} from '../voterecord/voterecord';
-
+import {AmendmentrecordPage} from '../amendmentrecord/amendmentrecord';
+import {AnomalyrecordPage} from '../anomalyrecord/anomalyrecord';
 
 
 @Component({
@@ -15,11 +16,47 @@ export class AddnewrecordPage {
   }
 
       onSubmit(value) {
+        var that = this;
         var recordType = value;
-	//        console.log("string works, but variable appears to be undefined still"); 
-        console.log('recordType='+recordType); 
-        if(recordType == 'voterRecord'){
-	        console.log("this should type out the string of chosen record, my if statement is wrong?"); 
-        }
+
+        //console.log('recordType='+ recordType); 
+        if (recordType == 'voterRecord'){
+	   
+                    try {
+                        that.navCtrl.push(VoterecordPage, {
+                        })
+
+                    } catch (EE) {
+                        console.log('error in Submitting, exc='+ EE.toString())
+                    }
+
+        } 
+        
+        if (recordType == 'anomalyRecord'){ 
+                    try {
+                        that.navCtrl.push(AnomalyrecordPage, {
+                        })
+
+                    } catch (EE) {
+                        console.log('error in Submitting, exc='+ EE.toString())
+                    } 
+        } 
+        
+        if (recordType == 'amendmentRecord'){ 
+                    try {
+                        that.navCtrl.push(AmendmentrecordPage, {
+                        })
+
+                    } catch (EE) {
+                        console.log('error in Submitting, exc='+ EE.toString())
+                    } 
       }
-}
+
+
+
+
+
+      } // onSub end
+
+
+} // class end 
