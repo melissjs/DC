@@ -9,8 +9,8 @@ export class VotePage {
     presVote: string;
     presVoteCastBy: string;
     presVoteLOS: string;
-    pimaryPresVote: string;
-    pimaryPresVoteCastBy: string;
+    primaryPresVote: string;
+    primaryPresVoteCastBy: string;
     primaryPresVoteLOS: string;
     firstPresVote: string;
     secondPresVote: string;
@@ -21,8 +21,8 @@ export class VotePage {
         this.presVote = null;
         this.presVoteCastBy = null;
         this.presVoteLOS = null;
-        this.pimaryPresVote = null;
-        this.pimaryPresVoteCastBy = null;
+        this.primaryPresVote = null;
+        this.primaryPresVoteCastBy = null;
         this.primaryPresVoteLOS = null;
         this.firstPresVote = null;
         this.secondPresVote = null;
@@ -54,7 +54,7 @@ export class VotePage {
             console.log('error in Submitting, exc='+ EE.toString())
         }
     }
-
+/*
         onChangePresVote(value){
         this.presVote = value;
         console.log(this.presVote);
@@ -69,11 +69,11 @@ export class VotePage {
    }
 
        onChangePrimaryPresVote(value){
-        this.pimaryPresVote = value;
+        this.primaryPresVote = value;
    }
 
        onChangePrimaryPresVoteCastBy(value){
-        this.pimaryPresVoteCastBy = value;
+        this.primaryPresVoteCastBy = value;
    }
 
        onChangePrimaryPresVoteLOS(value){
@@ -91,5 +91,5 @@ export class VotePage {
           onChangeThirdPresVote(value){
         this.thirdPresVote = value;
    }
-
+*/
 }

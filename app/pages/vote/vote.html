@@ -14,8 +14,9 @@
         <ion-list>
 
         <ion-item>
+          <!-- #item (change)="onChangePresVote(presVote)" -->
         <ion-label stacked>General Election Presidential Vote:</ion-label>
-          <ion-select text-wrap [(ngModel)]="presVote" #item (change)="onChangePresVote(presVote)">
+          <ion-select text-wrap [(ngModel)]="presVote" >
             <ion-option value="donaldTrump">Donald Trump</ion-option>
             <ion-option value="garyJohnson">Gary Johnson</ion-option>
             <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
@@ -24,12 +25,12 @@
           </ion-select>
         </ion-item>
 
-<!--my try start-->
+<!-- Show line if they need to write in a candidate -->
         <ion-item *ngIf="presVote=='writeIn'">
         <ion-label stacked>Please Write in Candidate Name:</ion-label>
         <ion-input type="text"></ion-input>
         </ion-item>
- <!--my try end-->       
+ <!-- end-->       
 
         <ion-item>
         <ion-label stacked>Cast By:</ion-label>
@@ -59,7 +60,7 @@
 
     <ion-item text-wrap>
     <ion-label stacked>Primary Election Presidential Vote:</ion-label>
-          <ion-select text-wrap [(ngModel)]="pimaryPresVote" #item (change)="onChangePrimaryPresVote(primaryPresVote)">
+          <ion-select text-wrap [(ngModel)]="primaryPresVote" #item (change)="onChangePrimaryPresVote(primaryPresVote)">
             <ion-option value="didNotVote">I did not vote in the primary.</ion-option>
             <ion-option value="couldNotVote">I could not vote in the primary.</ion-option>
             <ion-option value="bernieSanders">Bernie Sanders</ion-option>
@@ -71,9 +72,16 @@
           </ion-select>
     </ion-item>
 
+    <!-- Show line if they need to write in a candidate -->
+        <ion-item *ngIf="primaryPresVote=='writeIn'">
+        <ion-label stacked>Please Write in Candidate Name:</ion-label>
+        <ion-input type="text"></ion-input>
+        </ion-item>
+ <!-- end--> 
+
     <ion-item>
     <ion-label stacked>Cast By:</ion-label>
-        <ion-select text-wrap [(ngModel)]="pimaryPresVoteCastBy" #item (change)="onChangePrimaryPresVoteCastBy(primaryPresVoteCastBy)">
+        <ion-select text-wrap [(ngModel)]="primaryPresVoteCastBy" #item (change)="onChangePrimaryPresVoteCastBy(primaryPresVoteCastBy)">
             <ion-option value="votingMachine">Voting Machine</ion-option>
             <ion-option value="voteByMail">Vote by Mail</ion-option>
             <ion-option value="absentee">Absentee Ballot</ion-option>
@@ -113,6 +121,13 @@
           </ion-select>
     </ion-item>
 
+        <!-- Show line if they need to write in a candidate -->
+        <ion-item *ngIf="firstPresVote=='writeIn'">
+        <ion-label stacked>Please Write in Candidate Name:</ion-label>
+        <ion-input type="text"></ion-input>
+        </ion-item>
+        <!-- end--> 
+
     <ion-item>
     <ion-label stacked>Presidential Second Choice:</ion-label>
           <ion-select text-wrap [(ngModel)]="secondPresVote" #item (change)="onChangeSecondPresVote(secondPresVote)">
@@ -126,6 +141,13 @@
           </ion-select>
     </ion-item>
 
+        <!-- Show line if they need to write in a candidate -->
+        <ion-item *ngIf="secondPresVote=='writeIn'">
+        <ion-label stacked>Please Write in Candidate Name:</ion-label>
+        <ion-input type="text"></ion-input>
+        </ion-item>
+        <!-- end--> 
+
     <ion-item>
     <ion-label stacked>Presidential Third Choice:</ion-label>
           <ion-select text-wrap [(ngModel)]="thirdPresVote" #item (change)="onChangeThirdPresVote(thirdPresVote)">
@@ -138,6 +160,14 @@
             <ion-option value="none">None</ion-option>
           </ion-select>
     </ion-item>
+
+        <!-- Show line if they need to write in a candidate -->
+        <ion-item *ngIf="thirdPresVote=='writeIn'">
+        <ion-label stacked>Please Write in Candidate Name:</ion-label>
+        <ion-input type="text"></ion-input>
+        </ion-item>
+        <!-- end--> 
+
     </ion-list>
    </ion-card>
 
