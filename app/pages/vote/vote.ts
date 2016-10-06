@@ -15,6 +15,8 @@ export class VotePage {
     firstPresVote: string;
     secondPresVote: string;
     thirdPresVote: string;
+    reasonForCouldNotVoteP: string;
+    intendedToVoteFor: string;
 
     constructor(private navCtrl: NavController, private alertCtrl: AlertController) {
         this.navCtrl = navCtrl;
@@ -27,6 +29,8 @@ export class VotePage {
         this.firstPresVote = null;
         this.secondPresVote = null;
         this.thirdPresVote = null;
+        this.reasonForCouldNotVoteP = null;
+        this.intendedToVoteFor = null;
     }
 
     onSubmit() {
