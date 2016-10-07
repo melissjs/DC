@@ -26,7 +26,7 @@ export class AffidavitPage {
   this.navCtrl = navCtrl;
         this.affidavitAnswers = new FormControl("");
 	  this.affidavitQuestions = fbld.group({
-	  "answers": this.affidavitAnswers
+	  "affidavitAnswers": this.affidavitAnswers
       });
   this.fullName = null;
   this.addressNumName = null;
