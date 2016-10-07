@@ -36,10 +36,10 @@ export class VotePage {
     onSubmit() {
         var that = this;
         try {
-            if (this.presVote == null) {
+            if (this.presVote == null || this.presVoteCastBy == null ) {
                 let alert = this.alertCtrl.create({
-                    title: 'No Presidential Vote Selected!',
-                    subTitle: 'Please Make a Selection',
+                    title: 'The top two selections are required.',
+                    subTitle: 'Please select the candidate you voted for today and specify how you cast your vote, everything else on this page is optional.',
                     buttons: ['OK']
                 });
                 alert.present();

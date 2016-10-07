@@ -68,6 +68,7 @@
             <ion-option value="garyJohnson">Gary Johnson</ion-option>
             <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
             <ion-option value="jillStein">Jill Stein</ion-option>
+            <ion-option value="dontRemember">I don't remember.</ion-option>
             <ion-option value="writeIn">Other</ion-option>
           </ion-select>
     </ion-item>
@@ -94,8 +95,8 @@
             </ion-select>
         </ion-item>
 
-        <ion-item *ngIf="reasonForCouldNotVoteP=='otherReasonForCouldNotVoteP'">
-        <ion-label stacked>Please explain:</ion-label>
+        <ion-item *ngIf="(primaryPresVote=='couldNotVote' && reasonForCouldNotVoteP=='otherReasonForCouldNotVoteP')">
+        <ion-label stacked>Please explain why you could not vote in the primary:</ion-label>
         <ion-input type="text"></ion-input>
         </ion-item>
 
@@ -107,12 +108,19 @@
             <ion-option value="garyJohnson">Gary Johnson</ion-option>
             <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
             <ion-option value="jillStein">Jill Stein</ion-option>
+            <ion-option value="dontRemember">I don't remember.</ion-option>
             <ion-option value="writeIn">Other</ion-option>
             </ion-select>
         </ion-item>
+
+
+        <ion-item *ngIf="intendedToVoteFor=='writeIn'">
+        <ion-label stacked>Please Write in Candidate Name:</ion-label>
+        <ion-input type="text"></ion-input>
+        </ion-item>
  <!-- end--> 
 
-    <ion-item *ngIf!="(primaryPresVote=='didNotVote' || primaryPresVote=='couldNotVote')">
+    <ion-item *ngIf!="(primaryPresVote=='didNotVote' || primaryPresVote=='couldNotVote' || primaryPresVote=='dontRemember')">
     <ion-label stacked>Cast By:</ion-label>
         <ion-select text-wrap [(ngModel)]="primaryPresVoteCastBy" #item (change)="onChangePrimaryPresVoteCastBy(primaryPresVoteCastBy)">
             <ion-option value="votingMachine">Voting Machine</ion-option>
@@ -120,10 +128,11 @@
             <ion-option value="absentee">Absentee Ballot</ion-option>
             <ion-option value="provisional">Provisional Ballot</ion-option>
             <ion-option value="paperBallot">Paper Ballot</ion-option>
+            <ion-option value="dontRemember">I don't remember.</ion-option>
           </ion-select>
     </ion-item>
 
-    <ion-item *ngIf!="(primaryPresVote=='didNotVote' || primaryPresVote=='couldNotVote')">
+    <ion-item *ngIf!="(primaryPresVote=='didNotVote' || primaryPresVote=='couldNotVote' || primaryPresVote=='dontRemember')">
     <ion-label stacked>Level of Support:</ion-label>
             <ion-select text-wrap [(ngModel)]="primaryPresVoteLOS" #item (change)="onChangePrimaryPresVoteLOS(primaryPresVoteLOS)">
             <ion-option value="highlySupport">Highly Support</ion-option>
