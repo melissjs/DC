@@ -10,25 +10,22 @@
 
                
         <ion-content padding>
-        <form (ngSubmit)="onSubmit()" [formGroup]="affidavitQuestions">
-        
-        
         <ion-card>
         <ion-list ngControl="affidavitAnswers">
 
   <ion-item>
     <ion-label stacked>Full Name:</ion-label>
-    <ion-input type="text" #fullName  onsubmit="onSubmit('fullName')" ></ion-input>
+    <ion-input [(ngModel)]="fullName" type="text" (change)="onChangeFullName(fullName)" ></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label stacked>Address Number and Street Name:</ion-label>
-    <ion-input class="form-control" id="addressNumName" required type="text"></ion-input>
+    <ion-input [(ngModel)]="addressNumName" (change)="onChangeAddress(addressNumName)" type="text"></ion-input>
   </ion-item>
 
     <ion-item>
     <ion-label stacked>Zip Code:</ion-label>
-    <ion-input class="form-control" id="zipCode" required type="zip"></ion-input>
+    <ion-input [(ngModel)]="zipCode" (change)="onChangeZipCode(zipCode)" type="zip"></ion-input>
   </ion-item>
 
         </ion-list>
@@ -39,7 +36,7 @@
 
   <ion-item text-wrap>
    <ion-label stacked>I, the undersigned, do hereby affirm that I participate voluntarily in the 2016 election audit being conducted by Democracy Counts and that I chose the same candidate(s) as I voted for in the election. I further affirm that any and all other questions I chose to answer herein are truthful. <br><br>Signature:</ion-label>
-    <ion-input class="form-control" id="signature" required type="text" style="height: 5em"></ion-input>
+    <ion-input [(ngModel)]="signature" (change)="onChangeSignature(signature)" type="text" style="height: 5em"></ion-input>
   </ion-item>
 
         </ion-list>
@@ -73,5 +70,4 @@
          Submit 
          </button>
 
-      </form>
       </ion-content>

@@ -34,10 +34,34 @@ export class AffidavitPage {
   this.signature = null;
   }
 
+  onChangeFullName(value) {
+    console.log('full name selected:' + value);
+    this.fullName = value;
+  }
+
+  onChangeAddress(value) {
+    console.log('address name selected:' + value);
+    this.addressNumName = value;
+  }
+
+  onChangeZipCode(value) {
+    console.log('zip code selected:' + value);
+    this.zipCode = value;
+  }
+
+  onChangeSignature(value) {
+    console.log('signature selected:' + value);
+    this.signature = value;
+  }
+
       onSubmit() {
         var that = this;
         try {
-                if (this.fullName == null){
+                if ((this.fullName == null) ||
+		    (this.addressNumName == null) ||
+		    (this.zipCode == null) ||
+		    (this.signature == null))
+		{
                 let alert = this.alertCtrl.create({
                     title: 'The top four fields are required.',
                     subTitle: 'Please fill out your name, partial address and signature, everything else on this page is optional.',
