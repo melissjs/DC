@@ -36,7 +36,7 @@
         <ion-label stacked>Cast By:</ion-label>
         <ion-select text-wrap [(ngModel)]="presVoteCastBy" #item (change)="onChangePresVoteCastBy(presVoteCastBy)">
             <ion-option value="votingMachine">Voting Machine</ion-option>
-            <ion-option value="voteByMail">Vote by Mail</ion-option>
+            <ion-option value="voteByMail">Vote by Mail (returned at this location)</ion-option>
             <ion-option value="absentee">Absentee Ballot</ion-option>
             <ion-option value="provisional">Provisional Ballot</ion-option>
             <ion-option value="paperBallot">Paper Ballot</ion-option>
