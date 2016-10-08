@@ -44,12 +44,11 @@ export class AffidavitPage {
     var newval = !value;
     console.log('signature selected:' + newval);
     this.signature = newval;
-
-        if (this.signature == true){
+            if (this.signature == true){
          let alert = this.alertCtrl.create({
-                    title: 'I aknowledge this to be true.',
-                    subTitle: 'Please fill out your name, partial address and signature, everything else on this page is optional.',
-                    buttons: ['OK']
+                    //title: 'Please confirm',
+                    subTitle: 'I have read this statement and confirm that I understand the terms for participating in this audit.',
+                    buttons: ['CONFIRM'] 
                 });
                 alert.present();}
 
