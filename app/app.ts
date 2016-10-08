@@ -10,7 +10,7 @@ import {StatusBar} from 'ionic-native';
 import {InstructionsPage} from './pages/instructions/instructions';
 import {FaqsPage} from './pages/faqs/faqs';
 import {AddnewrecordPage} from './pages/addnewrecord/addnewrecord';
-import {CheckinPage} from './pages/checkin/checkin';
+//import {CheckinPage} from './pages/checkin/checkin';
 import {CheckoutPage} from './pages/checkout/checkout';
 //import {QrcodePage} from './pages/qrcode/qrcode';
 import {ActivityrecordPage} from './pages/activityrecord/activityrecord';
@@ -66,7 +66,7 @@ class MyApp {
        { title: 'Instructions', component: InstructionsPage },
        { title: 'FAQs', component: FaqsPage },
        { title: 'Add New Record', component: AddnewrecordPage },
-       { title: 'Check In', component: CheckinPage },
+       { title: 'Check In', component: RegisteredsigninPage },
        { title: 'Check Out', component: CheckoutPage },
        //{ title: 'QR Code', component: QrcodePage },
        { title: 'Activity Record', component: ActivityrecordPage },

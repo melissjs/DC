@@ -17,45 +17,52 @@
 
   <ion-item>
     <ion-label stacked>Full Name:</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input readonly type="text" placeholder="{{currentVolunteer.fullName}}"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label stacked>Email:</ion-label>
-    <ion-input type="email"></ion-input>
+    <ion-input  type="email" placeholder="{{currentVolunteer.emailAddress}}"></ion-input>
   </ion-item>
 
     <ion-item>
     <ion-label stacked>Cell Phone Number:</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" placeholder="{{currentVolunteer.phoneNumber}}"></ion-input>
   </ion-item>
 
     <ion-item>
     <ion-label stacked>Age:</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" placeholder="{{currentVolunteer.age}}"></ion-input>
   </ion-item>
 
     <ion-item>
     <ion-label stacked>Sex:</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" placeholder="{{currentVolunteer.sex}}"></ion-input>
   </ion-item>
 
     <ion-item>
     <ion-label stacked>Party Affiliation:</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" placeholder="{{currentVolunteer.partyAffiliation}}"></ion-input>
   </ion-item>
 
     <ion-item>
     <ion-label stacked>Shift(s):</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" placeholder="{{currentVolunteer.shifts}}"></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label stacked>QR Code:</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-label stacked>Passcode:</ion-label>
+    <ion-input type="password" placeholder="{{currentVolunteer.passcode}}"></ion-input>
   </ion-item>
 
 </ion-list>
+
+
              </form>
         </ion-card>  
+
+  <button type="submit" (click)="onSubmit()" block large>
+    Edit
+  </button>
+
       </ion-content>

@@ -1,4 +1,3 @@
-
 <ion-header>
   <ion-navbar>
     <button menuToggle>
@@ -9,6 +8,20 @@
 </ion-header>
 
 
-<ion-content padding>
+               
+               
+        <ion-content padding>
 
-</ion-content>
+            <ion-card>
+              <ion-list>
+                <!--<ion-list-header>Activity Record: {{currentVolunteer.fullName}}</ion-list-header>-->
+
+                <ion-item *ngFor="let item of (currentTeam.volunteerList)">
+                <ion-label> {{fullName}}</ion-label>
+                </ion-item>
+
+
+              </ion-list>
+            </ion-card>
+
+      </ion-content>

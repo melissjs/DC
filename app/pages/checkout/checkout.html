@@ -16,18 +16,19 @@
 
   <ion-item text-wrap>
 <span style="font-size:.9em">Thank you for all your hard work. Safeguarding the integrity of our election is essential for democracy; you are an important part of this historical event.
-  <br><br>
-   Please let one of your team leads scan your QR Code to check you out.</span>
+</span>
   </ion-item>
 
   
 
-  <ion-item>
-    <ion-label stacked>QR Code:</ion-label>
-    <ion-input type="password"></ion-input>
-  </ion-item>
+
 
 </ion-list>
              </form>
         </ion-card>  
+
+      <button disabled type="submit" (click)="onSubmit()" block large>
+      Check Out
+      </button>
+
       </ion-content>
