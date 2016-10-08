@@ -17,9 +17,11 @@
                 <!--<ion-list-header>Activity Record: {{currentVolunteer.fullName}}</ion-list-header>-->
 
                 <ion-item *ngFor="let item of (currentTeam.volunteerList)">
-                <ion-label> {{fullName}}</ion-label>
+                <ion-label>{{item.fullName}}</ion-label>
                 </ion-item>
 
+
+ 
 
               </ion-list>
             </ion-card>
