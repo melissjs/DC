@@ -12,12 +12,12 @@ import {FaqsPage} from './pages/faqs/faqs';
 import {AddnewrecordPage} from './pages/addnewrecord/addnewrecord';
 import {CheckinPage} from './pages/checkin/checkin';
 import {CheckoutPage} from './pages/checkout/checkout';
-import {QrcodePage} from './pages/qrcode/qrcode';
+//import {QrcodePage} from './pages/qrcode/qrcode';
 import {ActivityrecordPage} from './pages/activityrecord/activityrecord';
 import {MorningcheckinPage} from './pages/morningcheckin/morningcheckin';
 import {EveningcheckoutPage} from './pages/eveningcheckout/eveningcheckout';
 import {VolunteerlistPage} from './pages/volunteerlist/volunteerlist';
-import {AmendmentverificationPage} from './pages/amendmentverification/amendmentverification';
+//import {AmendmentverificationPage} from './pages/amendmentverification/amendmentverification';
 
   // intermediate pages called from others
 import {VoterecordPage} from './pages/voterecord/voterecord';
@@ -67,12 +67,12 @@ class MyApp {
        { title: 'Add New Record', component: AddnewrecordPage },
        { title: 'Check In', component: CheckinPage },
        { title: 'Check Out', component: CheckoutPage },
-       { title: 'QR Code', component: QrcodePage },
+       //{ title: 'QR Code', component: QrcodePage },
        { title: 'Activity Record', component: ActivityrecordPage },
        { title: 'Morning Check In', component: MorningcheckinPage },
        { title: 'Evening Check Out', component: EveningcheckoutPage },
        { title: 'Volunteer List', component: VolunteerlistPage },
-       { title: 'Amendment Verification', component: AmendmentverificationPage },
+       //{ title: 'Amendment Verification', component: AmendmentverificationPage },
        
        
        
