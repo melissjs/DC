@@ -11,7 +11,7 @@
                
         <ion-content padding>
         <ion-card>
-            <form name="signinnewvolunteer" novalidate>
+            
 <ion-list>
 
   <ion-item>
@@ -36,13 +36,30 @@
 
     <ion-item>
     <ion-label stacked>Sex:</ion-label>
-    <ion-input type="text"></ion-input>
+         <ion-select text-wrap [(ngModel)]="enterSex" (change)="onChangeSex(enterSex)">
+            <ion-option value="female">Female</ion-option>
+            <ion-option value="male">Male</ion-option>
+            <ion-option value="noAnswer">No Answer</ion-option>
+          </ion-select> 
   </ion-item>
 
     <ion-item>
     <ion-label stacked>Party Affiliation:</ion-label>
-    <ion-input type="text"></ion-input>
+         <ion-select text-wrap [(ngModel)]="enterParty" (change)="onChangeParty(enterParty)">
+            <ion-option value="noParty">No Party Preference</ion-option>
+            <ion-option value="democrat">Democratic Party</ion-option>
+            <ion-option value="green">Green Party</ion-option>
+            <ion-option value="republican">Republican Party</ion-option>
+            <ion-option value="other">Other Party</ion-option>
+          </ion-select> 
   </ion-item>
+
+  <!-- Show line if they need to write in a party -->
+        <ion-item *ngIf="enterParty=='other'">
+        <ion-label stacked>Please Write in Party Name:</ion-label>
+        <ion-input type="text"></ion-input>
+        </ion-item>
+ <!-- end-->   
 
     <ion-item>
     <ion-label stacked>Shift(s):</ion-label>
@@ -50,11 +67,21 @@
   </ion-item>
 
   <ion-item>
-    <ion-label stacked>QR Code:</ion-label>
+    <ion-label stacked>Passcode:</ion-label>
+    <ion-input type="password"></ion-input>
+  </ion-item>
+
+    <ion-item>
+    <ion-label stacked>Re-enter Passcode:</ion-label>
     <ion-input type="password"></ion-input>
   </ion-item>
 
 </ion-list>
-             </form>
+             
         </ion-card>  
+
+  <button type="submit" (click)="onSubmit()" block large>
+    Register
+  </button>
+
       </ion-content>

@@ -17,6 +17,7 @@ import {ActivityrecordPage} from './pages/activityrecord/activityrecord';
 import {MorningcheckinPage} from './pages/morningcheckin/morningcheckin';
 import {EveningcheckoutPage} from './pages/eveningcheckout/eveningcheckout';
 import {VolunteerlistPage} from './pages/volunteerlist/volunteerlist';
+import {AccountsettingsPage} from './pages/accountsettings/accountsettings';
 //import {AmendmentverificationPage} from './pages/amendmentverification/amendmentverification';
 
   // intermediate pages called from others
@@ -72,6 +73,7 @@ class MyApp {
        { title: 'Morning Check In', component: MorningcheckinPage },
        { title: 'Evening Check Out', component: EveningcheckoutPage },
        { title: 'Volunteer List', component: VolunteerlistPage },
+       { title: 'Account Settings', component: AccountsettingsPage },
        //{ title: 'Amendment Verification', component: AmendmentverificationPage },
        
        
