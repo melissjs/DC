@@ -36,7 +36,7 @@
 
   <ion-item text-wrap>
     <ion-label style="margin-bottom: 15px" stacked>I<span *ngIf="fullName">,</span> {{fullName}}<span *ngIf="fullName">,</span> do hereby affirm that I participate voluntarily in the 2016 election audit being conducted by Democracy Counts and that I chose the same candidate(s) as I voted for in the election. I further affirm that any and all other questions I chose to answer herein are truthful.</ion-label>
-    <ion-checkbox [(ngModel)]="signature" (change)="onChangeSignature(signature)" ></ion-checkbox>
+    <ion-checkbox [(ngModel)]="signature" (click)="onChangeSignature(signature)" ></ion-checkbox>
   </ion-item>
 
         </ion-list>

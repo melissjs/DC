@@ -6,8 +6,7 @@ import {VotePage} from '../vote/vote';
 
 
 @Component({
-  templateUrl: 'build/pages/affidavit/affidavit.html',
-  directives: [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES]
+  templateUrl: 'build/pages/affidavit/affidavit.html'
 })
 export class AffidavitPage {
     fullName: string;
@@ -42,8 +41,9 @@ export class AffidavitPage {
   }
 
   onChangeSignature(value) {
-    console.log('signature selected:' + value);
-    this.signature = value;
+    var newval = !value;
+    console.log('signature selected:' + newval);
+    this.signature = newval;
 
         if (this.signature == true){
          let alert = this.alertCtrl.create({
