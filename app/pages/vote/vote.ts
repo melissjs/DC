@@ -15,8 +15,12 @@ export class VotePage {
     firstPresVote: string;
     secondPresVote: string;
     thirdPresVote: string;
-    reasonForCouldNotVoteP: string;
+    reasonForCouldNotVotePrimary: string;
+    reasonForCouldNotVotePGE: string;
     intendedToVoteFor: string;
+    intendedToVoteForPGE: string;
+    presVoteLOSPWI: string;
+    presVoteLOSWI: string;
 
     constructor(private navCtrl: NavController, private alertCtrl: AlertController) {
         this.navCtrl = navCtrl;
@@ -29,8 +33,12 @@ export class VotePage {
         this.firstPresVote = null;
         this.secondPresVote = null;
         this.thirdPresVote = null;
-        this.reasonForCouldNotVoteP = null;
+        this.reasonForCouldNotVotePrimary = null;
+        this.reasonForCouldNotVotePGE = null;
         this.intendedToVoteFor = null;
+        this.intendedToVoteForPGE = null;
+        this.presVoteLOSPWI = null;
+        this.presVoteLOSWI = null;
     }
 
     onSubmit() {
