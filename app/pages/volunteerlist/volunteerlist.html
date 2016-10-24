@@ -12,12 +12,27 @@
                
         <ion-content padding>
 
-            <ion-card>
+            <ion-card *ngIf=loggedIn>
               <ion-list>
                 <!--<ion-list-header>Activity Record: {{currentVolunteer.fullName}}</ion-list-header>-->
 
-                <ion-item *ngFor="let item of (currentTeam.volunteerList)">
-                <ion-label>{{item.fullName}}</ion-label>
+                <ion-item *ngFor="let item of currentTeam">
+                <ion-label>{{item.fullName}} <span style=float:right *ngIf=item.exposeEmail>{{item.emailAddress}}</span></ion-label>
+               <!-- <ion-label *ngIf=item.exposeEmail>{{item.emailAddress}}</ion-label> -->
+                </ion-item>
+
+
+ 
+
+              </ion-list>
+            </ion-card>
+
+                        <ion-card *ngIf=!loggedIn>
+              <ion-list>
+                <!--<ion-list-header>Activity Record: {{currentVolunteer.fullName}}</ion-list-header>-->
+
+                <ion-item>
+                <ion-label>Must be logged in to see volunteer list.</ion-label>
                 </ion-item>
 
 

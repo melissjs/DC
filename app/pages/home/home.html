@@ -10,9 +10,12 @@
 
 
 
-<ion-content class="another" padding>
+<ion-content class="backgroundColor" padding>
+  
 
-<ion-card padding text-wrap center-card>			
+<!-- style=margin:0px;width:100% -->
+<ion-card padding text-wrap >		
+  <img src="../../img/DC.jpg">	
             <br>
   			    Thank you for volunteering for the Democracy Counts 2016 General Election Audit. There are a few short steps to get your app up and running:
             <br><br>
@@ -21,19 +24,14 @@
             <li> Take the quickstart tutorial.</li>
             <li> Read the instructions.</li>
             <li> Read the FAQ page.</li>
-
             <br>
 
-
-
-    
-            
-            
+           <button type="submit" (click)="onSubmit()" block large>
+  			    Let's Get Started! 
+           </button>     
 </ion-card>
 
-            <button type="submit" (click)="onSubmit()" block large>
-  			    Let's Get Started! 
-           </button>
+
 
 </ion-content>
 

@@ -17,19 +17,23 @@
                 <ion-list-header>Activity Record: {{currentVolunteer.fullName}}</ion-list-header>
 
                 <ion-item>
-                <ion-label>Total Records: {{currentVolunteer.totalRecords}}</ion-label>
+                <ion-label>Total Individual Records: {{totalIndividualRecords}}</ion-label>
                 </ion-item>
 
                 <ion-item>
-                <ion-label>Total Vote Records: {{currentVolunteer.totalVoteRecords}}</ion-label>
+                <ion-label>Total Individual Non-Voter Records: {{currentVolunteer.totalNonVoterRecords}}</ion-label>
                  </ion-item>
 
                 <ion-item>
-                <ion-label>Total Anomaly Records: {{currentVolunteer.totalAnomalyRecords}}</ion-label>
+                <ion-label>Total Individual Vote Records: {{currentVolunteer.totalVoteRecords}}</ion-label>
+                 </ion-item>
+
+                <ion-item>
+                <ion-label>Total Individual Anomaly Records: {{currentVolunteer.totalAnomalyRecords}}</ion-label>
                 </ion-item>
 
                 <ion-item>
-                <ion-label>Total Amendment Records: {{currentVolunteer.totalAmendmentRecords}}</ion-label>
+                <ion-label>Total Individual Amendment Records: {{currentVolunteer.totalAmendmentRecords}}</ion-label>
                 </ion-item>
 
               </ion-list>
@@ -41,19 +45,23 @@
                 <ion-list-header>Activity Record: Team</ion-list-header>
 
                 <ion-item>
-                <ion-label>Total Records: {{currentTeam.totalRecords}}</ion-label>
+                <ion-label>Total Team Records: {{totalTeamRecords}}</ion-label>
                 </ion-item>
 
                 <ion-item>
-                <ion-label>Total Vote Records: {{currentTeam.totalVoteRecords}}</ion-label>
+                <ion-label>Total Team Non-Voter Records: {{totalTeamNonVoterRecords}}</ion-label>
                 </ion-item>
 
                 <ion-item>
-                <ion-label>Total Anomaly Records: {{currentTeam.totalAnomalyRecords}}</ion-label>
+                <ion-label>Total Team Vote Records: {{totalTeamVoterRecords}}</ion-label>
                 </ion-item>
 
                 <ion-item>
-                <ion-label>Total Amendment Records: {{currentTeam.totalAmendmentRecords}}</ion-label>
+                <ion-label>Total Team Anomaly Records: {{totalTeamAnomalyRecords}}</ion-label>
+                </ion-item>
+
+                <ion-item>
+                <ion-label>Total Team Amendment Records: {{totalTeamAmendmentRecords}}</ion-label>
                 </ion-item>
 
               </ion-list>
@@ -65,7 +73,7 @@
                 <ion-list-header>Team Stats</ion-list-header>
 
                 <ion-item>
-                <ion-label>Total Registered Volunteers: {{currentTeam.totalRegisteredVolunteers}}</ion-label>
+                <ion-label>Total Registered Volunteers: {{totalRegisteredVolunteers}}</ion-label>
                 </ion-item>
 
                 <ion-item>

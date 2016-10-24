@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { Volunteer} from '../../volunteer.ts';
-import { Team } from '../../team.ts';
+import { Volunteer} from '../../volunteer';
+//import { Team } from '../../team';
 //import {VotePage} from '../vote/vote';
 
-
+import { Volunteerservice } from '../../providers/volunteerservice/volunteerservice';
+import {RestService} from '../../providers/rest-service/rest-service';
 
 @Component({
   templateUrl: 'build/pages/activityrecord/activityrecord.html',
@@ -14,73 +15,52 @@ import { Team } from '../../team.ts';
 export class ActivityrecordPage {
 
 currentVolunteer: Volunteer; 
-currentTeam: Team;
+currentTeam: Volunteer[];
+volunteerservice: Volunteerservice;
+totalRegisteredVolunteers: number;
+totalTeamVoterRecords: number;
+totalTeamAnomalyRecords: number;
+totalTeamAmendmentRecords: number;
+totalTeamNonVoterRecords: number;
+totalTeamRecords: number;
+totalIndividualRecords: number;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController,  volunteerservice: Volunteerservice, private restSvc: RestService) {
 this.navCtrl = navCtrl;
+this.volunteerservice = volunteerservice;
+
 
       this.currentVolunteer = 
-      {
-        "fullName":"Melissa Schwartz",
-        "emailAddress":"melissjs@gmail.com",
-        "phoneNumber":"602-524-5453",
+       {
+        "volunteerKey": "v3",
+        "fullName":"Janice Row",
+        "emailAddress":"janice@gmail.com",
+        "exposeEmail": false,
+        "phoneNumber":"6025245453",
         "age": 35,
         "sex": "Female",
         "partyAffiliation": "No Party Preference",    
-        "shifts": "Morning, Evening",
-        "passcode": "Eric help me!",
-        "totalRecords": 6,
-        "totalVoteRecords": 5,
-        "totalAnomalyRecords": 0,
-        "totalAmendmentRecords": 1
-      }
-
-      this.currentTeam =
-      {
-        "precinctNumber": "9001A",
-        "streetAddress": "515 Almont Drive",
-        "city": "Los Angeles",
-        "state": "California",
-        "zip": 90025,
-        "volunteerList": [{
-                
-        "fullName":"Melissa Schwartz",
-        "emailAddress":"melissjs@gmail.com",
-        "phoneNumber":"602-524-5453",
-        "age": 35,
-        "sex": "Female",
-        "partyAffiliation": "No Party Preference",    
-        "shifts": "Morning, Evening",
-        "passcode": "Eric help me!",
-        "totalRecords": 6,
-        "totalVoteRecords": 5,
+        "shifts": "Early Evening, Late Evening",
+        "passcode": "password",
+        "associatedPollingStationKey": "ps2",
+        "totalNonVoterRecords": 6,
+        "totalVoteRecords": 5, 
         "totalAnomalyRecords": 0,
         "totalAmendmentRecords": 1
       
-        },      {
-        "fullName":"Eric Hillis",
-        "emailAddress":"eric@hillis.com",
-        "phoneNumber":"310-222-3333",
-        "age": 40,
-        "sex": "Male",
-        "partyAffiliation": "No Party Preference",    
-        "shifts": "Afternoon",
-        "passcode": "Code",
-        "totalRecords": 6,
-        "totalVoteRecords": 5,
-        "totalAnomalyRecords": 0,
-        "totalAmendmentRecords": 1
-      }],
-        "geoLocation": "1582:1901",
-        "photoIndex": "LACA900259001A",
-        "totalRegisteredVolunteers": 24,
-        "totalActiveVolunteers": 8,
-        "totalRecords": 61,
-        "totalVoteRecords": 55,
-        "totalAnomalyRecords": 4,
-        "totalAmendmentRecords": 2
-      }
+        }
 
+        this.currentTeam = this.volunteerservice.getTeamVolunteersByPollKey(this.currentVolunteer.associatedPollingStationKey);
+
+        this.volunteerservice.generateStationStats(this.currentVolunteer.associatedPollingStationKey);
+
+        this.totalRegisteredVolunteers = this.volunteerservice.getVolunteerCount();
+        this.totalTeamVoterRecords =  this.volunteerservice.getTotalTeamVoterRecords();
+        this.totalTeamAnomalyRecords  = this.volunteerservice.getTotalTeamAnomalyRecords();
+        this.totalTeamAmendmentRecords = this.volunteerservice.getTotalTeamAmendmentRecords();
+        this.totalTeamNonVoterRecords = this.volunteerservice.getTotalTeamNonVoterRecords();
+        this.totalTeamRecords = this.volunteerservice.getTotalTeamRecords();
+        this.totalIndividualRecords = this.currentVolunteer.totalAmendmentRecords + this.currentVolunteer.totalAnomalyRecords + this.currentVolunteer.totalNonVoterRecords + this.currentVolunteer.totalVoteRecords;
   }
 
        onSubmit() {

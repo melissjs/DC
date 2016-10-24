@@ -10,9 +10,13 @@ import {VoterecordPage} from '../voterecord/voterecord';
 export class DemographicsPage {
 enterSex: string;
 enterAge: string;
-enterIncome: string;
-enterParty: string;
 enterEthnicity: string;
+enterParty: string;
+enterIncome: string;
+enterEducation: string;
+enterMaritalStatus: string;
+enterNaturalizedCitizen: string;
+enterCountryOfOrigin: string;
 enterFirstTimeVoter: string;
 
   constructor(private navCtrl: NavController) {

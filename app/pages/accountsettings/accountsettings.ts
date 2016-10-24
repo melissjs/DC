@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 
-import { Volunteer} from '../../volunteer.ts';
+import { Volunteer} from '../../volunteer';
 import {VotePage} from '../vote/vote';
 
 
@@ -23,19 +23,23 @@ currentVolunteer: Volunteer;
 
       this.currentVolunteer = 
       {
-        "fullName":"Melissa Schwartz",
-        "emailAddress":"melissjs@gmail.com",
-        "phoneNumber":"602-524-5453",
+        "volunteerKey": "v3",
+        "fullName":"Janice Row",
+        "emailAddress":"janice@gmail.com",
+        "exposeEmail": false,
+        "phoneNumber":"6025245453",
         "age": 35,
         "sex": "Female",
         "partyAffiliation": "No Party Preference",    
-        "shifts": "Morning, Evening",
-        "passcode": "Eric help me!",
-        "totalRecords": 6,
+        "shifts": "Early Evening, Late Evening",
+        "passcode": "password",
+        "associatedPollingStationKey": "ps2",
+        "totalNonVoterRecords": 6,
         "totalVoteRecords": 5,
         "totalAnomalyRecords": 0,
         "totalAmendmentRecords": 1
-      }
+      
+        }
 
   }
 

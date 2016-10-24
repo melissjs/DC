@@ -34,35 +34,9 @@
           </ion-select> 
   </ion-item>
 
-    <ion-item>
-    <ion-label stacked>Annual Income:</ion-label>
-         <ion-select text-wrap [(ngModel)]="enterIncome" #item (change)="onChangeIncome(enterIncome)">
-            <ion-option value="24">$24,000 or less</ion-option>
-            <ion-option value="25">$25,000 - $50,000</ion-option>
-            <ion-option value="51">$51,000 - $100,000</ion-option>
-            <ion-option value="100">$100,001 - $200,000</ion-option>
-            <ion-option value="200">$200,001 - $500,000</ion-option>
-            <ion-option value="500">$500,001 - $1,000,000</ion-option>
-            <ion-option value="1">$1,000,001 - $5,000,000</ion-option>
-             <ion-option value="5">$5,000,000 or more</ion-option>
-          </ion-select> 
-  </ion-item>
-
-
-  <ion-item text-wrap>
-   <ion-label stacked>Party Affiliation:</ion-label>
-         <ion-select text-wrap [(ngModel)]="enterParty" #item (change)="onChangeParty(enterParty)">
-            <ion-option value="noParty">No Party Preference</ion-option>
-            <ion-option value="democrat">Democratic Party</ion-option>
-            <ion-option value="green">Green Party</ion-option>
-            <ion-option value="republican">Republican Party</ion-option>
-            <ion-option value="other">Other Party</ion-option>
-          </ion-select> 
-  </ion-item>
-
-    <ion-item>
+      <ion-item>
     <ion-label stacked>Ethnicity:</ion-label>
-         <ion-select text-wrap [(ngModel)]="enterEthnicity" #item (change)="onChangeEthnicity(enterEthnicity)">
+         <ion-select text-wrap multiple="true" [(ngModel)]="enterEthnicity" #item (change)="onChangeEthnicity(enterEthnicity)">
             <ion-option value="noAnswer">No Answer</ion-option>
             <ion-option value="americanIndian">American Indian or Alaska Native</ion-option>
             <ion-option value="asian">Asian</ion-option>
@@ -74,8 +48,69 @@
   </ion-item>
   <!--http://www.iowadatacenter.org/aboutdata/raceclassification-->
 
+  <ion-item text-wrap>
+   <ion-label stacked>Party Affiliation:</ion-label>
+         <ion-select text-wrap [(ngModel)]="enterParty" #item (change)="onChangeParty(enterParty)">
+            <ion-option value="Independent">Independent</ion-option>
+            <ion-option value="No Party Preference">No Party Preference</ion-option>
+            <ion-option value="Democratic Party">Democratic Party</ion-option>
+            <ion-option value="Green Party">Green Party</ion-option>
+            <ion-option value="Republican Party">Republican Party</ion-option>
+            <ion-option value="Other Party">Other Party</ion-option>
+          </ion-select> 
+  </ion-item>
+
+
+    <ion-item>
+    <ion-label stacked>Annual Income:</ion-label>
+         <ion-select text-wrap [(ngModel)]="enterIncome" #item (change)="onChangeIncome(enterIncome)">
+            <ion-option value="24">$24,000 or less</ion-option>
+            <ion-option value="25">$25,000 - $50,000</ion-option>
+            <ion-option value="51">$51,000 - $100,000</ion-option>
+            <ion-option value="100">$100,001 - $250,000</ion-option>
+            <ion-option value="200">$250,001 - $500,000</ion-option>
+            <ion-option value="500">$500,001 - $1,000,000</ion-option>
+            <ion-option value="1">$1,000,001 +</ion-option>
+          </ion-select> 
+  </ion-item>
+
+  <ion-item text-wrap>
+   <ion-label stacked>Education:</ion-label>
+         <ion-select text-wrap [(ngModel)]="enterEducation" #item (change)="onChangeEducation(enterEducation)">
+            <ion-option value="High School">High School</ion-option>
+            <ion-option value="Undergraduate School">Undergraduate School</ion-option>
+            <ion-option value="Graduate School">Graduate School</ion-option>
+            <ion-option value="Post Graduate School">Post Graduate School</ion-option>
+          </ion-select> 
+  </ion-item>
+
+  <ion-item text-wrap>
+   <ion-label stacked>Marital Status:</ion-label>
+         <ion-select text-wrap [(ngModel)]="enterMaritalStatus" #item (change)="onChangeMaritalStatus(enterMaritalStatus)">
+            <ion-option value="Unmarried">Unmarried</ion-option>
+            <ion-option value="Married">Married</ion-option>
+          </ion-select> 
+  </ion-item>
+
+
    <ion-item>
-    <ion-label stacked>First Time Voter:</ion-label>
+    <ion-label stacked>Naturalized Citizen?</ion-label>
+         <ion-select text-wrap [(ngModel)]="enterNaturalizedCitizen" #item (change)="onChangeNaturalizedCitizen(enterNaturalizedCitizen)">
+            <ion-option value="Yes">Yes</ion-option>
+            <ion-option value="No">No</ion-option>
+          </ion-select> 
+  </ion-item>
+
+
+   <ion-item *ngIf="enterNaturalizedCitizen=='Yes'">
+    <ion-label stacked>Country of Origin?</ion-label>
+         <!--<ion-input[(ngModel)]="enterCountryOfOrigin" #item (change)="onChangeCountryOfOrigin(enterCountryOfOrigin)"></ion-input>-->
+         <ion-input></ion-input>
+  </ion-item>
+
+
+   <ion-item>
+    <ion-label stacked>First Time Voter?</ion-label>
          <ion-select text-wrap [(ngModel)]="enterFirstTimeVoter" #item (change)="onChangeFirstTimeVoter(enterFirstTimeVoter)">
             <ion-option value="yes">Yes</ion-option>
             <ion-option value="no">No</ion-option>
@@ -88,7 +123,7 @@
         </ion-card>  
 
       <button type="submit" (click)="onSubmit()" block large>
-      Finished!
+      Submit
       </button>
 
       </ion-content>

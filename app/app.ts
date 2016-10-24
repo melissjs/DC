@@ -35,6 +35,9 @@ import {EndPage} from './pages/end/end';
 
   // intermediate components called from others
 //import {LevelofsupportComponent} from './pages/levelofsupport/levelofsupport';
+import { Pollingstationservice } from './providers/pollingstationservice/pollingstationservice';
+import { Volunteerservice } from './providers/volunteerservice/volunteerservice';
+import {RestService} from './providers/rest-service/rest-service';
 
 import {UserDataService} from './user-data-service';
 
@@ -42,7 +45,7 @@ import {UserDataService} from './user-data-service';
 @Component({
   templateUrl: 'build/app.html',
   // config: {}, // http://ionicframework.com/docs/v2/api/config/Config/	  
-  providers: [UserDataService]
+  providers: [UserDataService, Pollingstationservice, Volunteerservice, RestService]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
@@ -55,7 +58,9 @@ class MyApp {
   constructor(
     public platform: Platform,
       public menu: MenuController,
-      userDataSvc: UserDataService
+      userDataSvc: UserDataService,
+      pollingStationService: Pollingstationservice,
+      volunteerservice: Volunteerservice
   ) {
     this.initializeApp();
 
@@ -69,10 +74,10 @@ class MyApp {
        { title: 'Check In', component: RegisteredsigninPage },
        { title: 'Check Out', component: CheckoutPage },
        //{ title: 'QR Code', component: QrcodePage },
-       { title: 'Activity Record', component: ActivityrecordPage },
        { title: 'Morning Check In', component: MorningcheckinPage },
        { title: 'Evening Check Out', component: EveningcheckoutPage },
        { title: 'Volunteer List', component: VolunteerlistPage },
+       { title: 'Activity Record', component: ActivityrecordPage },
        { title: 'Account Settings', component: AccountsettingsPage },
        //{ title: 'Amendment Verification', component: AmendmentverificationPage },
        
