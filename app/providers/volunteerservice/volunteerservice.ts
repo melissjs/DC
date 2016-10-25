@@ -53,8 +53,10 @@ export class Volunteerservice {
         this.totalTeamAmendmentRecords = 0;
         this.totalTeamNonVoterRecords = 0;
         this.totalTeamRecords = 0;
-        // if no one is logged in creat void volunteer 
+        // if no one is logged in create void volunteer 
         this.restSvc.checkLoggedIn(this.setLoginTrue, this.setLoginFalse,this);
+
+
     }
     
     setLoginTrue(that) {
@@ -75,6 +77,26 @@ export class Volunteerservice {
     setNewVolunteer(value){
         var that = this;
         this.currentVolunteer = value;
+
+                //for testing only
+        this.currentVolunteer = {
+        "volunteerKey": "v3",
+        "fullName":"Janice Row",
+        "emailAddress":"janice@gmail.com",
+        "exposeEmail": false,
+        "phoneNumber":"6025245453",
+        "age": 35,
+        "sex": "Female",
+        "partyAffiliation": "No Party Preference",    
+        "shifts": "Early Evening, Late Evening",
+        "passcode": "password",
+        "associatedPollingStationKey": "ps2",
+        "totalNonVoterRecords": 6,
+        "totalVoteRecords": 5,
+        "totalAnomalyRecords": 0,
+        "totalAmendmentRecords": 1
+      
+        }
     }
 
     getNewVolunteer(){

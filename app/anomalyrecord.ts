@@ -2,7 +2,7 @@ export interface AnomalyRecord {
 volunteerKey: string;
 nature: string;
 fullName?: string;
-emailAddress?: boolean;
+emailAddress?: string;
 comments?: string;
 evidence?: boolean;
 }  

@@ -1,0 +1,26 @@
+   <form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+     <!-- <ion-list-header>User Login</ion-list-header> -->
+   <ion-list>
+    <ion-item>
+    <ion-label stacked>Cell Phone Number (numbers only):</ion-label>
+    <ion-input type="text" formControlName="enterPhoneNumber"></ion-input>
+  </ion-item>
+
+    <ion-item>
+    <ion-label stacked>Passcode:</ion-label>
+    <ion-input type="password" formControlName="enterPasscode"></ion-input>
+  </ion-item>
+   </ion-list>
+   </form>
+
+    <button type="submit" [disabled]="!loginForm.valid" (click)="onSubmit(loginForm.value)" block large>
+    Log In
+    </button>
+    <ion-list-header>
+      Forgot Password? 
+      <button (click)="onResetPassword()" ion-button item-right>
+	Reset Password
+      </button>
+    </ion-list-header>
+
+    <P style="color:red" *ngIf="error">{{errorMessage}}</P>

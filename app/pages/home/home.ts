@@ -2,11 +2,20 @@ import { Component } from '@angular/core';
 import { NavController, MenuController, NavParams } from 'ionic-angular';
 import {QuestionsPage} from '../questions/questions';
 import {UserDataService} from '../../user-data-service';
+import { Volunteer} from '../../volunteer';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Volunteerservice } from '../../providers/volunteerservice/volunteerservice';
+import {RestService} from '../../providers/rest-service/rest-service';
+import { AccountsettingsPage } from '../accountsettings/accountsettings';
+import { ResetpasswordPage } from '../resetpassword/resetpassword';
+import { Logincomponent } from '../logincomponent/logincomponent';
+
 
 
 
 @Component({
-  templateUrl: 'build/pages/home/home.html'
+  templateUrl: 'build/pages/home/home.html',
+  directives: [Logincomponent]
 })
 export class HomePage {
 
