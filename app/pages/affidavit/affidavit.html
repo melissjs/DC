@@ -10,34 +10,40 @@
 
                
         <ion-content padding>
+               <form novalidate [formGroup]="affidavitForm" >
         <ion-card>
+   
         <ion-list>
 
-  <ion-item>
-    <ion-label stacked>Full Name:</ion-label>
-    <ion-input [(ngModel)]="fullName" type="text" (change)="onChangeFullName(fullName)" ></ion-input>
-  </ion-item>
+  
 
-  <ion-item>
+    <ion-item>
+    <ion-label stacked>Full Name:</ion-label>
+    <ion-input  formControlName="fullName" type="text" ></ion-input>
+    </ion-item>
+
+    <ion-item>
     <ion-label stacked text-wrap>Address Number, Street Name and Unit Number (if applicable):</ion-label>
-    <ion-input [(ngModel)]="addressNumName" (change)="onChangeAddress(addressNumName)" type="text"></ion-input>
-  </ion-item>
+    <ion-input  formControlName="addressNumName"  type="text"></ion-input>
+    </ion-item>
 
     <ion-item>
     <ion-label stacked>Zip Code:</ion-label>
-    <ion-input [(ngModel)]="zipCode" (change)="onChangeZipCode(zipCode)" type="text"></ion-input>
-  </ion-item>
+    <ion-input  formControlName="zipCode"  type="text"></ion-input>
+    </ion-item>
 
-        </ion-list>
-        </ion-card>
+    </ion-list>
+    </ion-card>
 
-        <ion-card>
-        <ion-list>
+    <ion-card>
+    <ion-list>
 
-  <ion-item text-wrap>
+         
+
+    <ion-item text-wrap>
     <ion-label style="margin-bottom: 15px" stacked>I<span *ngIf="fullName">,</span> {{fullName}}<span *ngIf="fullName">,</span> do hereby affirm that I participate voluntarily in the 2016 election audit being conducted by Democracy Counts and that I chose the same candidate(s) as I voted for in the election. I further affirm that any and all other questions I chose to answer herein are truthful.</ion-label>
-    <ion-checkbox [(ngModel)]="signature" (click)="onChangeSignature(signature)" ></ion-checkbox>
-  </ion-item>
+    <ion-checkbox [(ngModel)]="signature" formControlName="affirm" (click)="onChangeSignature(signature)" ></ion-checkbox>
+    </ion-item>
 
         </ion-list>
         </ion-card>
@@ -47,12 +53,12 @@
 
   <ion-item>
      <ion-label stacked>*Comments: </ion-label>
-    <ion-textarea></ion-textarea>
+    <ion-textarea formControlName="comments"></ion-textarea>
   </ion-item>
 
    <ion-item>
     <ion-label stacked>*Email:</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" formControlName="emailAddress"></ion-input>
   </ion-item>
 
 
@@ -60,14 +66,18 @@
      <ion-icon name="md-camera" item-right></ion-icon> 
      <ion-icon name="md-image" item-right></ion-icon>
     <ion-label stacked>*Photo Receipt: </ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-input type="text" formControlName="photoReceipt"></ion-input>
   </ion-item>
 
+
+ 
+
         </ion-list>
+        
         </ion-card>  
 
-        <button type="submit" (click)="onSubmit()" block large>
+        <button type="submit" [disabled]="!affidavitForm.valid" (click)="onSubmit(affidavitForm.value)" block large>
          Submit 
          </button>
-
+         </form>
       </ion-content>

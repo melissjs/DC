@@ -3,24 +3,40 @@ import { NavController } from 'ionic-angular';
 import {VoterecordPage} from '../voterecord/voterecord';
 import {AmendmentrecordPage} from '../amendmentrecord/amendmentrecord';
 import {AnomalyrecordPage} from '../anomalyrecord/anomalyrecord';
-
+import {Recordservice} from '../../providers/recordservice/recordservice';
 
 @Component({
   templateUrl: 'build/pages/addnewrecord/addnewrecord.html',
 })
 export class AddnewrecordPage {
+recordservice: Recordservice;
 
-  constructor(private navCtrl: NavController) {
+  constructor(private navCtrl: NavController, recordservice: Recordservice) {
   this.navCtrl = navCtrl;
+  this.recordservice = recordservice;
   
   }
 
-      onSubmit(value) {
-        var that = this;
-        var recordType = value;
+      onSubmitVoterRecord() {
+                var that = this;
+	            this.recordservice.setToNonVote(false);
 
-        //console.log('recordType='+ recordType); 
-        if (recordType == 'voterRecord'){
+                    try {
+                        that.navCtrl.push(VoterecordPage, {
+                        })
+
+                    } catch (EE) {
+                        console.log('error in Submitting, exc='+ EE.toString())
+                    }
+
+        }
+
+
+
+        onSubmitNonVoterRecord() {
+                    var that = this;
+                    this.recordservice.setToNonVote(true);
+                    console.log('hello' + this.recordservice.getNonVoteBool());
 	   
                     try {
                         that.navCtrl.push(VoterecordPage, {
@@ -30,9 +46,10 @@ export class AddnewrecordPage {
                         console.log('error in Submitting, exc='+ EE.toString())
                     }
 
-        } 
-        
-        if (recordType == 'anomalyRecord'){ 
+        }
+         
+        onSubmitAnomalyRecord() {
+                    var that = this;
                     try {
                         that.navCtrl.push(AnomalyrecordPage, {
                         })
@@ -42,7 +59,8 @@ export class AddnewrecordPage {
                     } 
         } 
         
-        if (recordType == 'amendmentRecord'){ 
+        onSubmitAmendmentRecord() { 
+                    var that = this;
                     try {
                         that.navCtrl.push(AmendmentrecordPage, {
                         })
@@ -53,10 +71,6 @@ export class AddnewrecordPage {
       }
 
 
-
-
-
-      } // onSub end
 
 
 } // class end 

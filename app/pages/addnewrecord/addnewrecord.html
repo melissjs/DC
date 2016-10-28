@@ -10,15 +10,20 @@
 
 <ion-content padding padding-vertical>
 
-  <button type="submit" (click)="onSubmit('voterRecord')" block large>
+  <button type="submit" (click)="onSubmitVoterRecord()" block large>
     Voter Record
   </button>
+
+
+  <button type="submit" (click)="onSubmitNonVoterRecord()" block large>
+    Non Voter Record
+  </button>
   
-  <button type="submit" (click)="onSubmit('anomalyRecord')" block large>
+  <button type="submit" (click)="onSubmitAnomalyRecord()" block large>
     Anomaly Record
   </button>
   
-  <button type="submit" (click)="onSubmit('amendmentRecord')" block large>
+  <button type="submit" (click)="onSubmitAmendmentRecord()" block large>
     Amendment Record
   </button>
 

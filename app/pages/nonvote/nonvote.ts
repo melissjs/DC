@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import {DemographicsPage} from '../demographics/demographics';
-import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
-import {Recordservice} from '../../providers/recordservice/recordservice';
-
 
 @Component({
-  templateUrl: 'build/pages/vote/vote.html'
+  templateUrl: 'build/pages/nonvote/nonvote.html'
 })
-export class VotePage {
+export class NonvotePage {
     presVote: string;
     presVoteCastBy: string;
     presVoteLOS: string;
@@ -24,10 +21,8 @@ export class VotePage {
     intendedToVoteForPGE: string;
     presVoteLOSPWI: string;
     presVoteLOSWI: string;
-    volunteerservice: Volunteerservice;
-    Recordservice: Recordservice;
 
-    constructor(private navCtrl: NavController, private alertCtrl: AlertController, volunteerservice: Volunteerservice, recordservice: Recordservice) {
+    constructor(private navCtrl: NavController, private alertCtrl: AlertController) {
         this.navCtrl = navCtrl;
         this.presVote = null;
         this.presVoteCastBy = null;
@@ -44,8 +39,6 @@ export class VotePage {
         this.intendedToVoteForPGE = null;
         this.presVoteLOSPWI = null;
         this.presVoteLOSWI = null;
-        this.volunteerservice = volunteerservice;
-        this.Recordservice = recordservice;
     }
 
     onSubmit() {

@@ -38,6 +38,7 @@ import {EndPage} from './pages/end/end';
 import { Pollingstationservice } from './providers/pollingstationservice/pollingstationservice';
 import { Volunteerservice } from './providers/volunteerservice/volunteerservice';
 import {RestService} from './providers/rest-service/rest-service';
+import {Recordservice} from './providers/recordservice/recordservice';
 
 import {UserDataService} from './user-data-service';
 
@@ -45,7 +46,7 @@ import {UserDataService} from './user-data-service';
 @Component({
   templateUrl: 'build/app.html',
   // config: {}, // http://ionicframework.com/docs/v2/api/config/Config/	  
-  providers: [UserDataService, Pollingstationservice, Volunteerservice, RestService]
+  providers: [UserDataService, Pollingstationservice, Volunteerservice, RestService, Recordservice]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;

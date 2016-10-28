@@ -7,6 +7,7 @@ import {RestService} from '../../providers/rest-service/rest-service';
 import { AccountsettingsPage } from '../accountsettings/accountsettings';
 import { ResetpasswordPage } from '../resetpassword/resetpassword';
 import { SigninsuccessPage } from '../signinsuccess/signinsuccess';
+import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
 
 
 /*
@@ -28,10 +29,12 @@ volunteerHere: Volunteer;
 loggedIn: boolean;
 errorMessage: string;
 error: boolean;
+pollingstationservice: Pollingstationservice;
   
-  constructor(private navCtrl: NavController, private alertCtrl: AlertController, public fb: FormBuilder, volunteerservice: Volunteerservice, private restSvc: RestService ) {
+  constructor(private navCtrl: NavController, private alertCtrl: AlertController, public fb: FormBuilder, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, private restSvc: RestService ) {
   this.navCtrl = navCtrl;
   this.volunteerservice = volunteerservice;
+  this.pollingstationservice = pollingstationservice;
   this.regExPhone = '[2-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]';
   //this.volunteerHere = null;
   this.restSvc = restSvc;
@@ -150,6 +153,7 @@ error: boolean;
         this.loggedIn = true;
         // this.restSvc.setLoggedIn(this.loggedIn);
         this.volunteerservice.setNewVolunteer(this.volunteerHere);
+        this.pollingstationservice.setStation(this.pollingstationservice.getPollingStationbyKey(this.volunteerservice.getNewVolunteerPollingStationKey()));
         try {
             this.navCtrl.setRoot(SigninsuccessPage);
         } catch (EE) {

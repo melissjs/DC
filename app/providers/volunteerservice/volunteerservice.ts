@@ -103,6 +103,13 @@ export class Volunteerservice {
         return this.currentVolunteer;
     }
 
+    getNewVolunteerKey(){
+        return this.currentVolunteer.volunteerKey;
+    }
+
+    getNewVolunteerPollingStationKey(){
+        return this.currentVolunteer.associatedPollingStationKey;
+    }
     setPollingStationForVolunteer(value){
         this.currentVolunteer.associatedPollingStationKey = value.pollingStationKey;
     }

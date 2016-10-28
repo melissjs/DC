@@ -53,6 +53,12 @@ export class Pollingstationservice {
         //return this.selectedStation;
     }
 
+        getStationKey(){
+        var that = this;
+        return this.selectedStation.pollingStationKey;
+        //return this.selectedStation;
+    }
+
     generatePollingStationKey(){
         return 'ps'+(this.stationListInMemory.length+1);
     }
