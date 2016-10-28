@@ -1,16 +1,18 @@
-import { VoteRecord } from './voterecord'
+import { NonvoteRecord } from './nonvoterecord'
 
 
-export var VOTELIST: VoteRecord[] = [
+export var NONVOTELIST: NonvoteRecord[] = [
 {
 voteRecordKey: "ps1v1vr1",
 volunteerKey: "v1",
-gePresVote: "Jill Stein",
-gePresVoteCastBy: "Vote By Mail",
+gePresVoteCouldNotVote: false,
+gePresVoteCouldNotVoteReason: null,
+gePresVoteIntended: null,
 gePresVoteLevelOfSupport: "Strongly Support",
 pPresVoteCouldNotVote: true,
 pPresVoteCouldNotVoteReason: "Lines too Long",
 pPresVoteIntended: "Berne Sanders",
+pPresVoteDidNotVote: false,
 pPresVote: null,
 pPresVoteCastBy: null,
 pPresVoteLevelOfSupport: "Strongly Support",

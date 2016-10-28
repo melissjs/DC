@@ -14,6 +14,7 @@ import { AmendmentRecord } from '../../amendmentrecord';
 import { AffidavitRecord } from '../../affidavitrecord';
 import { DemographicsRecord } from '../../demographicsrecord';
 import { VoteRecord } from '../../voterecord';
+import { NonvoteRecord } from '../../nonvoterecord';
 
 import { ANOMALYLIST } from '../../anomalylist';
 import { AMENDMENTLIST } from '../../amendmentlist';
@@ -41,12 +42,18 @@ export class Recordservice {
   newAffidavitRecord: AffidavitRecord;
   newDemographicsRecord: DemographicsRecord;
   newVoteRecord: VoteRecord;
+  newNonVoteRecord: NonvoteRecord;
 
   pollingstationservice: Pollingstationservice;
   volunteerservice: Volunteerservice;
 
   nextAffidavitNumber: string;
-  afcounter: number;
+  nextVoteNumber: string;
+  nextNonVoteNumber: string;
+
+   afcounter: number;
+   vcounter: number;
+   nvcounter: number;
    nonVoteRecordBool: boolean;
 
   constructor(private http: Http, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice) {
@@ -58,6 +65,7 @@ export class Recordservice {
   this.pollingstationservice = pollingstationservice;
   this.volunteerservice = volunteerservice;
   this.afcounter = 0;
+  this.vcounter = 0;
   this.nonVoteRecordBool = false;
 
   }
@@ -185,16 +193,12 @@ createVoidVoteRecord(){
 this.newVoteRecord = {
 voteRecordKey: null,
 volunteerKey: null,
-gePresVoteCouldNotVote: false,
-gePresVoteCouldNotVoteReason: null,
-gePresVoteIntended: null,
 gePresVote: null,
 gePresVoteCastBy: null,
 gePresVoteLevelOfSupport: null,
-pPresVoteCouldNotVote: true,
+pPresVoteCouldNotVote: null,
 pPresVoteCouldNotVoteReason: null,
 pPresVoteIntended: null,
-pPresVoteDidNotVote: false,
 pPresVote: null,
 pPresVoteCastBy: null,
 pPresVoteLevelOfSupport: null,
@@ -203,6 +207,47 @@ presFirst: null,
 presSecond: null,
 presThird: null,
 }
+return this.newVoteRecord;
+}
+
+generateNextVoteNumber(){
+this.nextVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'v' + (++this.vcounter));
+return this.nextVoteNumber;
+}
+
+// NON VOTE
+
+getNonVoteList(){
+  //return this.nonVoteRecordList;
+};
+
+ addNonVoteRecordToList(passedNonVoteRecord){
+  //this.nonVoteRecordList.push(passedNonVoteRecord);
+}
+
+createVoidNonVoteRecord(){
+this.newNonVoteRecord = {
+voteRecordKey: null,
+volunteerKey: null,
+gePresVoteCouldNotVoteReason: null,
+gePresVoteIntended: null,
+gePresVoteLevelOfSupport: null,
+pPresVoteCouldNotVoteReason: null,
+pPresVoteIntended: null,
+pPresVote: null,
+pPresVoteCastBy: null,
+pPresVoteLevelOfSupport: null,
+pPresVotePollingLocation: null,
+presFirst: null,
+presSecond: null,
+presThird: null,
+}
+return this.newVoteRecord;
+}
+
+generateNextNonVoteNumber(){
+this.nextNonVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'nv' + (++this.nvcounter));
+return this.nextVoteNumber;
 }
 
 }

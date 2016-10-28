@@ -1,10 +1,9 @@
-export interface VoteRecord {
+export interface NonvoteRecord {
 voteRecordKey: string;
 volunteerKey: string;
-gePresVote?: string;
-gePresVoteCastBy?: string;
+gePresVoteCouldNotVoteReason?: string;
+gePresVoteIntended?: string;
 gePresVoteLevelOfSupport?: string;
-pPresVoteCouldNotVote?: boolean;
 pPresVoteCouldNotVoteReason?: string;
 pPresVoteIntended?: string;
 pPresVote?: string;
