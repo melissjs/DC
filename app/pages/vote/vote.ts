@@ -194,7 +194,8 @@ export class VotePage {
             presThird: this.thirdPresVote,
             }
             console.log(this.newVoteRecord );
-
+            this.recordservice.addVoteRecordToList(this.newVoteRecord);
+            console.log(this.recordservice.getVoteList());
                 that.navCtrl.setRoot(DemographicsPage, {
                 });
             }

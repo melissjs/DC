@@ -17,7 +17,7 @@
   <ion-item>
            <ion-label stacked>Incorrect Selection:</ion-label>
 
-            <ion-select text-wrap [(ngModel)]="incorrectSelection">
+            <ion-select text-wrap [(ngModel)]="incorrectSelection" (change)="onChangeIncorrectSelection(incorrectSelection)">
             <ion-option value="donaldTrump">Donald Trump</ion-option>
             <ion-option value="garyJohnson">Gary Johnson</ion-option>
             <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
@@ -29,7 +29,7 @@
     <!-- Show line if they need to write in a candidate -->
         <ion-item *ngIf="incorrectSelection=='writeIn'">
         <ion-label stacked>Please Write in Candidate Name:</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" [(ngModel)]="incorrectSelectionWriteIn" (change)="onChangeIncorrectSelectionWriteIn(incorrectSelectionWriteIn)"></ion-input>
         </ion-item>
  <!-- end--> 
 
@@ -37,29 +37,48 @@
   <ion-item>
     <ion-label stacked>Correct Selection:</ion-label>
 
-            <ion-select text-wrap [(ngModel)]="correctSelection">
+            <ion-select text-wrap [(ngModel)]="correctSelection" (change)="onChangeCorrectSelection(correctSelection)">
             <ion-option value="donaldTrump">Donald Trump</ion-option>
             <ion-option value="garyJohnson">Gary Johnson</ion-option>
             <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
             <ion-option value="jillStein">Jill Stein</ion-option>
             <ion-option value="writeIn">Other</ion-option>
+            <ion-option value="notVoteOffice">I did not vote for this office.</ion-option>
+            <ion-option value="notVote">I did not vote at this polling station; I incorrectly participated the audit.</ion-option>
             </ion-select>
     </ion-item>
 
     <!-- Show line if they need to write in a candidate -->
         <ion-item *ngIf="correctSelection=='writeIn'">
         <ion-label stacked>Please Write in Candidate Name:</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" [(ngModel)]="correctSelectionWriteIn" (change)="onChangeCorrectSelectionWriteIn(correctSelectionWriteIn)"></ion-input>
         </ion-item>
  <!-- end--> 
 </ion-list>
 </ion-card>
+
+
 <ion-card>
  <ion-list>
 
+    <ion-item text-wrap>
+    <ion-label style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} (the originating volunteer) and I (the authenticating volunteer) are generating this amendment record in the presence of the voter that has requested it.</ion-label>
+    <ion-checkbox [(ngModel)]="affirm" (click)="onChangeAffirmation(affirm)" ></ion-checkbox>
+    </ion-item>
+
     <ion-item>
-    <ion-label stacked>Team Lead Passcode:</ion-label>
-    <ion-input [(ngModel)]="passcode" type="password"></ion-input>
+    <ion-label stacked>Authenticating Volunteer Email:</ion-label>
+    <ion-input type="text" [(ngModel)]="authenticatingVolunteerEmail" (click)="onChangeAuthenticatingVolunteerEmail(authenticatingVolunteerEmail)"></ion-input>
+  </ion-item>
+
+    <ion-item>
+    <ion-label stacked>Authenticating Volunteer Passcode:</ion-label>
+    <ion-input type="password" [(ngModel)]="authenticatingVolunteerPasscode" (click)="onChangeAuthenticatingVolunteerPasscode(authenticatingVolunteerPasscode)"></ion-input>
+  </ion-item>
+
+    <ion-item>
+    <ion-label stacked>Originating Volunteer Passcode:</ion-label>
+    <ion-input [(ngModel)]="originatingVolunteerPasscode" (click)="onChangeOriginatingVolunteerPasscode(originatingVolunteerPasscode)" type="password"></ion-input>
   </ion-item>
 
 </ion-list>
