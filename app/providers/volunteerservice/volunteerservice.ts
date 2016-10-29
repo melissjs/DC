@@ -91,10 +91,6 @@ export class Volunteerservice {
         "shifts": "Early Evening, Late Evening",
         "passcode": "password",
         "associatedPollingStationKey": "ps2",
-        "totalNonVoterRecords": 6,
-        "totalVoteRecords": 5,
-        "totalAnomalyRecords": 0,
-        "totalAmendmentRecords": 1
       
         }
     }
@@ -305,10 +301,7 @@ export class Volunteerservice {
             shifts:'', 
             passcode: '',
             associatedPollingStationKey: null, 
-            totalNonVoterRecords: 0,
-            totalVoteRecords:0,
-            totalAnomalyRecords: 0,
-            totalAmendmentRecords: 0,
+            
         }
         return this.currentVolunteer;
     }
@@ -324,9 +317,12 @@ generateStationStats(passedStationKey){
     for (var i=0; i < this.associatedVolunteerArray.length; i++){
         this.shiftsFilled += this.getShiftCountFromString(this.associatedVolunteerArray[i].shifts);
     }
+
+    
     this.shiftsFilled = this.shiftsFilled/2;
      this.shiftsToFill = 45 - this.shiftsFilled;
-     //generate total voter records
+     
+     /*//generate total voter records
      this.totalTeamVoterRecords = 0;
       for (var i=0; i < this.associatedVolunteerArray.length; i++){
         this.totalTeamVoterRecords += this.associatedVolunteerArray[i].totalVoteRecords;
@@ -348,8 +344,9 @@ generateStationStats(passedStationKey){
         this.totalTeamNonVoterRecords += this.associatedVolunteerArray[i].totalNonVoterRecords;
     }
 
+
     //total all records
-    this.totalTeamRecords =  this.totalTeamVoterRecords + this.totalTeamAnomalyRecords + this.totalTeamAmendmentRecords + this.totalTeamNonVoterRecords;
+    this.totalTeamRecords =  this.totalTeamVoterRecords + this.totalTeamAnomalyRecords + this.totalTeamAmendmentRecords + this.totalTeamNonVoterRecords;*/
 
 }
 

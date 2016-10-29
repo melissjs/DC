@@ -43,10 +43,7 @@ this.volunteerservice = volunteerservice;
         "shifts": "Early Evening, Late Evening",
         "passcode": "password",
         "associatedPollingStationKey": "ps2",
-        "totalNonVoterRecords": 6,
-        "totalVoteRecords": 5, 
-        "totalAnomalyRecords": 0,
-        "totalAmendmentRecords": 1
+       
       
         }
 
@@ -60,7 +57,7 @@ this.volunteerservice = volunteerservice;
         this.totalTeamAmendmentRecords = this.volunteerservice.getTotalTeamAmendmentRecords();
         this.totalTeamNonVoterRecords = this.volunteerservice.getTotalTeamNonVoterRecords();
         this.totalTeamRecords = this.volunteerservice.getTotalTeamRecords();
-        this.totalIndividualRecords = this.currentVolunteer.totalAmendmentRecords + this.currentVolunteer.totalAnomalyRecords + this.currentVolunteer.totalNonVoterRecords + this.currentVolunteer.totalVoteRecords;
+        /*this.totalIndividualRecords = this.currentVolunteer.totalAmendmentRecords + this.currentVolunteer.totalAnomalyRecords + this.currentVolunteer.totalNonVoterRecords + this.currentVolunteer.totalVoteRecords;*/
   }
 
        onSubmit() {

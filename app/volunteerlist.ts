@@ -14,10 +14,6 @@ export var VOLUNTEERS: Volunteer[] = [{
         "shifts": "Early Morning, Late Evening",
         "passcode": "password1",
         "associatedPollingStationKey": "ps1",
-        "totalNonVoterRecords": 6,
-        "totalVoteRecords": 5,
-        "totalAnomalyRecords": 1,
-        "totalAmendmentRecords": 1
       
         },      {
         "volunteerKey": "v2",        
@@ -31,11 +27,7 @@ export var VOLUNTEERS: Volunteer[] = [{
         "shifts": "Early Afternoon, Late Afternoon",
         "passcode": "Eric help me!",
         "associatedPollingStationKey": "ps2",
-        "totalNonVoterRecords": 6,
-        "totalVoteRecords": 5,
-        "totalAnomalyRecords": 7,
-        "totalAmendmentRecords": 1
-      
+        
         }, {
         "volunteerKey": "v3",
         "fullName":"Janice Row",
@@ -48,10 +40,7 @@ export var VOLUNTEERS: Volunteer[] = [{
         "shifts": "Early Evening, Late Evening",
         "passcode": "password",
         "associatedPollingStationKey": "ps2",
-        "totalNonVoterRecords": 6,
-        "totalVoteRecords": 5,
-        "totalAnomalyRecords": 0,
-        "totalAmendmentRecords": 1
+        
       
         }, {
         "volunteerKey": "v4",
@@ -65,10 +54,7 @@ export var VOLUNTEERS: Volunteer[] = [{
         "shifts": "Late Morning",
         "passcode": "Code",
         "associatedPollingStationKey": "ps1",
-        "totalNonVoterRecords": 6,
-        "totalVoteRecords": 5,
-        "totalAnomalyRecords": 0,
-        "totalAmendmentRecords": 1
+        
         }, {
         "volunteerKey": "v5",
         "fullName": "Raya Hammond",
@@ -81,8 +67,5 @@ export var VOLUNTEERS: Volunteer[] = [{
         "shifts":"Late Morning, Early Evening, Early Morning, Late Evening",
         "passcode": 'passcodestring',
         "associatedPollingStationKey":"ps1", 
-        "totalNonVoterRecords": 0,
-        "totalVoteRecords": 0,
-        "totalAnomalyRecords": 0,
-        "totalAmendmentRecords": 0,
+        
         } ]

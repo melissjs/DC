@@ -12,9 +12,5 @@ partyAffiliation: string;
 shifts?: string;
 passcode: string;
 associatedPollingStationKey?: string;
-totalNonVoterRecords: number;
-totalVoteRecords: number;
-totalAnomalyRecords: number;
-totalAmendmentRecords: number;
 } 
 

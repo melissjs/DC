@@ -34,10 +34,7 @@ currentVolunteer: Volunteer;
         "shifts": "Early Evening, Late Evening",
         "passcode": "password",
         "associatedPollingStationKey": "ps2",
-        "totalNonVoterRecords": 6,
-        "totalVoteRecords": 5,
-        "totalAnomalyRecords": 0,
-        "totalAmendmentRecords": 1
+        
       
         }
 
