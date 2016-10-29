@@ -136,7 +136,7 @@ getAffidavitList(){
 
 createVoidAffidavitRecord(){
 this.newAffidavitRecord =  {
-affidavitNumber: null,
+//affidavitNumber: null,
 volunteerKey: null,
 fullName: null,
 streetAddress: null,

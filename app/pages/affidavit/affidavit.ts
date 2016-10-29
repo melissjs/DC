@@ -20,8 +20,7 @@ export class AffidavitPage {
     newAffidavitRecord: AffidavitRecord;
     recordservice: Recordservice;
     volunteerservice: Volunteerservice;
-
-    newAffidavitNumber: string;
+    //newAffidavitNumber: string;
 
 
 
@@ -35,8 +34,8 @@ export class AffidavitPage {
   this.recordservice = recordservice;
   this.volunteerservice = volunteerservice;
   this.newAffidavitRecord = this.recordservice.createVoidAffidavitRecord();
-  this.newAffidavitNumber = this.recordservice.generateNextAffidavitNumber();
-  console.log(this.newAffidavitNumber);
+  //this.newAffidavitNumber = this.recordservice.generateNextAffidavitNumber();
+  //console.log(this.newAffidavitNumber);
   var regExEmail: string = '[A-Za-z0-9._-][A-Za-z0-9._-]*@[A-Za-z0-9._-][A-Za-z0-9._-]*\.[a-zA-Z][a-zA-Z]*';
   var regExZip: string = '[0-9]{5}[-]?[0-9]?[0-9]?[0-9]?[0-9]?';
     
@@ -100,7 +99,7 @@ export class AffidavitPage {
 
            //fill in object
            this.newAffidavitRecord = {
-                affidavitNumber: this.newAffidavitNumber,
+                //affidavitNumber: this.newAffidavitNumber,
                 volunteerKey: this.volunteerservice.getNewVolunteerKey(),
                 fullName: value.fullName,
                 streetAddress: value.addressNumName,
@@ -113,10 +112,10 @@ export class AffidavitPage {
 
            
            if (!this.recordservice.getNonVoteBool()){
-                try {that.navCtrl.push(VotePage, {})}
+                try {that.navCtrl.setRoot(VotePage, {})}
                 catch (EE) {console.log('error in Submitting, exc='+ EE.toString())}
            } else if (this.recordservice.getNonVoteBool()){
-               try {that.navCtrl.push(NonvotePage, {})}
+               try {that.navCtrl.setRoot(NonvotePage, {})}
                 catch (EE) {console.log('error in Submitting, exc='+ EE.toString())}
          }
 

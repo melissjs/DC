@@ -1,5 +1,5 @@
 export interface AffidavitRecord {
-affidavitNumber: string;
+//affidavitNumber: string;
 volunteerKey: string;
 fullName: string;
 streetAddress: string;

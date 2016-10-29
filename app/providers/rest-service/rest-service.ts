@@ -26,7 +26,7 @@ export class RestService {
         // generate values
         this.jsessionid = null;
         this.csrf_token = null;
-        this.loggedIn = true; //CHANGE BACK TO FLASE AFTER TESTING
+        this.loggedIn = false; //CHANGE BACK TO FALSE AFTER TESTING
         this.lastLoginCheck = 0;
 
         // submit call to initialize ionic.

@@ -195,7 +195,7 @@ export class VotePage {
             }
             console.log(this.newVoteRecord );
 
-                that.navCtrl.push(DemographicsPage, {
+                that.navCtrl.setRoot(DemographicsPage, {
                 });
             }
 

@@ -53,6 +53,11 @@ export class NonvotePage {
         this.firstPresVoteWriteIn = null;
         this.secondPresVoteWriteIn = null;
         this.thirdPresVoteWriteIn = null;
+        this.otherReasonForCouldNotVotePGE = null;
+        this.intendedToVoteForPGEWriteIn = null;
+        this.primaryPresVoteWriteIn = null;
+        this.otherReasonForCouldNotVotePrimary = null;
+        this.intendedToVoteForPrimaryWriteIn = null;
         
     }
 
@@ -201,7 +206,7 @@ export class NonvotePage {
                 console.log(this.newNonVoteRecord );
 
 
-                that.navCtrl.push(DemographicsPage, {
+                that.navCtrl.setRoot(DemographicsPage, {
                 });
             }
 

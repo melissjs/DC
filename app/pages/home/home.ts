@@ -21,11 +21,16 @@ export class HomePage {
 
 
   userDataSvc: UserDataService;
+  loggedIn: boolean;
+  restservice: RestService;
 
   constructor(public navCtrl: NavController, navParams: NavParams,
-  	      userDataSvc: UserDataService) {
+  	      userDataSvc: UserDataService, restservice: RestService) {
 
       this.navCtrl = navCtrl;
+      this.restservice = restservice;
+    //  this.loggedIn = this.restservice.getLoggedIn();
+     // console.log(this.loggedIn);
       this.userDataSvc = userDataSvc; // navParams.get('userDataSvc');
       if (this.userDataSvc) {
           this.userDataSvc.setupFirebase();

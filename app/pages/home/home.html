@@ -1,7 +1,7 @@
 
 <ion-header>
   <ion-navbar>
-    <button menuToggle>
+    <button [disabled]="!loggedIn" menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>Democracy Counts</ion-title>
