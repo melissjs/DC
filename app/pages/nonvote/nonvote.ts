@@ -204,7 +204,8 @@ export class NonvotePage {
                 presThird: this.thirdPresVote,
                 }
                 console.log(this.newNonVoteRecord );
-
+                this.recordservice.addNonVoteRecordToList(this.newNonVoteRecord);
+                console.log(this.recordservice.getNonVoteList());
 
                 that.navCtrl.setRoot(DemographicsPage, {
                 });

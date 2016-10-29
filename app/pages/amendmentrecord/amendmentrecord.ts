@@ -128,6 +128,10 @@ onChangeAffirmation(value){
                     authenticatedByKey: this.authenticatingVolunteerKey,
                 }
                 console.log(this.newAmendmentRecord);
+
+                this.recordservice.addAmendmentRecordToList(this.newAmendmentRecord);
+                console.log(this.recordservice.getAmendmentList());
+
                 //navigate
                 let alertSuccess = this.alertCtrl.create({
                     title: 'Successfully Submitted.',

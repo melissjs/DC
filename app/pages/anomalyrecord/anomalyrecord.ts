@@ -78,6 +78,10 @@ comments: this.comments,
 evidence: this.evidence,
 }
 console.log(this.newAnomalyRecord);
+this.recordservice.addAnomalyRecordToList(this.newAnomalyRecord);
+                console.log(this.recordservice.getAnomalyList());
+
+
   // nav to voterecord
   try {that.navCtrl.setRoot(VoterecordPage, {})}
   catch (EE) {console.log('error in Submitting, exc='+ EE.toString())}

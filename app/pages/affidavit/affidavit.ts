@@ -109,6 +109,8 @@ export class AffidavitPage {
                 evidence: value.photoReceipt,
            }
            console.log(this.newAffidavitRecord);
+           this.recordservice.addAffidavitRecordToList(this.newAffidavitRecord);
+                console.log(this.recordservice.getAffidavitList());
 
            
            if (!this.recordservice.getNonVoteBool()){

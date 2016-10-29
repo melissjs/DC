@@ -116,6 +116,10 @@ volunteerservice: Volunteerservice;
             firstTimeVoter: this.enterFirstTimeVoter,
             }
             console.log(this.newDemographicsRecord);
+            this.recordservice.addDemographicsRecordToList(this.newDemographicsRecord);
+                console.log(this.recordservice.getDemographicsList());
+
+
 
             that.navCtrl.setRoot(VoterecordPage, {
             });

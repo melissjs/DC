@@ -21,6 +21,8 @@ import { AMENDMENTLIST } from '../../amendmentlist';
 import { AFFIDAVITLIST } from '../../affidavitlist';
 import { DEMOGRAPHICSLIST } from '../../demographicslist';
 import { VOTELIST } from '../../votelist';
+import { NONVOTELIST } from '../../nonvotelist'
+
 
 
 /*
@@ -36,6 +38,7 @@ export class Recordservice {
   affidavitRecordList: AffidavitRecord[];
   demographicsRecordList: DemographicsRecord[];
   voteRecordList: VoteRecord[];
+  nonVoteRecordList: NonvoteRecord[];
 
   newAnomalyRecord: AnomalyRecord;
   newAmendmentRecord: AmendmentRecord;
@@ -62,6 +65,7 @@ export class Recordservice {
   this.affidavitRecordList = AFFIDAVITLIST;
   this.demographicsRecordList = DEMOGRAPHICSLIST;
   this.voteRecordList = VOTELIST;
+  this.nonVoteRecordList = NONVOTELIST;
   this.pollingstationservice = pollingstationservice;
   this.volunteerservice = volunteerservice;
   this.afcounter = 0;
@@ -230,11 +234,11 @@ return this.nextVoteNumber;
 // NON VOTE
 
 getNonVoteList(){
-  //return this.nonVoteRecordList;
+  return this.nonVoteRecordList;
 };
 
  addNonVoteRecordToList(passedNonVoteRecord){
-  //this.nonVoteRecordList.push(passedNonVoteRecord);
+  this.nonVoteRecordList.push(passedNonVoteRecord);
 }
 
 createVoidNonVoteRecord(){
