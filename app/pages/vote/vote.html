@@ -133,7 +133,7 @@
 
     <ion-item *ngIf!="(primaryPresVote=='didNotVote' || primaryPresVote=='couldNotVote' || primaryPresVote=='dontRemember')">
     <ion-label stacked>Cast By:</ion-label>
-        <ion-select text-wrap [(ngModel)]="primaryPresVoteCastBy" #item (change)="onChangePrimaryPresVoteCastBy(primaryPresVoteCastBy)">
+        <ion-select text-wrap [(ngModel)]="primaryPresVoteCastBy" (change)="onChangePrimaryPresVoteCastBy(primaryPresVoteCastBy)">
             <ion-option value="votingMachine">Voting Machine</ion-option>
             <ion-option value="voteByMail">Vote by Mail</ion-option>
             <ion-option value="absentee">Absentee Ballot</ion-option>
@@ -145,7 +145,7 @@
 
     <ion-item *ngIf="!((primaryPresVote=='didNotVote' || primaryPresVote=='dontRemember')  || (primaryPresVote=='couldNotVote' && intendedToVoteFor=='dontRemember'))">
     <ion-label stacked>Level of Support:</ion-label>
-            <ion-select text-wrap [(ngModel)]="primaryPresVoteLOS" #item (change)="onChangePrimaryPresVoteLOS(primaryPresVoteLOS)">
+            <ion-select text-wrap [(ngModel)]="primaryPresVoteLOS"  (change)="onChangePrimaryPresVoteLOS(primaryPresVoteLOS)">
             <ion-option value="highlySupport">Highly Support</ion-option>
             <ion-option value="moderatelySupport">Moderately Support</ion-option>
             <ion-option value="dislike">Dislike but dislike other candidate(s) more.</ion-option>
@@ -204,7 +204,7 @@
 
     <ion-item>
     <ion-label stacked>Presidential Third Choice:</ion-label>
-          <ion-select text-wrap [(ngModel)]="thirdPresVote" #item (change)="onChangeThirdPresVote(thirdPresVote)">
+          <ion-select text-wrap [(ngModel)]="thirdPresVote"  (change)="onChangeThirdPresVote(thirdPresVote)">
             <ion-option value="bernieSanders">Bernie Sanders</ion-option>
             <ion-option value="donaldTrump">Donald Trump</ion-option>
             <ion-option value="garyJohnson">Gary Johnson</ion-option>

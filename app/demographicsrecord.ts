@@ -2,7 +2,7 @@ export interface DemographicsRecord {
 voteRecordKey: string;
 volunteerKey?: string;
 sex?: string;
-age?: number;
+age?: string;
 ethnicity?: string;
 partyAffiliation?: string;
 annualIncome?: string;

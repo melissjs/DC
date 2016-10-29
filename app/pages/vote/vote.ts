@@ -26,8 +26,6 @@ export class VotePage {
     otherReasonForCouldNotVotePrimary: string;
     intendedToVoteFor: string;
     intendedToVoteForWriteIn: string;
-    presVoteLOSPWI: string;
-    presVoteLOSWI: string;
     volunteerservice: Volunteerservice;
     recordservice: Recordservice;
     newVoteRecord: VoteRecord;
@@ -45,13 +43,12 @@ export class VotePage {
         this.primaryPresVoteWriteIn = null;
         this.primaryPresVoteCastBy = null;
         this.primaryPresVoteLOS = null;
+        this.primaryLocation = null;
         this.firstPresVote = null;
         this.secondPresVote = null;
         this.thirdPresVote = null;
         this.reasonForCouldNotVotePrimary = null;
         this.intendedToVoteFor = null;
-        this.presVoteLOSPWI = null;
-        this.presVoteLOSWI = null;
         this.volunteerservice = volunteerservice;
         this.recordservice = recordservice;
         this.newVoteRecord = this.recordservice.createVoidVoteRecord();

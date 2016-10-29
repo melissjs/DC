@@ -50,7 +50,7 @@
 
   <ion-item text-wrap>
    <ion-label stacked>Party Affiliation:</ion-label>
-         <ion-select text-wrap [(ngModel)]="enterParty" #item (change)="onChangeParty(enterParty)">
+         <ion-select text-wrap [(ngModel)]="enterParty"  (change)="onChangeParty(enterParty)">
             <ion-option value="Independent">Independent</ion-option>
             <ion-option value="No Party Preference">No Party Preference</ion-option>
             <ion-option value="Democratic Party">Democratic Party</ion-option>
@@ -61,8 +61,8 @@
   </ion-item>
 
      <ion-item *ngIf="enterParty=='Other Party'">
-        <ion-label stacked>Please Write in Candidate Name:</ion-label>
-         <ion-input></ion-input>
+        <ion-label stacked>Please Write in Party Name:</ion-label>
+         <ion-input type="text" [(ngModel)]="enterPartyWriteIn"  (change)="onChangePartyWriteIn(enterPartyWriteIn)"></ion-input>
   </ion-item>
 
 
@@ -101,24 +101,24 @@
    <ion-item>
     <ion-label stacked>Naturalized Citizen?</ion-label>
          <ion-select text-wrap [(ngModel)]="enterNaturalizedCitizen" #item (change)="onChangeNaturalizedCitizen(enterNaturalizedCitizen)">
-            <ion-option value="Yes">Yes</ion-option>
-            <ion-option value="No">No</ion-option>
+            <ion-option value=true>Yes</ion-option>
+            <ion-option value=false>No</ion-option>
           </ion-select> 
   </ion-item>
 
 
-   <ion-item *ngIf="enterNaturalizedCitizen=='Yes'">
+   <ion-item *ngIf="enterNaturalizedCitizen=='true'">
     <ion-label stacked>Country of Origin?</ion-label>
          <!--<ion-input[(ngModel)]="enterCountryOfOrigin" #item (change)="onChangeCountryOfOrigin(enterCountryOfOrigin)"></ion-input>-->
-         <ion-input></ion-input>
+         <ion-input type="text" [(ngModel)]="enterNaturalizedCitizenWriteIn" #item (change)="onChangeNaturalizedCitizenWriteIn(enterNaturalizedCitizenWriteIn)"></ion-input>
   </ion-item>
 
 
    <ion-item>
     <ion-label stacked>First Time Voter?</ion-label>
          <ion-select text-wrap [(ngModel)]="enterFirstTimeVoter" #item (change)="onChangeFirstTimeVoter(enterFirstTimeVoter)">
-            <ion-option value="yes">Yes</ion-option>
-            <ion-option value="no">No</ion-option>
+            <ion-option value=true>Yes</ion-option>
+            <ion-option value=false>No</ion-option>
           </ion-select> 
   </ion-item>
 

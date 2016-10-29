@@ -66,6 +66,7 @@ export class Recordservice {
   this.volunteerservice = volunteerservice;
   this.afcounter = 0;
   this.vcounter = 0;
+  this.nvcounter = 0;
   this.nonVoteRecordBool = false;
 
   }
@@ -167,15 +168,26 @@ this.newDemographicsRecord = {
 voteRecordKey: null,
 volunteerKey: null,
 sex: null,
-age: 0,
+age: null,
 ethnicity: null,
 partyAffiliation: null,
 annualIncome: null,
 education: null,
 maritalStatus: null,
-naturalizedCitizen: false,
+naturalizedCitizen: null,
 countryOfOrigin: null,
-firstTimeVoter: true,
+firstTimeVoter: null,
+}
+return this.newDemographicsRecord;
+}
+
+generateNextDemographicsNumber(){
+if (this.nonVoteRecordBool){
+return this.nextNonVoteNumber;
+} else {
+if (!this.nonVoteRecordBool){
+return this.nextVoteNumber;
+}
 }
 }
 
@@ -247,7 +259,7 @@ return this.newVoteRecord;
 
 generateNextNonVoteNumber(){
 this.nextNonVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'nv' + (++this.nvcounter));
-return this.nextVoteNumber;
+return this.nextNonVoteNumber;
 }
 
 }
