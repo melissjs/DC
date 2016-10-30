@@ -32,6 +32,7 @@ import {VotePage} from './pages/vote/vote';
 import {QuestionsPage} from './pages/questions/questions';
 import {HomePage} from './pages/home/home';
 import {EndPage} from './pages/end/end';
+import {AuthenticationPage} from './pages/authentication/authentication';
 
   // intermediate components called from others
 //import {LevelofsupportComponent} from './pages/levelofsupport/levelofsupport';

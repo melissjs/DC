@@ -1,0 +1,47 @@
+
+<ion-header>
+  <ion-navbar>
+    <button [disabled]="!loggedIn" menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Check In Authentication</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+<ion-card>
+ <ion-list>
+
+    <ion-item>
+     <ion-icon name="md-locate" item-right></ion-icon> 
+     <ion-label stacked>Set Geolocation:</ion-label>
+     <ion-input type="text" [(ngModel)]="geoLocation" (click)="onChangegeoLocation(geoLocation)"></ion-input>
+     </ion-item>
+
+    <ion-item text-wrap>
+    <ion-label style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together at precinct {{pollingstationservice.getStation().precinctNumber}} in {{pollingstationservice.getStation().city}}, {{pollingstationservice.getStation().state}}.</ion-label>
+    <ion-checkbox [(ngModel)]="affirm" (click)="onChangeAffirmation(affirm)" ></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+    <ion-label stacked>Authenticating Volunteer Email:</ion-label>
+    <ion-input type="text" [(ngModel)]="authenticatingVolunteerEmail" (click)="onChangeAuthenticatingVolunteerEmail(authenticatingVolunteerEmail)"></ion-input>
+  </ion-item>
+
+    <ion-item>
+    <ion-label stacked>Authenticating Volunteer Passcode:</ion-label>
+    <ion-input type="password" [(ngModel)]="authenticatingVolunteerPasscode" (click)="onChangeAuthenticatingVolunteerPasscode(authenticatingVolunteerPasscode)"></ion-input>
+  </ion-item>
+
+
+</ion-list>
+             
+        </ion-card>
+
+        <button type="submit" (click)="onSubmit()" block large>
+         Submit 
+         </button>
+
+</ion-content>

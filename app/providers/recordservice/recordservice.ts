@@ -15,6 +15,7 @@ import { AffidavitRecord } from '../../affidavitrecord';
 import { DemographicsRecord } from '../../demographicsrecord';
 import { VoteRecord } from '../../voterecord';
 import { NonvoteRecord } from '../../nonvoterecord';
+import { Timesheet } from '../../timesheet';
 
 import { ANOMALYLIST } from '../../anomalylist';
 import { AMENDMENTLIST } from '../../amendmentlist';
@@ -22,7 +23,7 @@ import { AFFIDAVITLIST } from '../../affidavitlist';
 import { DEMOGRAPHICSLIST } from '../../demographicslist';
 import { VOTELIST } from '../../votelist';
 import { NONVOTELIST } from '../../nonvotelist'
-
+import { TIMESHEETLIST } from '../../timesheetlist'
 
 
 /*
@@ -39,6 +40,7 @@ export class Recordservice {
   demographicsRecordList: DemographicsRecord[];
   voteRecordList: VoteRecord[];
   nonVoteRecordList: NonvoteRecord[];
+  timesheetList: Timesheet[];
 
   newAnomalyRecord: AnomalyRecord;
   newAmendmentRecord: AmendmentRecord;
@@ -46,6 +48,9 @@ export class Recordservice {
   newDemographicsRecord: DemographicsRecord;
   newVoteRecord: VoteRecord;
   newNonVoteRecord: NonvoteRecord;
+
+  newTimesheet: Timesheet;
+  currentTimesheet: Timesheet;
 
   pollingstationservice: Pollingstationservice;
   volunteerservice: Volunteerservice;
@@ -66,13 +71,14 @@ export class Recordservice {
   this.demographicsRecordList = DEMOGRAPHICSLIST;
   this.voteRecordList = VOTELIST;
   this.nonVoteRecordList = NONVOTELIST;
+  this.timesheetList = TIMESHEETLIST;
   this.pollingstationservice = pollingstationservice;
   this.volunteerservice = volunteerservice;
   this.afcounter = 0;
   this.vcounter = 0;
   this.nvcounter = 0;
   this.nonVoteRecordBool = false;
-
+  this.currentTimesheet = this.createVoidTimesheet();
   }
 
 // NON VOTER VS VOTER SWITCH
@@ -265,6 +271,38 @@ generateNextNonVoteNumber(){
 this.nextNonVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'nv' + (++this.nvcounter));
 return this.nextNonVoteNumber;
 }
+
+
+// timesheet
+
+setTimesheet(){
+}
+
+getTimesheet(){
+
+}
+
+getTimesheetList(){
+  return this.timesheetList;
+};
+
+ addTimesheetToList(passedTimesheet){
+  this.timesheetList.push(passedTimesheet);
+}
+
+createVoidTimesheet(){
+this.newTimesheet = {
+volunteerKey: null,
+authenticatingVolunteerKey: null,
+checkInTime: null,
+checkOuttime: null,
+geoLocation: null,
+}
+return this.newTimesheet;
+}
+
+
+
 
 }
 

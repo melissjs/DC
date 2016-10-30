@@ -78,8 +78,26 @@ onChangeAffirmation(value){
  onSubmit() {
         var that = this;
         var passcode = null;
+
+        // make sure same volunteer is not authenticating 
+         if (this.volunteerservice.getNewVolunteer().emailAddress == this.authenticatingVolunteerEmail){
+
+             //console.log(this.volunteerservice.getNewVolunteer().emailAddress + ' and ' + this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail).emailAddress);
+
+                    let alertOne = this.alertCtrl.create({
+                    title: 'Authentication cannot be done with only one volunteer.',
+                    subTitle: 'Please ask a team member to help you authenticate this record by entering their email and passcode.',
+                    buttons: ['OK']
+                });
+                alertOne.present();
+                return;
+                }
+
+
+
+
         try {
-            if ((this.authenticatingVolunteerPasscode, this.incorrectSelection, this.correctSelection, this.authenticatingVolunteerEmail, this.authenticatingVolunteerPasscode, this.originatingVolunteerPasscode == null) || this.affirm == false) {
+            if (!this.incorrectSelection || !this.correctSelection || !this.authenticatingVolunteerEmail ||!this.authenticatingVolunteerPasscode || !this.originatingVolunteerPasscode || !this.affirm) {
                 let alert = this.alertCtrl.create({
                     title: 'All fields required.',
                     subTitle: 'Amendment records require all fields and two way aunthentication for verification; please ask one of your team members to help you verify this record.',
@@ -87,6 +105,15 @@ onChangeAffirmation(value){
                 });
                 alert.present();
             } else {
+                // verify email exists
+                if (!this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail)){let alertEmailIncorrect = this.alertCtrl.create({
+                    title: 'Authenticating Volunteer Email Invalid.',
+                    subTitle: 'Please re-enter authenticating email.',
+                    buttons: ['OK']
+                });
+                alertEmailIncorrect.present();
+                return;}
+                
                 // verify credentials, get key
                 if (this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail).passcode == this.authenticatingVolunteerPasscode){
                 this.authenticatingVolunteerKey = this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail).volunteerKey;

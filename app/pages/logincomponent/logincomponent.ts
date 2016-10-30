@@ -8,6 +8,7 @@ import { AccountsettingsPage } from '../accountsettings/accountsettings';
 import { ResetpasswordPage } from '../resetpassword/resetpassword';
 import { SigninsuccessPage } from '../signinsuccess/signinsuccess';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
+import {AuthenticationPage} from '../../pages/authentication/authentication';
 
 
 /*
@@ -155,7 +156,7 @@ pollingstationservice: Pollingstationservice;
         this.volunteerservice.setNewVolunteer(this.volunteerHere);
         this.pollingstationservice.setStation(this.pollingstationservice.getPollingStationbyKey(this.volunteerservice.getNewVolunteerPollingStationKey()));
         try {
-            this.navCtrl.setRoot(SigninsuccessPage);
+            this.navCtrl.setRoot(AuthenticationPage);
         } catch (EE) {
             console.log('error in Submitting, exc='+ EE.toString())
             console.log(EE.stack);
