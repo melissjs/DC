@@ -67,6 +67,9 @@ export class Recordservice {
    totalTeamDemographicsRecords: number;
    totalIndividualDemographicsRecords: number;
 
+   totalTeamRecords: number;
+   totalIndividualRecords: number;
+
   constructor(private http: Http, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice) {
   this.anomalyRecordList = ANOMALYLIST;
   this.amendmentRecordList = AMENDMENTLIST;
@@ -94,6 +97,8 @@ export class Recordservice {
   this.totalTeamAffidavitRecords = 0;
   this.totalTeamDemographicsRecords = 0;
   this.totalIndividualDemographicsRecords = 0;
+  this.totalTeamRecords = 0;
+  this.totalIndividualRecords = 0;
   }
 
 // NON VOTER VS VOTER SWITCH
@@ -140,6 +145,7 @@ return this.totalIndividualAnomalyRecords;
 }
 
 getTotalTeamAnomalyRecords(passedTeamVolunteerArray){
+  this.totalTeamAnomalyRecords = 0;
   for (var m=0; m < passedTeamVolunteerArray.length; m++){
     var member = passedTeamVolunteerArray[m].volunteerKey
         for (var i=0; i < this.anomalyRecordList.length; i++){
@@ -182,6 +188,7 @@ return this.totalIndividualAmendmentRecords;
 }
 
 getTotalTeamAmendmentRecords(passedTeamVolunteerArray){
+  this.totalTeamAmendmentRecords = 0;
   for (var m=0; m < passedTeamVolunteerArray.length; m++){
     var member = passedTeamVolunteerArray[m].volunteerKey
         for (var i=0; i < this.amendmentRecordList.length; i++){
@@ -233,6 +240,7 @@ return this.totalIndividualAffidavitRecords;
 }
 
 getTotalTeamAffidavitRecords(passedTeamVolunteerArray){
+  this.totalTeamAffidavitRecords = 0;
   for (var m=0; m < passedTeamVolunteerArray.length; m++){
     var member = passedTeamVolunteerArray[m].volunteerKey
         for (var i=0; i < this.affidavitRecordList.length; i++){
@@ -293,6 +301,7 @@ return this.totalIndividualDemographicsRecords;
 }
 
 getTotalTeamDemographicsRecords(passedTeamVolunteerArray){
+  this.totalTeamDemographicsRecords = 0;
   for (var m=0; m < passedTeamVolunteerArray.length; m++){
     var member = passedTeamVolunteerArray[m].volunteerKey
         for (var i=0; i < this.demographicsRecordList.length; i++){
@@ -352,6 +361,7 @@ return this.totalIndividualVoteRecords;
 }
 
 getTotalTeamVoteRecords(passedTeamVolunteerArray){
+  this.totalTeamVoteRecords = 0;
   for (var m=0; m < passedTeamVolunteerArray.length; m++){
     var member = passedTeamVolunteerArray[m].volunteerKey
         for (var i=0; i < this.voteRecordList.length; i++){
@@ -409,6 +419,7 @@ return this.totalIndividualNonVoteRecords;
 }
 
 getTotalTeamNonVoteRecords(passedTeamVolunteerArray){
+  this.totalTeamNonVoteRecords = 0;
   for (var m=0; m < passedTeamVolunteerArray.length; m++){
     var member = passedTeamVolunteerArray[m].volunteerKey
         for (var i=0; i < this.nonVoteRecordList.length; i++){
@@ -449,6 +460,18 @@ geoLocation: null,
 return this.newTimesheet;
 }
 
+// totals
+
+getTotalTeamRecords(passedTeam){
+this.totalTeamRecords = this.getTotalTeamAffidavitRecords(passedTeam) + this.getTotalTeamAnomalyRecords(passedTeam) + this.getTotalTeamAmendmentRecords(passedTeam) + this.getTotalTeamDemographicsRecords(passedTeam) + this.getTotalTeamVoteRecords(passedTeam) + this.getTotalTeamNonVoteRecords(passedTeam);
+return this.totalTeamRecords;
+
+}
+
+getTotalIndividualRecords(passedVolunteerKey){
+this.totalIndividualRecords = this.getTotalIndividualAffidavitRecords(passedVolunteerKey) + this.getTotalIndividualAnomalyRecords(passedVolunteerKey) + this.getTotalIndividualAmendmentRecords(passedVolunteerKey) + this.getTotalIndividualDemographicsRecords(passedVolunteerKey) + this.getTotalIndividualVoteRecords(passedVolunteerKey) + this.getTotalIndividualNonVoteRecords(passedVolunteerKey);
+return this.totalIndividualRecords;
+}
 
 
 

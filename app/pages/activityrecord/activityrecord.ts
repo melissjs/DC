@@ -52,6 +52,8 @@ this.totalIndividualVoteRecords = 0;
 this.totalTeamVoterRecords = 0;
 this.totalIndividualNonVoteRecords = 0;
 this.totalTeamNonVoterRecords = 0;
+this.totalTeamRecords = 0;
+this.totalIndividualRecords = 0;
 
 
       this.currentVolunteer = 
@@ -88,6 +90,8 @@ this.totalTeamNonVoterRecords = 0;
         this.totalIndividualNonVoteRecords = this.recordservice.getTotalIndividualNonVoteRecords(this.currentVolunteer.volunteerKey);
 
         this.totalIndividualDemographicsRecords = this.recordservice.getTotalIndividualDemographicsRecords(this.currentVolunteer.volunteerKey);
+
+        this.totalIndividualRecords = this.recordservice.getTotalIndividualRecords(this.currentVolunteer.volunteerKey);
         
 
         this.volunteerservice.generateStationStats(this.currentVolunteer.associatedPollingStationKey);
@@ -101,8 +105,8 @@ this.totalTeamNonVoterRecords = 0;
         this.totalTeamAmendmentRecords = this.recordservice.getTotalTeamAmendmentRecords(this.currentTeam);
         this.totalTeamNonVoterRecords = this.recordservice.getTotalTeamNonVoteRecords(this.currentTeam); 
         this.totalTeamDemographicsRecords = this.recordservice.getTotalTeamDemographicsRecords(this.currentTeam);
-        this.totalTeamRecords = this.volunteerservice.getTotalTeamRecords();
-        /*this.totalIndividualRecords = this.currentVolunteer.totalAmendmentRecords + this.currentVolunteer.totalAnomalyRecords + this.currentVolunteer.totalNonVoterRecords + this.currentVolunteer.totalVoteRecords;*/
+        this.totalTeamRecords = this.recordservice.getTotalTeamRecords(this.currentTeam);
+        
   }
 
        onSubmit() {
