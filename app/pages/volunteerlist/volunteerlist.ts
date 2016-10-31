@@ -14,16 +14,21 @@ export class VolunteerlistPage {
 
 currentVolunteer: Volunteer; 
 volunteerservice: Volunteerservice;
-currentTeam: Volunteer[]; 
+currentTeamVolunteers: Volunteer[]; 
 loggedIn: boolean;
 
   constructor(private navCtrl: NavController, volunteerservice: Volunteerservice, private restSvc: RestService) {
     this.navCtrl = navCtrl;
     this.volunteerservice = volunteerservice;
     this.loggedIn = this.restSvc.getLoggedIn();
-    this.currentTeam = this.volunteerservice.getTeamVolunteersByPollKey('ps1');
-    console.log(this.currentTeam);
+    this.currentTeamVolunteers = this.volunteerservice.getTeamVolunteersByPollKey('ps1');
+    //console.log('current team ' + this.currentTeam);
+    //console.log('current team v ' + this.currentTeamVolunteers);
+    //console.log('rthr ');
+
+  
 
   }
+
 
 }

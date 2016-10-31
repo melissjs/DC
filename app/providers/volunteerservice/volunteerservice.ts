@@ -227,6 +227,7 @@ export class Volunteerservice {
 
 
     getVolunteerArrayByKeyList(passedKeyList){
+            //this.associatedVolunteerArray = [];
         for ( var i=0; i < passedKeyList.length; i++){
             this.tempVolunteer = this.getVolunteerbyKey(passedKeyList[i]);
             this.associatedVolunteerArray.push(this.tempVolunteer);

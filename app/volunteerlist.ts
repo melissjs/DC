@@ -59,7 +59,7 @@ export var VOLUNTEERS: Volunteer[] = [{
         "volunteerKey": "v5",
         "fullName": "Raya Hammond",
         "emailAddress": "email@email.com",
-        "exposeEmail": true,
+        "exposeEmail": false,
         "phoneNumber": "6024535544",
         "age": 23,
         "sex": "Female",
