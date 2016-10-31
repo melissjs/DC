@@ -30,6 +30,26 @@ comments: "No real comments.",
 emailAddress: "e@jo.com",
 evidence: true,
 }
+,       {
+//affidavitNumber: "ps1v1af3",
+volunteerKey: "v2",
+fullName: "Elane Kate.",
+streetAddress: "2321 Kite Road.",
+zip: 89021,
+comments: "No real comments.",
+emailAddress: "e@jo.com",
+evidence: true,
+}
+,       {
+//affidavitNumber: "ps1v1af3",
+volunteerKey: "v1",
+fullName: "Elane Kate.",
+streetAddress: "2321 Kite Road.",
+zip: 89021,
+comments: "No real comments.",
+emailAddress: "e@jo.com",
+evidence: true,
+}
 ] 
 
 

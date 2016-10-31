@@ -369,6 +369,10 @@ getTotalTeamVoterRecords(){
 return this.totalTeamVoterRecords;
 }
 
+getTotalIndividualAnomalyRecords(){
+return this.totalTeamAnomalyRecords;
+}
+
 getTotalTeamAnomalyRecords(){
 return this.totalTeamAnomalyRecords;
 }

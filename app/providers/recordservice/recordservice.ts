@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-
-// interfaces
 import { Volunteer} from '../../volunteer';
 import { PollingStation } from '../../pollingstation';
-
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
-
 import { AnomalyRecord } from '../../anomalyrecord';
 import { AmendmentRecord } from '../../amendmentrecord';
 import { AffidavitRecord } from '../../affidavitrecord';
@@ -16,7 +12,6 @@ import { DemographicsRecord } from '../../demographicsrecord';
 import { VoteRecord } from '../../voterecord';
 import { NonvoteRecord } from '../../nonvoterecord';
 import { Timesheet } from '../../timesheet';
-
 import { ANOMALYLIST } from '../../anomalylist';
 import { AMENDMENTLIST } from '../../amendmentlist';
 import { AFFIDAVITLIST } from '../../affidavitlist';
@@ -26,12 +21,7 @@ import { NONVOTELIST } from '../../nonvotelist'
 import { TIMESHEETLIST } from '../../timesheetlist'
 
 
-/*
-  Generated class for the Recordservice provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular 2 DI.
-*/
 @Injectable()
 export class Recordservice {
   anomalyRecordList: AnomalyRecord[];
@@ -64,6 +54,19 @@ export class Recordservice {
    nvcounter: number;
    nonVoteRecordBool: boolean;
 
+   totalIndividualAnomalyRecords: number;
+   totalTeamAnomalyRecords: number;
+   totalIndividualAmendmentRecords: number;
+   totalTeamAmendmentRecords: number;
+   totalIndividualVoteRecords: number;
+   totalTeamVoteRecords: number;
+   totalIndividualNonVoteRecords: number;
+   totalTeamNonVoteRecords: number;
+   totalIndividualAffidavitRecords: number;
+   totalTeamAffidavitRecords: number;
+   totalTeamDemographicsRecords: number;
+   totalIndividualDemographicsRecords: number;
+
   constructor(private http: Http, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice) {
   this.anomalyRecordList = ANOMALYLIST;
   this.amendmentRecordList = AMENDMENTLIST;
@@ -79,6 +82,18 @@ export class Recordservice {
   this.nvcounter = 0;
   this.nonVoteRecordBool = false;
   this.currentTimesheet = this.createVoidTimesheet();
+  this.totalIndividualAnomalyRecords = 0;
+  this.totalTeamAnomalyRecords = 0;
+  this.totalIndividualAmendmentRecords = 0;
+  this.totalTeamAmendmentRecords = 0;
+  this.totalIndividualVoteRecords = 0;
+  this.totalTeamVoteRecords = 0;
+  this.totalIndividualNonVoteRecords = 0;
+  this.totalTeamNonVoteRecords = 0;
+  this.totalIndividualAffidavitRecords = 0;
+  this.totalTeamAffidavitRecords = 0;
+  this.totalTeamDemographicsRecords = 0;
+  this.totalIndividualDemographicsRecords = 0;
   }
 
 // NON VOTER VS VOTER SWITCH
@@ -114,6 +129,28 @@ evidence: false,
 return this.newAnomalyRecord;
 }
 
+getTotalIndividualAnomalyRecords(passedVolunteerKey){
+  this.totalIndividualAnomalyRecords = 0;
+  for (var i=0; i < this.anomalyRecordList.length; i++){
+    if(this.anomalyRecordList[i].volunteerKey == passedVolunteerKey){
+      this.totalIndividualAnomalyRecords++;
+    }   
+  }
+return this.totalIndividualAnomalyRecords;
+}
+
+getTotalTeamAnomalyRecords(passedTeamVolunteerArray){
+  for (var m=0; m < passedTeamVolunteerArray.length; m++){
+    var member = passedTeamVolunteerArray[m].volunteerKey
+        for (var i=0; i < this.anomalyRecordList.length; i++){
+          if(this.anomalyRecordList[i].volunteerKey == passedTeamVolunteerArray[m].volunteerKey){
+            this.totalTeamAnomalyRecords++;
+          }
+        } 
+  }
+return this.totalTeamAnomalyRecords;
+}
+
 //AMENDMENT
 
 getAmendmentList(){
@@ -132,6 +169,28 @@ correctSelection: null,
 authenticatedByKey: null,
 }
 return this.newAmendmentRecord;
+}
+
+getTotalIndividualAmendmentRecords(passedVolunteerKey){
+  this.totalIndividualAmendmentRecords = 0;
+  for (var i=0; i < this.amendmentRecordList.length; i++){
+    if(this.amendmentRecordList[i].volunteerKey == passedVolunteerKey){
+      this.totalIndividualAmendmentRecords++;
+    }   
+  }
+return this.totalIndividualAmendmentRecords;
+}
+
+getTotalTeamAmendmentRecords(passedTeamVolunteerArray){
+  for (var m=0; m < passedTeamVolunteerArray.length; m++){
+    var member = passedTeamVolunteerArray[m].volunteerKey
+        for (var i=0; i < this.amendmentRecordList.length; i++){
+          if(this.amendmentRecordList[i].volunteerKey == passedTeamVolunteerArray[m].volunteerKey){
+            this.totalTeamAmendmentRecords++;
+          }
+        } 
+  }
+return this.totalTeamAmendmentRecords;
 }
 
 // AFFIDAVIT
@@ -161,6 +220,28 @@ return this.newAffidavitRecord;
 generateNextAffidavitNumber(){
 this.nextAffidavitNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'af' + (++this.afcounter));
 return this.nextAffidavitNumber;
+}
+
+getTotalIndividualAffidavitRecords(passedVolunteerKey){
+  this.totalIndividualAffidavitRecords = 0;
+  for (var i=0; i < this.affidavitRecordList.length; i++){
+    if(this.affidavitRecordList[i].volunteerKey == passedVolunteerKey){
+      this.totalIndividualAffidavitRecords++;
+    }   
+  }
+return this.totalIndividualAffidavitRecords;
+}
+
+getTotalTeamAffidavitRecords(passedTeamVolunteerArray){
+  for (var m=0; m < passedTeamVolunteerArray.length; m++){
+    var member = passedTeamVolunteerArray[m].volunteerKey
+        for (var i=0; i < this.affidavitRecordList.length; i++){
+          if(this.affidavitRecordList[i].volunteerKey == passedTeamVolunteerArray[m].volunteerKey){
+            this.totalTeamAffidavitRecords++;
+          }
+        } 
+  }
+return this.totalTeamAffidavitRecords;
 }
 
 // DEMOGRAPHICS
@@ -201,6 +282,28 @@ return this.nextVoteNumber;
 }
 }
 
+getTotalIndividualDemographicsRecords(passedVolunteerKey){
+  this.totalIndividualDemographicsRecords = 0;
+  for (var i=0; i < this.demographicsRecordList.length; i++){
+    if(this.demographicsRecordList[i].volunteerKey == passedVolunteerKey){
+      this.totalIndividualDemographicsRecords++;
+    }   
+  }
+return this.totalIndividualDemographicsRecords;
+}
+
+getTotalTeamDemographicsRecords(passedTeamVolunteerArray){
+  for (var m=0; m < passedTeamVolunteerArray.length; m++){
+    var member = passedTeamVolunteerArray[m].volunteerKey
+        for (var i=0; i < this.demographicsRecordList.length; i++){
+          if(this.demographicsRecordList[i].volunteerKey == passedTeamVolunteerArray[m].volunteerKey){
+            this.totalTeamDemographicsRecords++;
+          }
+        } 
+  }
+return this.totalTeamDemographicsRecords;
+}
+
 // VOTE
 
 getVoteList(){
@@ -237,6 +340,29 @@ this.nextVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.polling
 return this.nextVoteNumber;
 }
 
+
+getTotalIndividualVoteRecords(passedVolunteerKey){
+  this.totalIndividualVoteRecords = 0;
+  for (var i=0; i < this.voteRecordList.length; i++){
+    if(this.voteRecordList[i].volunteerKey == passedVolunteerKey){
+      this.totalIndividualVoteRecords++;
+    }   
+  }
+return this.totalIndividualVoteRecords;
+}
+
+getTotalTeamVoteRecords(passedTeamVolunteerArray){
+  for (var m=0; m < passedTeamVolunteerArray.length; m++){
+    var member = passedTeamVolunteerArray[m].volunteerKey
+        for (var i=0; i < this.voteRecordList.length; i++){
+          if(this.voteRecordList[i].volunteerKey == passedTeamVolunteerArray[m].volunteerKey){
+            this.totalTeamVoteRecords++;
+          }
+        } 
+  }
+return this.totalTeamVoteRecords;
+}
+
 // NON VOTE
 
 getNonVoteList(){
@@ -270,6 +396,28 @@ return this.newVoteRecord;
 generateNextNonVoteNumber(){
 this.nextNonVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'nv' + (++this.nvcounter));
 return this.nextNonVoteNumber;
+}
+
+getTotalIndividualNonVoteRecords(passedVolunteerKey){
+  this.totalIndividualNonVoteRecords = 0;
+  for (var i=0; i < this.nonVoteRecordList.length; i++){
+    if(this.nonVoteRecordList[i].volunteerKey == passedVolunteerKey){
+      this.totalIndividualNonVoteRecords++;
+    }   
+  }
+return this.totalIndividualNonVoteRecords;
+}
+
+getTotalTeamNonVoteRecords(passedTeamVolunteerArray){
+  for (var m=0; m < passedTeamVolunteerArray.length; m++){
+    var member = passedTeamVolunteerArray[m].volunteerKey
+        for (var i=0; i < this.nonVoteRecordList.length; i++){
+          if(this.nonVoteRecordList[i].volunteerKey == passedTeamVolunteerArray[m].volunteerKey){
+            this.totalTeamNonVoteRecords++;
+          }
+        } 
+  }
+return this.totalTeamNonVoteRecords;
 }
 
 

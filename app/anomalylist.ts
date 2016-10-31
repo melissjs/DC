@@ -23,6 +23,13 @@ fullName: null,
 emailAddress: null,
 comments: null,
 evidence: false,
+},       {
+volunteerKey: "v1",
+nature: "Voting machine selected wrong candidate.",
+fullName: null,
+emailAddress: null,
+comments: null,
+evidence: false,
 }
 ] 
 

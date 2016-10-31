@@ -17,6 +17,11 @@ volunteerKey: "v3",
 incorrectSelection: "Bernie Sanders.",
 correctSelection: "I incorrectly did the audit; did not vote here at this location.",
 authenticatedByKey: "v1",
+},       {
+volunteerKey: "v3",
+incorrectSelection: "Bernie Sanders.",
+correctSelection: "I incorrectly did the audit; did not vote here at this location.",
+authenticatedByKey: "v1",
 }
 ] 
 

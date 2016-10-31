@@ -21,19 +21,27 @@
                 </ion-item>
 
                 <ion-item>
-                <ion-label>Total Individual Non-Voter Records: {{currentVolunteer.totalNonVoterRecords}}</ion-label>
+                <ion-label>Total Individual Affidavit Records: {{totalIndividualAffidavitRecords}}</ion-label>
                  </ion-item>
 
                 <ion-item>
-                <ion-label>Total Individual Vote Records: {{currentVolunteer.totalVoteRecords}}</ion-label>
+                <ion-label>Total Individual Non-Voter Records: {{totalIndividualNonVoteRecords}}</ion-label>
                  </ion-item>
 
                 <ion-item>
-                <ion-label>Total Individual Anomaly Records: {{currentVolunteer.totalAnomalyRecords}}</ion-label>
+                <ion-label>Total Individual Vote Records: {{totalIndividualVoteRecords}}</ion-label>
+                 </ion-item>
+
+                <ion-item>
+                <ion-label>Total Individual Demographics Records: {{totalIndividualDemographicsRecords}}</ion-label>
                 </ion-item>
 
                 <ion-item>
-                <ion-label>Total Individual Amendment Records: {{currentVolunteer.totalAmendmentRecords}}</ion-label>
+                <ion-label>Total Individual Anomaly Records: {{totalIndividualAnomalyRecords}}</ion-label>
+                </ion-item>
+
+                <ion-item>
+                <ion-label>Total Individual Amendment Records: {{totalIndividualAmendmentRecords}}</ion-label>
                 </ion-item>
 
               </ion-list>
@@ -42,10 +50,14 @@
 
             <ion-card>
               <ion-list>
-                <ion-list-header>Activity Record: Team</ion-list-header>
+                <ion-list-header>Activity Record: {{precinctNumber}} Team</ion-list-header>
 
                 <ion-item>
                 <ion-label>Total Team Records: {{totalTeamRecords}}</ion-label>
+                </ion-item>
+
+                <ion-item>
+                <ion-label>Total Team Affidavit Records: {{totalTeamAffidavitRecords}}</ion-label>
                 </ion-item>
 
                 <ion-item>
@@ -54,6 +66,10 @@
 
                 <ion-item>
                 <ion-label>Total Team Vote Records: {{totalTeamVoterRecords}}</ion-label>
+                </ion-item>
+
+                <ion-item>
+                <ion-label>Total Team Demographics Records: {{totalTeamDemographicsRecords}}</ion-label>
                 </ion-item>
 
                 <ion-item>
