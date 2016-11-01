@@ -285,7 +285,11 @@ export class NonvotePage {
                             this.intendedToVoteForPGE = this.intendedToVoteForPGEWriteIn;
                         }
 
-                        if (this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && this.otherReasonCouldNotVotePrimary){
+                        if (this.primaryPresVote!=="couldNotVote") {
+                            this.reasonForCouldNotVotePrimary = null;
+                        }
+
+                        if (this.primaryPresVote=="couldNotVote" && this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && this.otherReasonCouldNotVotePrimary){
                             this.reasonForCouldNotVotePrimary = this.otherReasonCouldNotVotePrimary;
                         }
 
@@ -301,15 +305,11 @@ export class NonvotePage {
                             this.primaryCongressVote = this.primaryCongressVoteWriteIn;
                         }
 
-                        if (this.firstPresVote=='writeInF' && this.firstPresVoteWriteIn){
-                            
-                        }
-
-                         if (this.thirdPresVote=='writeInF' && !this.firstPresVoteWriteIn){
+                         if (this.firstPresVote=='writeInF' && !this.firstPresVoteWriteIn){
                         this.firstPresVote = this.firstPresVoteWriteIn;
                          }
 
-                         if (this.thirdPresVote=='writeInS' && !this.secondPresVoteWriteIn){
+                         if (this.secondPresVote=='writeInS' && !this.secondPresVoteWriteIn){
                         this.secondPresVote = this.secondPresVoteWriteIn;
                          }
 

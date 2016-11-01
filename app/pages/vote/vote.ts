@@ -169,53 +169,125 @@ export class VotePage {
             } else {
 
             // logic for write ins
-            if(this.presVote == 'writeIn'){
-                this.presVote = this.presVoteWriteIn;
-            }
+            
 
-            if(this.primaryPresVote == 'writeIn'){
-                if (!this.primaryPresVoteWriteIn)
-                {
-                    let alert = this.alertCtrl.create({
-                    //title: 'Please write in Primary Presidential Vote.',
-                    subTitle: 'Please write in Primary Presidential Vote.',
-                    buttons: ['OK']
-                });
-                alert.present();
-                return;
-                }
-                this.primaryPresVote = this.primaryPresVoteWriteIn;
-            }
+             if (this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && !this.otherReasonForCouldNotVotePrimary){
+                            let alert = this.alertCtrl.create({
+                            //title: 'Please write in Primary Presidential Vote.',
+                            subTitle: 'Please write in reason for not being able to vote in the primary.',
+                            buttons: ['OK']
+                            });
+                            alert.present();
+                            return;
+                        } 
 
-            if(this.primaryCongressVote == 'writeIn'){
-                if (!this.primaryCongressVoteWriteIn)
-                {
-                    let alert = this.alertCtrl.create({
-                    //title: 'Please write in Primary Presidential Vote.',
-                    subTitle: 'Please write in Primary Congressional Vote.',
-                    buttons: ['OK']
-                });
-                alert.present();
-                return;
-                }
-                this.primaryCongressVote = this.primaryCongressVoteWriteIn;
-            }
 
-            if(this.reasonForCouldNotVotePrimary == 'otherReasonForCouldNotVotePrimary'){
-                this.reasonForCouldNotVotePrimary = this.otherReasonForCouldNotVotePrimary;
-            }
 
-            if(this.firstPresVote == 'writeIn'){
-            this.firstPresVote = this.firstPresVoteWriteIn;
-            }
+                        if (this.intendedToVoteFor=='writeIn' && !this.intendedToVoteForWriteIn){
+                            let alert = this.alertCtrl.create({
+                            //title: 'Please write in Primary Presidential Vote.',
+                            subTitle: 'Please Write in Intended Primary Presidential Vote.',
+                            buttons: ['OK']
+                            });
+                            alert.present();
+                            return;
+                        } 
 
-            if(this.secondPresVote == 'writeIn'){
-            this.secondPresVote = this.secondPresVoteWriteIn;
-            }
 
-            if(this.thirdPresVote == 'writeIn'){
-            this.thirdPresVote = this.thirdPresVoteWriteIn;
-            }
+                        if(this.primaryPresVote == 'writeIn' && !this.primaryPresVoteWriteIn){
+                            let alert = this.alertCtrl.create({
+                            //title: 'Please write in Primary Presidential Vote.',
+                            subTitle: 'Please Write in Primary Presidential Vote.',
+                            buttons: ['OK']
+                            });
+                            alert.present();
+                            return;
+                        } 
+
+
+                        if(this.primaryCongressVote == 'writeIn' && !this.primaryCongressVoteWriteIn){
+                            let alert = this.alertCtrl.create({
+                            //title: 'Please write in Primary Presidential Vote.',
+                            subTitle: 'Please Write in Primary Congressional Vote.',
+                            buttons: ['OK']
+                            });
+                            alert.present();
+                            return;
+                        } 
+
+
+
+                        if (this.firstPresVote=='writeIn' && !this.firstPresVoteWriteIn){
+                            let alert = this.alertCtrl.create({
+                            //title: 'Please write in Primary Presidential Vote.',
+                            subTitle: 'Please Write in First Choice Presidential Vote.',
+                            buttons: ['OK']
+                            });
+                        alert.present();
+                        return;
+                        } 
+
+
+                        if (this.secondPresVote=='writeIn' && !this.secondPresVoteWriteIn){
+                            let alert = this.alertCtrl.create({
+                            //title: 'Please write in Primary Presidential Vote.',
+                            subTitle: 'Please Write in Second Choice Presidential Vote.',
+                            buttons: ['OK']
+                            });
+                        alert.present();
+                        return;
+                        }
+
+
+
+                        if (this.thirdPresVote=='writeIn' && !this.thirdPresVoteWriteIn){
+                            let alert = this.alertCtrl.create({
+                            //title: 'Please write in Primary Presidential Vote.',
+                            subTitle: 'Please Write in Third Choice Presidential Vote.',
+                            buttons: ['OK']
+                            });
+                        alert.present();
+                        return;
+                        }
+
+
+                        // put in
+
+                        if(this.presVote == 'writeIn' && !this.presVoteWriteIn){
+                        this.presVote = this.presVoteWriteIn;
+                        }
+          
+                        if (this.primaryPresVote!=="couldNotVote") {
+                            this.reasonForCouldNotVotePrimary = null;
+                        }
+
+                        if (this.primaryPresVote=="couldNotVote" && this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && this.otherReasonForCouldNotVotePrimary){
+                            this.reasonForCouldNotVotePrimary = this.otherReasonForCouldNotVotePrimary;
+                        }
+
+                        if (this.intendedToVoteFor=='writeIn' && this.intendedToVoteForWriteIn){
+                            this.intendedToVoteFor = this.intendedToVoteForWriteIn;
+                        }
+
+                        if (this.primaryPresVote == 'writeIn' && this.primaryPresVoteWriteIn){
+                            this.primaryPresVote = this.primaryPresVoteWriteIn;
+                        }
+
+                        if (this.primaryCongressVote == 'writeIn' && this.primaryCongressVoteWriteIn){
+                            this.primaryCongressVote = this.primaryCongressVoteWriteIn;
+                        }
+
+                         if (this.firstPresVote=='writeIn' && !this.firstPresVoteWriteIn){
+                        this.firstPresVote = this.firstPresVoteWriteIn;
+                         }
+
+                         if (this.secondPresVote=='writeIn' && !this.secondPresVoteWriteIn){
+                        this.secondPresVote = this.secondPresVoteWriteIn;
+                         }
+
+                         if (this.thirdPresVote=='writeIn' && this.thirdPresVoteWriteIn){
+                        this.thirdPresVote = this.thirdPresVoteWriteIn;
+                         }
 
 
 
