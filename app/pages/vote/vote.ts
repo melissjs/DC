@@ -3,6 +3,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import {DemographicsPage} from '../demographics/demographics';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
 import {Recordservice} from '../../providers/recordservice/recordservice';
+import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
 import {VoteRecord} from '../../voterecord';
 
 
@@ -32,8 +33,12 @@ export class VotePage {
     firstPresVoteWriteIn: string;
     secondPresVoteWriteIn: string;
     thirdPresVoteWriteIn: string;
+    pollingstationservice: Pollingstationservice;
+    inFlorida: boolean;
+    primaryCongressVoteWriteIn: string;
+    primaryCongressVote: string;
 
-    constructor(private navCtrl: NavController, private alertCtrl: AlertController, volunteerservice: Volunteerservice, recordservice: Recordservice) {
+    constructor(private navCtrl: NavController, private alertCtrl: AlertController, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, recordservice: Recordservice) {
         this.navCtrl = navCtrl;
         this.presVote = null;
         this.presVoteWriteIn = null;
@@ -55,6 +60,10 @@ export class VotePage {
         this.firstPresVoteWriteIn = null;
         this.secondPresVoteWriteIn = null;
         this.thirdPresVoteWriteIn = null;
+        this.pollingstationservice = pollingstationservice;
+        this.primaryCongressVoteWriteIn = null;
+        this.primaryCongressVote = null;
+        this.inFlorida = this.pollingstationservice.isThisInFlorida()
     }
 
         onChangePresVote(value){
@@ -83,6 +92,16 @@ export class VotePage {
           this.primaryPresVoteWriteIn = passedPrimaryPresVoteWriteIn;
 
    }
+
+    onChangePrimaryCongressVote(value){
+        this.primaryCongressVote = value;
+   }
+
+      onChangePrimaryCongressVoteWriteIn(passedPrimaryCongressVoteWriteIn){
+          this.primaryCongressVoteWriteIn = passedPrimaryCongressVoteWriteIn;
+
+   }
+
 
       onChangePrimaryLocation(passedPrimaryLocation){
           this.primaryLocation = passedPrimaryLocation;
@@ -155,7 +174,31 @@ export class VotePage {
             }
 
             if(this.primaryPresVote == 'writeIn'){
+                if (!this.primaryPresVoteWriteIn)
+                {
+                    let alert = this.alertCtrl.create({
+                    //title: 'Please write in Primary Presidential Vote.',
+                    subTitle: 'Please write in Primary Presidential Vote.',
+                    buttons: ['OK']
+                });
+                alert.present();
+                return;
+                }
                 this.primaryPresVote = this.primaryPresVoteWriteIn;
+            }
+
+            if(this.primaryCongressVote == 'writeIn'){
+                if (!this.primaryCongressVoteWriteIn)
+                {
+                    let alert = this.alertCtrl.create({
+                    //title: 'Please write in Primary Presidential Vote.',
+                    subTitle: 'Please write in Primary Congressional Vote.',
+                    buttons: ['OK']
+                });
+                alert.present();
+                return;
+                }
+                this.primaryCongressVote = this.primaryCongressVoteWriteIn;
             }
 
             if(this.reasonForCouldNotVotePrimary == 'otherReasonForCouldNotVotePrimary'){
@@ -186,6 +229,7 @@ export class VotePage {
             pPresVoteCouldNotVoteReason: this.reasonForCouldNotVotePrimary,
             pPresVoteIntended: this.intendedToVoteFor,
             pPresVote: this.primaryPresVote,
+            pCongressVote: this.primaryCongressVote,
             pPresVoteCastBy: this.primaryPresVoteCastBy,
             pPresVoteLevelOfSupport: this.primaryPresVoteLOS,
             pPresVotePollingLocation: this.primaryLocation,

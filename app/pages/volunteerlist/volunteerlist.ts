@@ -14,17 +14,17 @@ export class VolunteerlistPage {
 
 currentVolunteer: Volunteer; 
 volunteerservice: Volunteerservice;
-currentTeamVolunteers: Volunteer[]; 
+currentTeam: Volunteer[]; 
 loggedIn: boolean;
 
   constructor(private navCtrl: NavController, volunteerservice: Volunteerservice, private restSvc: RestService) {
     this.navCtrl = navCtrl;
     this.volunteerservice = volunteerservice;
-    this.loggedIn = this.restSvc.getLoggedIn();
-    this.currentTeamVolunteers = this.volunteerservice.getTeamVolunteersByPollKey('ps1');
-    //console.log('current team ' + this.currentTeam);
-    //console.log('current team v ' + this.currentTeamVolunteers);
-    //console.log('rthr ');
+    this.loggedIn = true // this.restSvc.getLoggedIn(); ERIC THIS ISNT WORKING
+    this.currentVolunteer = this.volunteerservice.getNewVolunteer();
+    //this.currentTeam = this.volunteerservice.getTeamVolunteersByPollKey('ps1');
+    this.currentTeam = this.volunteerservice.getTeamVolunteersByPollKey(this.currentVolunteer.associatedPollingStationKey);
+    
 
   
 

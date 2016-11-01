@@ -30,12 +30,22 @@ export class Pollingstationservice {
     shiftsFilled: number;
     volunteerservice: Volunteerservice;
     associatedVolunteerArray: Volunteer[];
+    isInFlorida: boolean;
     //searchpipe: Searchpipe;
 
     constructor(){
         this.stationListInMemory = this.getStations();
         this.matchingPrecinctAndZipList = [];
         this.duplicateYesOrNo = false;
+        this.selectedStation = this.getVoidStation();
+
+        // test only
+        //this.setStationWithKey('ps2');
+        //console.log(this.selectedStation);
+
+       
+
+
         //this.volunteerservice = volunteerservice;
     }
 
@@ -45,6 +55,31 @@ export class Pollingstationservice {
         var that = this;
         this.selectedStation = passedValue;
         //return this.selectedStation;
+    }
+
+    getVoidStation(){
+        this.selectedStation = {
+            pollingStationKey: null,
+            precinctNumber: null,
+            streetAddress: null,
+            unitNumber: null,
+            roomNumber: null,
+            city: null,
+            state: null,
+            zip: null,
+        }
+        return this.selectedStation;
+    }
+
+    setStationWithKey(passedKey){
+        for (var i=0; i < this.stationListInMemory.length; i++ ){
+            if (passedKey == this.stationListInMemory[i].pollingStationKey){
+                this.selectedStation = this.stationListInMemory[i];
+                return;
+            } else {
+                this.selectedStation = this.getVoidStation();
+            }
+        }
     }
 
     getStation(){
@@ -149,6 +184,14 @@ duplicateStationSearch(passedPrecint: string, passedZip: number){
     }
 }
 
+isThisInFlorida(){
+    if (this.selectedStation.state == 'florida' || this.selectedStation.state == 'Florida' || this.selectedStation.state == 'FL' || this.selectedStation.state == 'fl'  ){
+    this.isInFlorida = true;
+    } else {
+    this.isInFlorida = false;  
+    }
+    return this.isInFlorida;
+    }
 
 
 }

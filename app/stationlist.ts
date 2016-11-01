@@ -21,7 +21,7 @@ export var STATIONS: PollingStation[] = [{
         "unitNumber": "11",
         "roomNumber": "2",
         "city": "Los Angeles",
-        "state": "California",
+        "state": "Florida",
         "zip": 90025,
       },     
       

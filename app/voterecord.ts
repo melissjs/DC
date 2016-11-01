@@ -8,6 +8,7 @@ pPresVoteCouldNotVote?: boolean;
 pPresVoteCouldNotVoteReason?: string;
 pPresVoteIntended?: string;
 pPresVote?: string;
+pCongressVote?: string;
 pPresVoteCastBy?: string;
 pPresVoteLevelOfSupport?: string;
 pPresVotePollingLocation?: string;

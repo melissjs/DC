@@ -22,7 +22,7 @@ export class Volunteerservice {
     currentVolunteer: Volunteer;
     exposedYesOrNo: string;
     oldStation: PollingStation;
-    pollingstationservice: Pollingstationservice;
+    //pollingstationservice: Pollingstationservice;
     volunteerListInMemory: Volunteer[];
     volunteersByStation: Volunteer[];
     buildString: string;
@@ -40,8 +40,11 @@ export class Volunteerservice {
     totalTeamNonVoterRecords: number;
     totalTeamRecords: number;
 
-    constructor(pollingstationservice: Pollingstationservice, restSvc: RestService) {
-        this.currentVolunteer = null;
+    constructor(public pollingstationservice: Pollingstationservice, restSvc: RestService) {
+        this.currentVolunteer = this.setToVoidVolunteer();
+        // for testing
+        this.currentVolunteer = this.setTestVolunteer();
+
         this.pollingstationservice = pollingstationservice;
         this.restSvc = restSvc;
         this.volunteerListInMemory = VOLUNTEERS;
@@ -77,8 +80,10 @@ export class Volunteerservice {
     setNewVolunteer(value){
         var that = this;
         this.currentVolunteer = value;
+    }
 
-                //for testing only
+        //for testing only
+        setTestVolunteer(){    
         this.currentVolunteer = {
         "volunteerKey": "v3",
         "fullName":"Janice Row",
@@ -93,7 +98,13 @@ export class Volunteerservice {
         "associatedPollingStationKey": "ps2",
       
         }
-    }
+
+        this.pollingstationservice.setStationWithKey('ps2');
+        //console.log(this.pollingstationservice.selectedStation);
+        return this.currentVolunteer;
+        }
+        // end testing
+
 
     getNewVolunteer(){
         return this.currentVolunteer;
@@ -227,7 +238,7 @@ export class Volunteerservice {
 
 
     getVolunteerArrayByKeyList(passedKeyList){
-            //this.associatedVolunteerArray = [];
+        this.associatedVolunteerArray = []; //reset
         for ( var i=0; i < passedKeyList.length; i++){
             this.tempVolunteer = this.getVolunteerbyKey(passedKeyList[i]);
             this.associatedVolunteerArray.push(this.tempVolunteer);

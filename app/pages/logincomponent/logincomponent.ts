@@ -25,14 +25,14 @@ import {AuthenticationPage} from '../../pages/authentication/authentication';
 export class Logincomponent {
 loginForm: FormGroup;
 regExPhone: string;
-volunteerservice: Volunteerservice;
+//volunteerservice: Volunteerservice;
 volunteerHere: Volunteer;
 loggedIn: boolean;
 errorMessage: string;
 error: boolean;
-pollingstationservice: Pollingstationservice;
+//pollingstationservice: Pollingstationservice;
   
-  constructor(private navCtrl: NavController, private alertCtrl: AlertController, public fb: FormBuilder, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, private restSvc: RestService ) {
+  constructor(private navCtrl: NavController, private alertCtrl: AlertController, public fb: FormBuilder, private pollingstationservice: Pollingstationservice, private volunteerservice: Volunteerservice, private restSvc: RestService ) {
   this.navCtrl = navCtrl;
   this.volunteerservice = volunteerservice;
   this.pollingstationservice = pollingstationservice;
@@ -101,7 +101,7 @@ pollingstationservice: Pollingstationservice;
 
         // xxxxxx
 
-        /*
+        
         this.volunteerHere = 
             this.volunteerservice.getVolunteerbyPhoneNumber(value.enterPhoneNumber);
 
@@ -110,7 +110,7 @@ pollingstationservice: Pollingstationservice;
             this.errorMessage = 'We could not find your number in the system. Remember to enter only numbers (10 digits).'
             return;
         };
-        */
+        
 
         /* if (this.volunteerHere.passcode==value.enterPasscode) */
         /* {
@@ -152,9 +152,12 @@ pollingstationservice: Pollingstationservice;
             },250);
         }
         this.loggedIn = true;
+        
         // this.restSvc.setLoggedIn(this.loggedIn);
         this.volunteerservice.setNewVolunteer(this.volunteerHere);
+        if (this.volunteerHere.associatedPollingStationKey!=null){
         this.pollingstationservice.setStation(this.pollingstationservice.getPollingStationbyKey(this.volunteerservice.getNewVolunteerPollingStationKey()));
+        }
         try {
             this.navCtrl.setRoot(AuthenticationPage);
         } catch (EE) {

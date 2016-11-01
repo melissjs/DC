@@ -89,6 +89,26 @@
         </ion-item>
  <!-- end--> 
 
+ <ion-item text-wrap *ngIf="inFlorida && !(primaryPresVote=='couldNotVote' || primaryPresVote=='didNotVote')">
+    <ion-label stacked>Primary Election Congressional Vote:</ion-label>
+          <ion-select text-wrap [(ngModel)]="primaryCongressVote"  (change)="onChangePrimaryCongressVote(primaryCongressVote)">
+            <ion-option value="debbiWassermanSchultz">Debbie Wasserman Schultz</ion-option>
+            <ion-option value="timCanova">Tim Canova</ion-option>
+            <ion-option value="dontRemember">I don't remember.</ion-option>
+            <ion-option value="writeIn">Other</ion-option>
+          </ion-select>
+    </ion-item>
+
+
+
+    <!-- Show line if they need to write in a candidate -->
+        <ion-item *ngIf="primaryCongressVote=='writeIn' && !(primaryPresVote=='couldNotVote' ||primaryPresVote=='didNotVote')">
+        <ion-label stacked>Please Write in Candidate Name:</ion-label>
+        <ion-input type="text" [(ngModel)]="primaryCongressVoteWriteIn" (change)="onChangePrimaryCongressVoteWriteIn(primaryCongressVoteWriteIn)"></ion-input>
+        </ion-item>
+ <!-- end--> 
+
+
          <ion-item text-wrap  *ngIf!="(primaryPresVote=='didNotVote' || primaryPresVote=='dontRemember')">
     <ion-label stacked>Primary Polling Location:</ion-label>
           <ion-select text-wrap [(ngModel)]="primaryLocation" #item (change)="onChangePrimaryLocation(primaryLocation)">
@@ -177,13 +197,13 @@
             <ion-option value="garyJohnson">Gary Johnson</ion-option>
             <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
             <ion-option value="jillStein">Jill Stein</ion-option>
-            <ion-option value="writeIn">Other</ion-option>
+            <ion-option value="writeInF">Other</ion-option>
             <ion-option value="none">None</ion-option>
           </ion-select>
     </ion-item>
 
         <!-- Show line if they need to write in a candidate -->
-        <ion-item *ngIf="firstPresVote=='writeIn'">
+        <ion-item *ngIf="firstPresVote=='writeInF'">
         <ion-label stacked>Please Write in Candidate Name:</ion-label>
         <ion-input type="text" [(ngModel)]="firstPresVoteWriteIn"  (change)="onChangeFirstPresVoteWriteIn(firstPresVoteWriteIn)"></ion-input>
         </ion-item>
@@ -197,13 +217,13 @@
             <ion-option value="garyJohnson">Gary Johnson</ion-option>
             <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
             <ion-option value="jillStein">Jill Stein</ion-option>
-            <ion-option value="writeIn">Other</ion-option>
+            <ion-option value="writeInS">Other</ion-option>
             <ion-option value="none">None</ion-option>
           </ion-select>
     </ion-item>
 
         <!-- Show line if they need to write in a candidate -->
-        <ion-item *ngIf="secondPresVote=='writeIn'">
+        <ion-item *ngIf="secondPresVote=='writeInS'">
         <ion-label stacked>Please Write in Candidate Name:</ion-label>
         <ion-input type="text" [(ngModel)]="secondPresVoteWriteIn"  (change)="onChangeSecondPresVoteWriteIn(secondPresVoteWriteIn)"></ion-input>
         </ion-item>
@@ -217,13 +237,13 @@
             <ion-option value="garyJohnson">Gary Johnson</ion-option>
             <ion-option value="hillaryClinton">Hillary Clinton</ion-option>
             <ion-option value="jillStein">Jill Stein</ion-option>
-            <ion-option value="writeIn">Other</ion-option>
+            <ion-option value="writeInT">Other</ion-option>
             <ion-option value="none">None</ion-option>
           </ion-select>
     </ion-item>
 
         <!-- Show line if they need to write in a candidate -->
-        <ion-item *ngIf="thirdPresVote=='writeIn'">
+        <ion-item *ngIf="thirdPresVote=='writeInT'">
         <ion-label stacked>Please Write in Candidate Name:</ion-label>
         <ion-input type="text" [(ngModel)]="thirdPresVoteWriteIn"  (change)="onChangeThirdPresVoteWriteIn(thirdPresVoteWriteIn)"></ion-input>
         </ion-item>

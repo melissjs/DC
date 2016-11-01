@@ -36,7 +36,7 @@ export class HomePage {
           this.userDataSvc.setupFirebase();
       }
   }
-
+/*
     onSubmit() {
         var that = this;
         try {
@@ -47,7 +47,7 @@ export class HomePage {
         } catch (EE) {
             console.log('error in Submitting, exc='+ EE.toString())
         }
-    }
+    }*/
     
 
     

@@ -73,12 +73,29 @@
           </ion-select>
     </ion-item>
 
+    <!-- Show line if they need to write in a candidate -->
+            <ion-item *ngIf="primaryPresVote=='writeIn'">
+            <ion-label stacked>Please Write in Candidate Name:</ion-label>
+            <ion-input type="text" [(ngModel)]="primaryPresVoteWriteIn"  (change)="onChangePrimaryPresVoteWriteIn(primaryPresVoteWriteIn)"></ion-input>
+            </ion-item>
+    <!-- end--> 
+
+      <ion-item text-wrap *ngIf="inFlorida">
+    <ion-label stacked>Primary Election Congressional Vote:</ion-label>
+          <ion-select text-wrap [(ngModel)]="primaryCongressVote"  (change)="onChangePrimaryCongressVote(primaryCongressVote)">
+            <ion-option value="debbiWassermanSchultz">Debbie Wasserman Schultz</ion-option>
+            <ion-option value="timCanova">Tim Canova</ion-option>
+            <ion-option value="dontRemember">I don't remember.</ion-option>
+            <ion-option value="writeIn">Other</ion-option>
+          </ion-select>
+    </ion-item>
+
 
 
     <!-- Show line if they need to write in a candidate -->
-        <ion-item *ngIf="primaryPresVote=='writeIn'">
+        <ion-item *ngIf="primaryCongressVote=='writeIn'">
         <ion-label stacked>Please Write in Candidate Name:</ion-label>
-        <ion-input type="text" [(ngModel)]="primaryPresVoteWriteIn" #item (change)="onChangePrimaryPresVoteWriteIn(primaryPresVoteWriteIn)"></ion-input>
+        <ion-input type="text" [(ngModel)]="primaryCongressVoteWriteIn" (change)="onChangePrimaryCongressVoteWriteIn(primaryCongressVoteWriteIn)"></ion-input>
         </ion-item>
  <!-- end--> 
 
