@@ -115,15 +115,15 @@ export class AuthenticationPage {
             // otherwise success...
         }
         // fill timesheet 
-        this.newTimesheet = {
-            volunteerKey: this.volunteerservice.getNewVolunteer().volunteerKey,
-            authenticatingVolunteerKey: this.authenticatingVolunteerPhone,
-            checkInTime: this.time.toString(),
+        that.newTimesheet = {
+            volunteerKey: that.volunteerservice.getNewVolunteer().volunteerKey,
+            authenticatingVolunteerKey: that.authenticatingVolunteerPhone,
+            checkInTime: that.time.toString(),
             checkOuttime: null,
-            geoLocation: this.geoLocation,
+            geoLocation: that.geoLocation,
         }
-        this.recordservice.addTimesheetToList(this.newTimesheet);
-        console.log(this.recordservice.getTimesheetList());
+        that.recordservice.addTimesheetToList(that.newTimesheet);
+        console.log(that.recordservice.getTimesheetList());
 	that.restSvc2.saveTimesheetList(that.amSuccessCb, that.amFailureCb, that);
     }
 
@@ -156,7 +156,7 @@ export class AuthenticationPage {
 	if (!real) {
 	    // act like success anyway..
 	}
-        let alertOne = this.alertCtrl.create({
+        let alertOne = that.alertCtrl.create({
             title: 'Successful Save of Time Sheet Record',
             buttons: ['OK']
         });
