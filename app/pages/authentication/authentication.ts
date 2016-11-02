@@ -67,7 +67,7 @@ export class AuthenticationPage {
   }
 
     onChangeAuthenticatingVolunteerPhone(value) {
-        if (!value.matches(globals.REGEXPHONE)) {
+        if (!value.match(globals.REGEXPHONE)) {
             this.errorMessage = 'ERROR: Authenticating Phone Number must be exactly 10 digits';
             this.authenticatingVolunteerPhone = '';
         } else {
