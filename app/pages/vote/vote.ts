@@ -5,6 +5,7 @@ import {Volunteerservice} from '../../providers/volunteerservice/volunteerservic
 import {Recordservice} from '../../providers/recordservice/recordservice';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
 import {VoteRecord} from '../../voterecord';
+import {Volunteer} from '../../volunteer';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class VotePage {
     inFlorida: boolean;
     primaryCongressVoteWriteIn: string;
     primaryCongressVote: string;
+    //currentVolunteer: Volunteer;
 
     constructor(private navCtrl: NavController, private alertCtrl: AlertController, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, recordservice: Recordservice) {
         this.navCtrl = navCtrl;
@@ -63,7 +65,11 @@ export class VotePage {
         this.pollingstationservice = pollingstationservice;
         this.primaryCongressVoteWriteIn = null;
         this.primaryCongressVote = null;
+        //this.currentVolunteer = this.volunteerservice.getNewVolunteer();
         this.inFlorida = this.pollingstationservice.isThisInState('FL');
+        console.log(this.inFlorida);
+        console.log(this.pollingstationservice.selectedStationXX.state);
+       
     }
 
         onChangePresVote(value){
