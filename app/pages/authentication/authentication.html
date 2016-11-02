@@ -24,9 +24,9 @@
 
       <ion-checkbox [(ngModel)]="affirm" (click)="onChangeAffirmation(affirm)" ></ion-checkbox>
 
-	<ion-label *ngIf="getChkBoxLabelState()==2" style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together at precinct {{pollingstationservice.getStation().precinctNumber}} in {{pollingstationservice.getStation().city}}, {{pollingstationservice.getStation().state}}.</ion-label>
-	<ion-label *ngIf="chkBoxLabelState==0" style="margin-bottom: 15px" stacked>I  affirm that OTHER VOLUNTEER and I (the authenticating volunteer) are volunteering together.</ion-label>
-	<ion-label *ngIf="chkBoxLabelState==1" style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together.</ion-label>
+        <ion-label *ngIf="getChkBoxLabelState()==2" style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together at precinct {{pollingstationservice.getStation().precinctNumber}} in {{pollingstationservice.getStation().city}}, {{pollingstationservice.getStation().state}}.</ion-label>
+        <ion-label *ngIf="chkBoxLabelState==0" style="margin-bottom: 15px" stacked>I  affirm that OTHER VOLUNTEER and I (the authenticating volunteer) are volunteering together.</ion-label>
+        <ion-label *ngIf="chkBoxLabelState==1" style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together.</ion-label>
 
     </ion-item>
 
