@@ -1,4 +1,4 @@
-import { PollingStation } from './pollingstation'
+import { PollingStation } from '../pollingstation'
 
 
 

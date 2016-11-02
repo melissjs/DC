@@ -8,7 +8,7 @@ import { Volunteer} from '../../volunteer';
 
 
 // datalist
-import { STATIONS } from '../../stationlist';
+import { STATIONS } from '../../fakedata';
 
 import { Volunteerservice } from '../../providers/volunteerservice/volunteerservice';
 

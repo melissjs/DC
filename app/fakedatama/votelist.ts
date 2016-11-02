@@ -1,4 +1,4 @@
-import { VoteRecord } from './voterecord'
+import { VoteRecord } from '../voterecord'
 
 
 export var VOTELIST: VoteRecord[] = [

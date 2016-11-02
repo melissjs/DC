@@ -1,4 +1,4 @@
-import { AnomalyRecord } from './anomalyrecord'
+import { AnomalyRecord } from '../anomalyrecord'
 
 
 export var ANOMALYLIST: AnomalyRecord[] = [

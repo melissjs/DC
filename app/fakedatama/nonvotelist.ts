@@ -1,4 +1,4 @@
-import { NonvoteRecord } from './nonvoterecord'
+import { NonvoteRecord } from '../nonvoterecord'
 
 
 export var NONVOTELIST: NonvoteRecord[] = [

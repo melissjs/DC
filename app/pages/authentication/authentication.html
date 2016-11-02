@@ -21,20 +21,13 @@
      </ion-item>
 
     <ion-item text-wrap>
-      <div *ngIf="(pollingstationservice.getStation() != null) && (volunteerservice.getNewVolunteer() != null)">
-	<ion-label style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together at precinct {{pollingstationservice.getStation().precinctNumber}} in {{pollingstationservice.getStation().city}}, {{pollingstationservice.getStation().state}}.</ion-label>
-      </div>
-      <div *ngIf="(pollingstationservice.getStation() == null) || (volunteerservice.getNewVolunteer() == null)">
-	<div *ngIf="(volunteerservice.getNewVolunteer() == null)">
-	<ion-label style="margin-bottom: 15px" stacked>I  affirm that OTHER VOLUNTEER and I (the authenticating volunteer) are volunteering together.</ion-label>
-	</div>
-	<div *ngIf="(volunteerservice.getNewVolunteer() != null)">
-	<ion-label style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together.</ion-label>
-	</div>
-      </div>
-
 
       <ion-checkbox [(ngModel)]="affirm" (click)="onChangeAffirmation(affirm)" ></ion-checkbox>
+
+	<ion-label *ngIf="getChkBoxLabelState()==2" style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together at precinct {{pollingstationservice.getStation().precinctNumber}} in {{pollingstationservice.getStation().city}}, {{pollingstationservice.getStation().state}}.</ion-label>
+	<ion-label *ngIf="chkBoxLabelState==0" style="margin-bottom: 15px" stacked>I  affirm that OTHER VOLUNTEER and I (the authenticating volunteer) are volunteering together.</ion-label>
+	<ion-label *ngIf="chkBoxLabelState==1" style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together.</ion-label>
+
     </ion-item>
 
     <ion-item>

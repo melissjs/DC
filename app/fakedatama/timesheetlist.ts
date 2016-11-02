@@ -1,4 +1,4 @@
-import { Timesheet } from './timesheet'
+import { Timesheet } from '../timesheet'
 
 
 

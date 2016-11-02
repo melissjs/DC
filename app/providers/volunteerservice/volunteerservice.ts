@@ -7,7 +7,7 @@ import { Volunteer} from '../../volunteer';
 import { PollingStation } from '../../pollingstation';
 
 // station json array
-import { VOLUNTEERS } from '../../volunteerlist';
+import { VOLUNTEERS } from '../../fakedata';
 import * as globals from '../../globals';
 
 //other service

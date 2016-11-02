@@ -12,13 +12,8 @@ import { DemographicsRecord } from '../../demographicsrecord';
 import { VoteRecord } from '../../voterecord';
 import { NonvoteRecord } from '../../nonvoterecord';
 import { Timesheet } from '../../timesheet';
-import { ANOMALYLIST } from '../../anomalylist';
-import { AMENDMENTLIST } from '../../amendmentlist';
-import { AFFIDAVITLIST } from '../../affidavitlist';
-import { DEMOGRAPHICSLIST } from '../../demographicslist';
-import { VOTELIST } from '../../votelist';
-import { NONVOTELIST } from '../../nonvotelist'
-import { TIMESHEETLIST } from '../../timesheetlist'
+import { ANOMALYLIST, AMENDMENTLIST, AFFIDAVITLIST, DEMOGRAPHICSLIST, VOTELIST,
+	 NONVOTELIST, TIMESHEETLIST } from '../../fakedatama'
 
 
 

@@ -101,6 +101,7 @@ errorMessage: string;
                             that.volSvc.getVolunteerbyPhoneNumber(that.enterPhoneNumber);
                         if (vol) {
                             // Simulate a successful login
+			    that.volSvc.setNewVolunteer(vol);
 			    var ps = this.pollingstationservice.getPollingStationbyKey
 			    (vol.associatedPollingStationKey);
 			    this.pollingstationservice.setStation(ps);

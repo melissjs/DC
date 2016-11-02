@@ -7,8 +7,8 @@ import {StatusBar} from 'ionic-native';
   // actual pages called from menu
 // import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 // import {ListPage} from './pages/list/list';
-import {InstructionsPage} from './pages/instructions/instructions';
-import {FaqsPage} from './pages/faqs/faqs';
+import {InstructionsPage} from './pages/instructionsma/instructions';
+import {FaqsMaPage} from './pages/faqsma/faqsma';
 import {AddnewrecordPage} from './pages/addnewrecord/addnewrecord';
 //import {CheckinPage} from './pages/checkin/checkin';
 import {CheckoutPage} from './pages/checkout/checkout';
@@ -71,7 +71,7 @@ class MyApp {
     //   { title: 'List', component: ListPage },
 	{ title: 'Home', component: HomePageMa}, 
        { title: 'Instructions', component: InstructionsPage },
-       { title: 'FAQs', component: FaqsPage },
+       { title: 'FAQs', component: FaqsMaPage },
        { title: 'Add New Record', component: AddnewrecordPage },
        //{ title: 'Check In', component: RegisteredsigninPage },
        //{ title: 'Check Out', component: CheckoutPage },

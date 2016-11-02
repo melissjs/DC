@@ -1,4 +1,4 @@
-import { DemographicsRecord } from './demographicsrecord'
+import { DemographicsRecord } from '../demographicsrecord'
 
 
 export var DEMOGRAPHICSLIST: DemographicsRecord[] = [

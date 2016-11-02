@@ -1,4 +1,4 @@
-import { AmendmentRecord } from './amendmentrecord'
+import { AmendmentRecord } from '../amendmentrecord'
 
 
 export var AMENDMENTLIST: AmendmentRecord[] = [
