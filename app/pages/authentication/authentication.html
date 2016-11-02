@@ -21,19 +21,33 @@
      </ion-item>
 
     <ion-item text-wrap>
-    <ion-label style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together at precinct {{pollingstationservice.getStation().precinctNumber}} in {{pollingstationservice.getStation().city}}, {{pollingstationservice.getStation().state}}.</ion-label>
-    <ion-checkbox [(ngModel)]="affirm" (click)="onChangeAffirmation(affirm)" ></ion-checkbox>
+      <div *ngIf="(pollingstationservice.getStation() != null) && (volunteerservice.getNewVolunteer() != null)">
+	<ion-label style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together at precinct {{pollingstationservice.getStation().precinctNumber}} in {{pollingstationservice.getStation().city}}, {{pollingstationservice.getStation().state}}.</ion-label>
+      </div>
+      <div *ngIf="(pollingstationservice.getStation() == null) || (volunteerservice.getNewVolunteer() == null)">
+	<div *ngIf="(volunteerservice.getNewVolunteer() == null)">
+	<ion-label style="margin-bottom: 15px" stacked>I  affirm that OTHER VOLUNTEER and I (the authenticating volunteer) are volunteering together.</ion-label>
+	</div>
+	<div *ngIf="(volunteerservice.getNewVolunteer() != null)">
+	<ion-label style="margin-bottom: 15px" stacked>I  affirm that {{volunteerservice.getNewVolunteer().fullName}} and I (the authenticating volunteer) are volunteering together.</ion-label>
+	</div>
+      </div>
+
+
+      <ion-checkbox [(ngModel)]="affirm" (click)="onChangeAffirmation(affirm)" ></ion-checkbox>
     </ion-item>
 
     <ion-item>
-    <ion-label stacked>Authenticating Volunteer Email:</ion-label>
-    <ion-input type="text" [(ngModel)]="authenticatingVolunteerEmail" (click)="onChangeAuthenticatingVolunteerEmail(authenticatingVolunteerEmail)"></ion-input>
-  </ion-item>
+      <ion-label stacked>Authenticating Volunteer Phone#:</ion-label>
+      <!-- style="-webkit-text-security:disc;" -->
+
+      <ion-input type="tel" [(ngModel)]="authenticatingVolunteerEmail" (change)="onChangeAuthenticatingVolunteerPhone(authenticatingVolunteerPhone)"></ion-input>
+    </ion-item>
 
     <ion-item>
-    <ion-label stacked>Authenticating Volunteer Passcode:</ion-label>
-    <ion-input type="password" [(ngModel)]="authenticatingVolunteerPasscode" (click)="onChangeAuthenticatingVolunteerPasscode(authenticatingVolunteerPasscode)"></ion-input>
-  </ion-item>
+      <ion-label stacked>Authenticating Volunteer Passcode:</ion-label>
+      <ion-input type="password" [(ngModel)]="authenticatingVolunteerPasscode" (change)="onChangeAuthenticatingVolunteerPasscode(authenticatingVolunteerPasscode)"></ion-input>
+    </ion-item>
 
 
 </ion-list>
@@ -43,5 +57,7 @@
         <button type="submit" (click)="onSubmit()" block large>
          Submit 
          </button>
+
+    <P style="color:red" *ngIf="errorMessage!=null">{{errorMessage}}</P>
 
 </ion-content>

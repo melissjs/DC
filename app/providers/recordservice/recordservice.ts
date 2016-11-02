@@ -45,6 +45,7 @@ export class Recordservice {
   pollingstationservice: Pollingstationservice;
   volunteerservice: Volunteerservice;
 
+    // These are assigned automatically by the database
   nextAffidavitNumber: string;
   nextVoteNumber: string;
   nextNonVoteNumber: string;
@@ -163,8 +164,8 @@ getAmendmentList(){
   return this.amendmentRecordList;
 };
 
-addAmendmentRecordToList(passedAmendmentRecord){
-  this.amendmentRecordList.push(passedAmendmentRecord);
+addAmendmentRecordToList(passedAmendmentRecord) {
+    this.amendmentRecordList.push(passedAmendmentRecord);
 }
 
 createVoidAmendmentRecord(){
@@ -224,9 +225,11 @@ evidence: false,
 return this.newAffidavitRecord;
 }
 
+// These are assigned automatically by the database
 generateNextAffidavitNumber(){
-this.nextAffidavitNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'af' + (++this.afcounter));
-return this.nextAffidavitNumber;
+// this.nextAffidavitNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'af' + (++this.afcounter));
+// return this.nextAffidavitNumber;
+    return null;
 }
 
 getTotalIndividualAffidavitRecords(passedVolunteerKey){
@@ -280,14 +283,16 @@ firstTimeVoter: null,
 return this.newDemographicsRecord;
 }
 
+// These are assigned automatically by the database
 generateNextDemographicsNumber(){
-if (this.nonVoteRecordBool){
-return this.nextNonVoteNumber;
-} else {
-if (!this.nonVoteRecordBool){
-return this.nextVoteNumber;
-}
-}
+    return null;
+//if (this.nonVoteRecordBool){
+//return this.nextNonVoteNumber;
+//} else {
+//if (!this.nonVoteRecordBool){
+//return this.nextVoteNumber;
+//}
+//}
 }
 
 getTotalIndividualDemographicsRecords(passedVolunteerKey){
@@ -344,9 +349,11 @@ presThird: null,
 return this.newVoteRecord;
 }
 
+// These are assigned automatically by the database
 generateNextVoteNumber(){
-this.nextVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'v' + (++this.vcounter));
-return this.nextVoteNumber;
+//this.nextVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'v' + (++this.vcounter));
+//return this.nextVoteNumber;
+    return null;
 }
 
 
@@ -403,9 +410,11 @@ presThird: null,
 return this.newVoteRecord;
 }
 
+// These are assigned automatically by the database
 generateNextNonVoteNumber(){
-this.nextNonVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'nv' + (++this.nvcounter));
-return this.nextNonVoteNumber;
+//this.nextNonVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'nv' + (++this.nvcounter));
+//return this.nextNonVoteNumber;
+    return null;
 }
 
 getTotalIndividualNonVoteRecords(passedVolunteerKey){

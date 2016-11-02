@@ -67,18 +67,18 @@
     </ion-item>
 
     <ion-item>
-    <ion-label stacked>Authenticating Volunteer Email:</ion-label>
-    <ion-input type="text" [(ngModel)]="authenticatingVolunteerEmail" (click)="onChangeAuthenticatingVolunteerEmail(authenticatingVolunteerEmail)"></ion-input>
+    <ion-label stacked>Authenticating Volunteer Phone#:</ion-label>
+    <ion-input type="number" style="-webkit-text-security:disc;" [(ngModel)]="authenticatingVolunteerEmail" (change)="onChangeAuthenticatingVolunteerPhone(authenticatingVolunteerPhone)"></ion-input>
   </ion-item>
 
     <ion-item>
     <ion-label stacked>Authenticating Volunteer Passcode:</ion-label>
-    <ion-input type="password" [(ngModel)]="authenticatingVolunteerPasscode" (click)="onChangeAuthenticatingVolunteerPasscode(authenticatingVolunteerPasscode)"></ion-input>
+    <ion-input type="password" [(ngModel)]="authenticatingVolunteerPasscode" (change)="onChangeAuthenticatingVolunteerPasscode(authenticatingVolunteerPasscode)"></ion-input>
   </ion-item>
 
     <ion-item>
     <ion-label stacked>Originating Volunteer Passcode:</ion-label>
-    <ion-input [(ngModel)]="originatingVolunteerPasscode" (click)="onChangeOriginatingVolunteerPasscode(originatingVolunteerPasscode)" type="password"></ion-input>
+    <ion-input [(ngModel)]="originatingVolunteerPasscode" (change)="onChangeOriginatingVolunteerPasscode(originatingVolunteerPasscode)" type="password"></ion-input>
   </ion-item>
 
 </ion-list>

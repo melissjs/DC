@@ -10,7 +10,6 @@ age: number;
 sex: string;
 partyAffiliation: string;
 shifts?: string;
-passcode: string;
 associatedPollingStationKey?: string;
 } 
 

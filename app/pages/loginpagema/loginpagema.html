@@ -1,0 +1,56 @@
+
+<ion-header>
+  <ion-navbar>
+    <!--[disabled]="!loggedIn"-->
+    <button  menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Democracy Counts</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content class="backgroundColor" padding>
+<ion-card padding>
+<!--
+   <form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">  -->
+     <!-- <ion-list-header>User Login</ion-list-header> -->
+   <ion-list>
+    <ion-item>
+    <ion-label stacked>Cell Phone Number (numbers only):</ion-label>
+      <ion-input type="tel" [(ngModel)]="enterPhoneNumber" (change)="onChangePhoneNumber(enterPhoneNumber)"></ion-input>
+  </ion-item>
+
+    <!--
+    style="-webkit-text-security:disc;" 
+    -->
+
+    <ion-item>
+    <ion-label stacked>Passcode:</ion-label>
+    <ion-input type="password" [(ngModel)]="enterPasscode" (change)="onChangePasscode(enterPasscode)"></ion-input>
+  </ion-item>
+
+   </ion-list>
+   <!--
+   </form>  -->
+
+   <!--
+   [disabled]="!loginForm.valid"
+   -->
+    <button type="submit"  (click)="onSubmit(loginForm.value)" block large>
+    Log In
+    </button>
+    <ion-list-header>
+      <p>Forgot Password? <p>need to Reset your Password?  <p>or Not Registered Yet?<p>
+      <a href="https://volunteer-dc.herokuapp.com" target="_blank">
+        <button type="button" ion-button item-right>
+  	   Bring up Volunteer DC App
+        </button>
+      </a>
+
+    </ion-list-header>
+
+    <P style="color:red" *ngIf="errorMessage!=null">{{errorMessage}}</P>
+</ion-card>
+</ion-content>

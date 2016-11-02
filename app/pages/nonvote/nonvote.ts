@@ -65,8 +65,8 @@ export class NonvotePage {
         this.pollingstationservice = pollingstationservice;
         this.primaryCongressVoteWriteIn = null;
         this.primaryCongressVote = null;
-        this.inFlorida = this.pollingstationservice.isThisInFlorida()
-        
+        this.inFlorida = this.pollingstationservice.isThisInState('FL');
+
     }
 
        onChangeReasonForCouldNotVotePGE(value){

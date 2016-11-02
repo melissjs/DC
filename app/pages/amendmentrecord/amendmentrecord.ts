@@ -2,8 +2,11 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import {VoterecordPage} from '../voterecord/voterecord';
 import {Recordservice} from '../../providers/recordservice/recordservice';
+import {RestService} from '../../providers/rest-service/rest-service';
+import {RestService2} from '../../providers/rest-service2/rest-service2';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
 import {AmendmentRecord} from '../../amendmentrecord';
+
 
 
 @Component({
@@ -15,15 +18,20 @@ incorrectSelectionWriteIn: string;
 correctSelection: string;
 correctSelectionWriteIn: string;
 affirm: boolean;
-authenticatingVolunteerEmail: string;
+authenticatingVolunteerPhone: string;
 authenticatingVolunteerPasscode: string;
 originatingVolunteerPasscode: string;
 volunteerservice: Volunteerservice;
 newAmendmentRecord: AmendmentRecord;
 recordservice: Recordservice;
 authenticatingVolunteerKey: string;
+restSvc: RestService;
+restSvc2: RestService2;
 
-  constructor(private navCtrl: NavController, private alertCtrl: AlertController, volunteerservice: Volunteerservice, recordservice: Recordservice) {
+    constructor(private navCtrl: NavController, 
+		private alertCtrl: AlertController, volunteerservice: Volunteerservice,
+		recordservice: Recordservice, restSvc: RestService, 
+		restSvc2: RestService2) {
     this.navCtrl = navCtrl;
     this.volunteerservice = volunteerservice;
     this.incorrectSelection = null;
@@ -31,12 +39,14 @@ authenticatingVolunteerKey: string;
     this.correctSelection = null;
     this.correctSelectionWriteIn = null;
     this.affirm = false;
-    this.authenticatingVolunteerEmail = null;
+    this.authenticatingVolunteerPhone = null;
     this.authenticatingVolunteerPasscode = null;
     this.originatingVolunteerPasscode = null;
     this.recordservice = recordservice;
     this.newAmendmentRecord = this.recordservice.createVoidAmendmentRecord();
     this.authenticatingVolunteerKey = null;
+    this.restSvc = restSvc;
+    this.restSvc2 = restSvc2;
   }
 
 onChangeIncorrectSelection(value){
@@ -60,8 +70,8 @@ onChangeAffirmation(value){
     this.affirm = newval;
 }
 
- onChangeAuthenticatingVolunteerEmail(value){
-    this.authenticatingVolunteerEmail = value;
+ onChangeAuthenticatingVolunteerPhone(value){
+    this.authenticatingVolunteerPhone = value;
 }
 
  onChangeAuthenticatingVolunteerPasscode(value){
@@ -79,25 +89,8 @@ onChangeAffirmation(value){
         var that = this;
         var passcode = null;
 
-        // make sure same volunteer is not authenticating 
-         if (this.volunteerservice.getNewVolunteer().emailAddress == this.authenticatingVolunteerEmail){
-
-             //console.log(this.volunteerservice.getNewVolunteer().emailAddress + ' and ' + this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail).emailAddress);
-
-                    let alertOne = this.alertCtrl.create({
-                    title: 'Authentication cannot be done with only one volunteer.',
-                    subTitle: 'Please ask a team member to help you authenticate this record by entering their email and passcode.',
-                    buttons: ['OK']
-                });
-                alertOne.present();
-                return;
-                }
-
-
-
-
         try {
-            if (!this.incorrectSelection || !this.correctSelection || !this.authenticatingVolunteerEmail ||!this.authenticatingVolunteerPasscode || !this.originatingVolunteerPasscode || !this.affirm) {
+            if (!this.incorrectSelection || !this.correctSelection || !this.authenticatingVolunteerPhone ||!this.authenticatingVolunteerPasscode || !this.originatingVolunteerPasscode || !this.affirm) {
                 let alert = this.alertCtrl.create({
                     title: 'All fields required.',
                     subTitle: 'Amendment records require all fields and two way aunthentication for verification; please ask one of your team members to help you verify this record.',
@@ -105,59 +98,10 @@ onChangeAffirmation(value){
                 });
                 alert.present();
             } else {
-                // verify email exists
-                if (!this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail)){let alertEmailIncorrect = this.alertCtrl.create({
-                    title: 'Authenticating Volunteer Email Invalid.',
-                    subTitle: 'Please re-enter authenticating email.',
-                    buttons: ['OK']
-                });
-                alertEmailIncorrect.present();
-                return;}
-                
-                // verify credentials, get key
-                if (this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail).passcode == this.authenticatingVolunteerPasscode){
-                this.authenticatingVolunteerKey = this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail).volunteerKey;
-                } else {
-                    let alertEmail = this.alertCtrl.create({
-                    title: 'Authenticating Volunteer Credentials Invalid.',
-                    subTitle: 'Please re-enter authenticating email and passcode.',
-                    buttons: ['OK']
-                });
-                alertEmail.present();
-                return;
-                }
 
-                // check originating volunteer passcode
-                if (this.volunteerservice.getNewVolunteer().passcode !== this.originatingVolunteerPasscode){
-                    let alertPass = this.alertCtrl.create({
-                    title: 'Originating Volunteer Passcode Invalid.',
-                    subTitle: 'Please re-enter your passcode.',
-                    buttons: ['OK']
-                });
-                alertPass.present();
-                return;
-                }
-
-                // logic for write ins
-                if (this.incorrectSelection=='writeIn'){
-                    this.incorrectSelection = this.incorrectSelectionWriteIn;
-                }
-
-                if (this.correctSelection=='writeIn'){
-                    this.correctSelection = this.correctSelectionWriteIn;
-                }
-
-                // fill amendment object
-                this.newAmendmentRecord = {
-                    volunteerKey: this.volunteerservice.getNewVolunteerKey(),
-                    incorrectSelection: this.incorrectSelection,
-                    correctSelection: this.correctSelection,
-                    authenticatedByKey: this.authenticatingVolunteerKey,
-                }
-                console.log(this.newAmendmentRecord);
-
-                this.recordservice.addAmendmentRecordToList(this.newAmendmentRecord);
-                console.log(this.recordservice.getAmendmentList());
+		this.restSvc.verifyExtraLogin
+		(this.authenticatingVolunteerPhone, this.authenticatingVolunteerPasscode, true,
+		 this.avSuccessCb, this.avFailureCb, this);
 
                 //navigate
                 let alertSuccess = this.alertCtrl.create({
@@ -179,10 +123,110 @@ onChangeAffirmation(value){
             alert.present();
             console.log('error in Submitting, exc='+ EE.toString())
         }
+ }
+
+    filterInt = function (value) {
+	if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+	    return Number(value);
+	return NaN;
     }
-//
+
+    avSuccessCb(that:any, real: boolean, data: any) {
+	if (!real) {
+	    // For the fake scenario, if phone number was 6666666NNN then we treat is as a failure.
+	    var err = { status: 0, _body: ''};
+	    if (that.authenticatingVolunteerPhone.startsWith("6666666")) {
+		err._body = 'testing error condition';
+		var phoneasnum = this.filterInt(that.authenticatingVolunteerPhone);
+		err.status = phoneasnum - 6666666000;
+		that.avFailureCb(that, err);
+		return;
+	    }
+	    // otherwise success...
+	}
+	if (!that.restSvc.matchesPasscode(this.originatingVolunteerPasscode)) {
+            let alertPass = this.alertCtrl.create({
+                title: 'Originating Volunteer Passcode Invalid.',
+                subTitle: 'Please re-enter your passcode.',
+                buttons: ['OK']
+            });
+            alertPass.present();
+	    return;
+	}
+        // logic for write ins
+        if (that.incorrectSelection=='writeIn'){
+            that.incorrectSelection = that.incorrectSelectionWriteIn;
+        }
+
+        if (that.correctSelection=='writeIn'){
+            that.correctSelection = that.correctSelectionWriteIn;
+        }
+
+        // fill amendment object
+        that.newAmendmentRecord = {
+            volunteerKey: that.volunteerservice.getNewVolunteerKey(),
+            incorrectSelection: that.incorrectSelection,
+            correctSelection: that.correctSelection,
+            authenticatedByKey: that.authenticatingVolunteerKey,
+        }
+        console.log(that.newAmendmentRecord);
+
+        that.recordservice.addAmendmentRecordToList(that.newAmendmentRecord);
+        console.log(that.recordservice.getAmendmentList());
+	that.restSvc2.saveAmendmentList(that.amSuccessCb, that.amFailureCb, that);
+
+    }
+
+    amFailureCb(that:any, errStr: string) {
+	// Handle error to write amendment record...
+	var title = 'Error Saving Amendment Record';
+        let alert = that.alertCtrl.create({
+            title: title,
+            subTitle: errStr + ':Flush Data when connected to Internet',
+            buttons: [{
+                text: 'OK',
+                handler: () => {
+                    alert.dismiss();
+                }
+            }]
+        });
+    }
+
+    avFailureCb(that:any, err: any) {
+	var title = err._body;
+	var subtitle;
+	switch (err.status) {
+	case 412: // HttpStatus.PRECONDITION_FAILED
+	    // title = 'Authentication cannot be done with only one volunteer.';
+	    subtitle = 'Please ask a team member to help you authenticate this record by entering their phone and passcode.';
+	    break;
+	case 424:
+	    // title = 'User is not activated!'
+	    subtitle = 'This user has not verified their email address, or has been deactivated.';
+	    break;
+	case 400:
+	    // Authentication Failure.
+	    break;
+	}
+        let alertOne = this.alertCtrl.create({
+            title: title,
+            subTitle: subtitle,
+            buttons: ['OK']
+        });
+        alertOne.present();
+        return;
+    }
+
+    amSuccessCb(that:any, real: boolean, data: any) {
+	if (!real) {
+	    // act like success anyway..
+	}
+        let alertOne = this.alertCtrl.create({
+            title: 'Successful Save of Amendment Record',
+            buttons: ['OK']
+        });
+        alertOne.present();
+    }
+
+
 }
-
- 
-
-   

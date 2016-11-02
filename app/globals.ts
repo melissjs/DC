@@ -14,3 +14,5 @@ export var DEMOCRATIC: string = 'Democratic Party';
 export var GREEN: string = 'Green Party';
 export var REPUBLICAN: string = 'Republican Party';
 export var OTHER: string = 'Other Party';
+
+export var REGEXPHONE: string = '[2-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]';

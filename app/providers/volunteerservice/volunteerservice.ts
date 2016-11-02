@@ -11,9 +11,9 @@ import { VOLUNTEERS } from '../../volunteerlist';
 import * as globals from '../../globals';
 
 //other service
-import { Pollingstationservice } from '../../providers/pollingstationservice/pollingstationservice';
+// import { Pollingstationservice } from '../../providers/pollingstationservice/pollingstationservice';
 
-import {RestService} from '../../providers/rest-service/rest-service';
+// import {RestService} from '../../providers/rest-service/rest-service';
 
 
 
@@ -22,7 +22,7 @@ export class Volunteerservice {
     currentVolunteer: Volunteer;
     exposedYesOrNo: string;
     oldStation: PollingStation;
-    //pollingstationservice: Pollingstationservice;
+    // pollingstationservice: Pollingstationservice;
     volunteerListInMemory: Volunteer[];
     volunteersByStation: Volunteer[];
     buildString: string;
@@ -30,38 +30,27 @@ export class Volunteerservice {
     teamKeyList: string[];
     associatedVolunteerArray: Volunteer[];
     tempVolunteer: Volunteer;
-    restSvc: RestService;
+    // restSvc: RestService;
     volunteerCount: number;
     shiftsToFill: number;
     shiftsFilled: number;
-    totalTeamVoterRecords: number;
-    totalTeamAnomalyRecords: number;
-    totalTeamAmendmentRecords: number;
-    totalTeamNonVoterRecords: number;
-    totalTeamRecords: number;
+    usingReal: boolean;
 
-    constructor(public pollingstationservice: Pollingstationservice, restSvc: RestService) {
-        this.currentVolunteer = this.setToVoidVolunteer();
-        // for testing
-        this.currentVolunteer = this.setTestVolunteer();
-
-        this.pollingstationservice = pollingstationservice;
-        this.restSvc = restSvc;
-        this.volunteerListInMemory = VOLUNTEERS;
+    constructor(/* pollingstationservice: Pollingstationservice, restSvc: RestService */) {
+        this.currentVolunteer = null;
+        // this.pollingstationservice = pollingstationservice;
+        // this.restSvc = restSvc;
+        this.volunteerListInMemory = null; // set VOLUNTEERS; later (if at all)
         this.notRegistered = "None";
         this.associatedVolunteerArray = [];
         this.shiftsFilled = 0;
-        this.totalTeamVoterRecords = 0;
-        this.totalTeamAnomalyRecords = 0;
-        this.totalTeamAmendmentRecords = 0;
-        this.totalTeamNonVoterRecords = 0;
-        this.totalTeamRecords = 0;
-        // if no one is logged in create void volunteer 
-        this.restSvc.checkLoggedIn(this.setLoginTrue, this.setLoginFalse,this);
+        this.usingReal = false;
 
-
+        // if no one is logged in creat void volunteer 
+        // this.restSvc.checkLoggedIn(this.setLoginTrue, this.setLoginFalse,this);
     }
     
+    /*
     setLoginTrue(that) {
         // this.loggedIn = true;  no op
     }
@@ -70,55 +59,52 @@ export class Volunteerservice {
         // this.loggedIn = false;
         that.currentVolunteer = that.setToVoidVolunteer();
     }
+    */
     
-    getVolunteers() { return this.volunteerListInMemory;  }
+    getVolunteers() {
+        if (!this.usingReal) {
+            if (this.volunteerListInMemory == null) {
+                this.volunteerListInMemory = VOLUNTEERS;
+            }
+        }
+        return this.volunteerListInMemory;
+    }
 
+    /* 
+       Added the following function to properly set the volunteers
+       associated with a specific polling station.  It is populated 
+       by the RestService
+       */
+    setVolunteers(data: any, real: boolean) {
+        this.associatedVolunteerArray = data;
+        this.usingReal = real;
+    }
+
+    // ONLY CALLED IN FAKE test (see unregisteredsignin.ts)
     generateVolunteerKey(){
-        return 'v'+(this.volunteerListInMemory.length+1);
+        var key = null;
+        if (this.checkUsingFake()) {
+            key = 'v'+(this.volunteerListInMemory.length+1); 
+        } else {
+            key = 'v' + Math.floor((Math.random() * 10000000));
+        }
+        return key;
     }
     
     setNewVolunteer(value){
-        var that = this;
         this.currentVolunteer = value;
     }
-
-        //for testing only
-        setTestVolunteer(){    
-        this.currentVolunteer = {
-        "volunteerKey": "v3",
-        "fullName":"Janice Row",
-        "emailAddress":"janice@gmail.com",
-        "exposeEmail": false,
-        "phoneNumber":"6025245453",
-        "age": 35,
-        "sex": "Female",
-        "partyAffiliation": "No Party Preference",    
-        "shifts": "Early Evening, Late Evening",
-        "passcode": "password",
-        "associatedPollingStationKey": "ps2",
-      
-        }
-
-        this.pollingstationservice.setStationWithKey('ps2');
-        //console.log(this.pollingstationservice.selectedStation);
-        return this.currentVolunteer;
-        }
-        // end testing
-
 
     getNewVolunteer(){
         return this.currentVolunteer;
     }
 
-    getNewVolunteerKey(){
-        return this.currentVolunteer.volunteerKey;
-    }
-
-    getNewVolunteerPollingStationKey(){
-        return this.currentVolunteer.associatedPollingStationKey;
-    }
     setPollingStationForVolunteer(value){
-        this.currentVolunteer.associatedPollingStationKey = value.pollingStationKey;
+        if (value == null) {
+            this.currentVolunteer.associatedPollingStationKey = value;
+        } else {
+            this.currentVolunteer.associatedPollingStationKey = value.pollingStationKey
+        }
     }
 
     hasPollingStation(passedVolunteer){
@@ -156,34 +142,47 @@ export class Volunteerservice {
     }
     
 
+    checkUsingFake() {
+        if (this.volunteerListInMemory == null) {
+            if (this.usingReal) {
+                console.log('ERROR! shows using real but calling fake procedure!');
+                return false;
+            }
+            this.getVolunteers();
+        }
+        return true;
+    }
+
+
+    // ONLY CALLED IN FAKE test (see unregisteredsignin.ts)
     addCurrentVolunteerToList(passedVolunteer){
-        this.volunteerListInMemory.push(passedVolunteer);
+        if (this.checkUsingFake()) {
+            this.volunteerListInMemory.push(passedVolunteer);
+        }
     }
 
-    deleteCurrentVolunteerFromList(passedVolunteer){
-        for (var i = 0; i < this.volunteerListInMemory.length; i++){
-            if (passedVolunteer.volunteerKey == this.volunteerListInMemory[i].volunteerKey){
-                this.volunteerListInMemory.splice(i,1);
-            } else { console.log("The volunteer was not in the list.")}
-        } 
+    deleteCurrentVolunteerFromListXX(passedVolunteer){
+        if (this.volunteerListInMemory) {
+            for (var i = 0; i < this.volunteerListInMemory.length; i++){
+                if (passedVolunteer.volunteerKey == this.volunteerListInMemory[i].volunteerKey){
+                    this.volunteerListInMemory.splice(i,1);
+                } else { console.log("The volunteer was not in the list.")}
+            } 
+        }
     }
-
-
-
-
 
 
     overWriteChangesToVolunteer(passedVolunteer){
-        for (var i = 0; i < this.volunteerListInMemory.length; i++){
-            if (passedVolunteer.volunteerKey == this.volunteerListInMemory[i].volunteerKey){
-                this.volunteerListInMemory[i] = passedVolunteer;
-                //console.log(passedVolunteer.volunteerKey + " matches " + this.volunteerListInMemory[i].volunteerKey);
-            } else { //console.log(passedVolunteer.volunteerKey + " is not " + this.volunteerListInMemory[i].volunteerKey);
-            
+        if (this.volunteerListInMemory) {
+            for (var i = 0; i < this.volunteerListInMemory.length; i++){
+                if (passedVolunteer.volunteerKey == this.volunteerListInMemory[i].volunteerKey){
+                    this.volunteerListInMemory[i] = passedVolunteer;
+                    //console.log(passedVolunteer.volunteerKey + " matches " + this.volunteerListInMemory[i].volunteerKey);
+                } else { //console.log(passedVolunteer.volunteerKey + " is not " + this.volunteerListInMemory[i].volunteerKey);
+                }
+            } 
         }
-        } 
     }
-
 
     isEmailExposed(passedVolunteer){
         this.currentVolunteer = passedVolunteer;
@@ -197,50 +196,57 @@ export class Volunteerservice {
         return this.exposedYesOrNo;
     } 
 
-    getVolunteerbyKey(passedKey){ 
-        for (var i = 0; i < this.volunteerListInMemory.length; i++){
-            if (this.volunteerListInMemory[i].volunteerKey == passedKey){
-                return this.volunteerListInMemory[i]
+    // Only should be used in fake instance..
+    getVolunteerbyKeyXX(passedKey){ 
+        if (this.volunteerListInMemory) {
+            for (var i = 0; i < this.volunteerListInMemory.length; i++){
+                if (this.volunteerListInMemory[i].volunteerKey == passedKey){
+                    return this.volunteerListInMemory[i]
+                }
             }
         }
         return null;
     }
 
-    getVolunteerByEmail(passedEmail){
-        for (var i = 0; i < this.volunteerListInMemory.length; i++){
-            if (this.volunteerListInMemory[i].emailAddress == passedEmail){
-                return this.volunteerListInMemory[i]
+    getVolunteerByEmailXX(passedEmail){
+        if (this.volunteerListInMemory) {
+            for (var i = 0; i < this.volunteerListInMemory.length; i++){
+                if (this.volunteerListInMemory[i].emailAddress == passedEmail){
+                    return this.volunteerListInMemory[i]
+                }
             }
         }
         return null;
     }
 
-        getVolunteerbyPhoneNumber(passedPhoneNumber){ 
-        for (var i = 0; i < this.volunteerListInMemory.length; i++){
-            if (this.volunteerListInMemory[i].phoneNumber == passedPhoneNumber){
-                return this.volunteerListInMemory[i]
+    // ONLY CALLED IN FAKE test (see rest-service.ts)
+    getVolunteerbyPhoneNumber(passedPhoneNumber:string){ 
+        if (this.checkUsingFake()) {
+            for (var i = 0; i < this.volunteerListInMemory.length; i++){
+                if (this.volunteerListInMemory[i].phoneNumber == passedPhoneNumber){
+                    return this.volunteerListInMemory[i]
+                }
             }
         }
         return null;
     }
     
-    getVolunteersByStationAndShift(selectedStationKey, passedShift){
-        var volunteersByStationAndShift = [];
-        for (var i = 0; i < this.volunteerListInMemory.length; i++){
-            var vol = this.volunteerListInMemory[i];
-            if ((vol.associatedPollingStationKey == selectedStationKey) && 
-                (vol.shifts.includes(passedShift))) {
-                volunteersByStationAndShift.push(vol);
+    getVolunteersByShift(passedShift){
+        var volunteersByShift = [];
+        for (var i = 0; i < this.associatedVolunteerArray.length; i++){
+            var vol = this.associatedVolunteerArray[i];
+            if (vol.shifts.includes(passedShift)) {
+                volunteersByShift.push(vol);
             }
         }
-        return volunteersByStationAndShift;
+        return volunteersByShift;
     }
 
 
-    getVolunteerArrayByKeyList(passedKeyList){
-        this.associatedVolunteerArray = []; //reset
+    getVolunteerArrayByKeyListXX(passedKeyList){
+        this.associatedVolunteerArray = []; // initialize first!
         for ( var i=0; i < passedKeyList.length; i++){
-            this.tempVolunteer = this.getVolunteerbyKey(passedKeyList[i]);
+            this.tempVolunteer = this.getVolunteerbyKeyXX(passedKeyList[i]);
             this.associatedVolunteerArray.push(this.tempVolunteer);
         }
         return this.associatedVolunteerArray;
@@ -253,22 +259,24 @@ export class Volunteerservice {
          }
     }*/
 
-    getTeamKeyList(passedPollKey){
+    getTeamKeyListXX(passedPollKey){
         this.teamKeyList = []; // zero out to mitigate duplicates
-        for (var i = 0; i < this.volunteerListInMemory.length; i++){
-            if (this.volunteerListInMemory[i].associatedPollingStationKey == passedPollKey){
-                this.teamKeyList.push(this.volunteerListInMemory[i].volunteerKey)
+        if (this.volunteerListInMemory) {
+            for (var i = 0; i < this.volunteerListInMemory.length; i++){
+                if (this.volunteerListInMemory[i].associatedPollingStationKey == passedPollKey){
+                    this.teamKeyList.push(this.volunteerListInMemory[i].volunteerKey)
+                }
             }
         }
         return this.teamKeyList;
     }
 
     getTeamVolunteersByPollKey(passedPollKey){
-        return this.getVolunteerArrayByKeyList(this.getTeamKeyList(passedPollKey));
+        return this.getVolunteerArrayByKeyListXX(this.getTeamKeyListXX(passedPollKey));
 
     }
 
-    getShiftCountFromString(shiftString) { 
+    getShiftCountFromStringXX(shiftString) { 
     return shiftString.split(" ").length;
     }
 
@@ -311,57 +319,43 @@ export class Volunteerservice {
             sex: '',
             partyAffiliation: '',
             shifts:'', 
-            passcode: '',
             associatedPollingStationKey: null, 
-            
         }
         return this.currentVolunteer;
     }
 
 generateStationStats(passedStationKey){
-    this.associatedVolunteerArray = [];
+
     //get array all volunteers with same station key
-    this.associatedVolunteerArray = this.getTeamVolunteersByPollKey(passedStationKey);
+    //setting the associatedVolunteerArray is now done from rest-service
+    // calling setVolunteers()
+    //this.associatedVolunteerArray = this.getTeamVolunteersByPollKey(passedStationKey);
+
     //return array length
-    this.volunteerCount = this.associatedVolunteerArray.length;
-    //count and aggregate each of their shift array lengths = filledShifts
-    this.shiftsFilled = 0;
-    for (var i=0; i < this.associatedVolunteerArray.length; i++){
-        this.shiftsFilled += this.getShiftCountFromString(this.associatedVolunteerArray[i].shifts);
+    if (this.associatedVolunteerArray) {
+        this.volunteerCount = this.associatedVolunteerArray.length;
+        //count and aggregate each of their shift array lengths = filledShifts
+        for (var i=0; i < this.associatedVolunteerArray.length; i++){
+            this.shiftsFilled += this.getShiftCountFromStringXX(this.associatedVolunteerArray[i].shifts);
+        }
+        this.shiftsFilled = this.shiftsFilled/2;
+        this.shiftsToFill = 45 - this.shiftsFilled;
+    } else {
+        this.volunteerCount = 0;
+        this.shiftsFilled = 0;
+        this.shiftsToFill = 0;
     }
-
-    
-    this.shiftsFilled = this.shiftsFilled/2;
-     this.shiftsToFill = 45 - this.shiftsFilled;
-     
-     /*//generate total voter records
-     this.totalTeamVoterRecords = 0;
-      for (var i=0; i < this.associatedVolunteerArray.length; i++){
-        this.totalTeamVoterRecords += this.associatedVolunteerArray[i].totalVoteRecords;
-    }
-    //generate total anomaly records
-    this.totalTeamAnomalyRecords = 0;
-     for (var i=0; i < this.associatedVolunteerArray.length; i++){
-        this.totalTeamAnomalyRecords += this.associatedVolunteerArray[i].totalAnomalyRecords;
-    }
-    //generate total amendment records
-    this.totalTeamAmendmentRecords = 0;
-     for (var i=0; i < this.associatedVolunteerArray.length; i++){
-        this.totalTeamAmendmentRecords += this.associatedVolunteerArray[i].totalAmendmentRecords;
-    }
-
-    //generate total non voter records
-    this.totalTeamNonVoterRecords = 0;
-     for (var i=0; i < this.associatedVolunteerArray.length; i++){
-        this.totalTeamNonVoterRecords += this.associatedVolunteerArray[i].totalNonVoterRecords;
-    }
-
-
-    //total all records
-    this.totalTeamRecords =  this.totalTeamVoterRecords + this.totalTeamAnomalyRecords + this.totalTeamAmendmentRecords + this.totalTeamNonVoterRecords;*/
-
 }
 
+
+    // Used in DC app only
+    getNewVolunteerKey(){
+        return this.currentVolunteer.volunteerKey;
+    }
+
+    getNewVolunteerPollingStationKey(){
+        return this.currentVolunteer.associatedPollingStationKey;
+    }
 
 // not in use
 
@@ -377,30 +371,6 @@ getShiftsFilled(){
 return this.shiftsFilled
 }
 
-getTotalTeamVoterRecords(){
-return this.totalTeamVoterRecords;
-}
 
-getTotalIndividualAnomalyRecords(){
-return this.totalTeamAnomalyRecords;
-}
-
-getTotalTeamAnomalyRecords(){
-return this.totalTeamAnomalyRecords;
-}
-
-getTotalTeamAmendmentRecords(){
-return this.totalTeamAmendmentRecords;
-}
-
-getTotalTeamNonVoterRecords (){
-return this.totalTeamNonVoterRecords;
-}
-
-getTotalTeamRecords(){
-return this.totalTeamRecords;
-}
 
 }
-
-

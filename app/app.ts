@@ -17,20 +17,18 @@ import {ActivityrecordPage} from './pages/activityrecord/activityrecord';
 import {MorningcheckinPage} from './pages/morningcheckin/morningcheckin';
 import {EveningcheckoutPage} from './pages/eveningcheckout/eveningcheckout';
 import {VolunteerlistPage} from './pages/volunteerlist/volunteerlist';
-import {AccountsettingsPage} from './pages/accountsettings/accountsettings';
+//import {AccountsettingsPage} from './pages/accountsettings/accountsettings';
 //import {AmendmentverificationPage} from './pages/amendmentverification/amendmentverification';
 
   // intermediate pages called from others
 import {VoterecordPage} from './pages/voterecord/voterecord';
 import {AffidavitPage} from './pages/affidavit/affidavit';
-import {RegisteredsigninPage} from './pages/registeredsignin/registeredsignin';
-import {UnregisteredsigninPage} from './pages/unregisteredsignin/unregisteredsignin';
 import {AmendmentrecordPage} from './pages/amendmentrecord/amendmentrecord';
 import {AnomalyrecordPage} from './pages/anomalyrecord/anomalyrecord';
 import {DemographicsPage} from './pages/demographics/demographics';
 import {VotePage} from './pages/vote/vote';
-import {QuestionsPage} from './pages/questions/questions';
-import {HomePage} from './pages/home/home';
+//import {QuestionsPage} from './pages/questions/questions';
+import {HomePageMa} from './pages/homema/homema';
 import {EndPage} from './pages/end/end';
 import {AuthenticationPage} from './pages/authentication/authentication';
 
@@ -39,6 +37,7 @@ import {AuthenticationPage} from './pages/authentication/authentication';
 import { Pollingstationservice } from './providers/pollingstationservice/pollingstationservice';
 import { Volunteerservice } from './providers/volunteerservice/volunteerservice';
 import {RestService} from './providers/rest-service/rest-service';
+import {RestService2} from './providers/rest-service2/rest-service2';
 import {Recordservice} from './providers/recordservice/recordservice';
 
 import {UserDataService} from './user-data-service';
@@ -47,13 +46,13 @@ import {UserDataService} from './user-data-service';
 @Component({
   templateUrl: 'build/app.html',
   // config: {}, // http://ionicframework.com/docs/v2/api/config/Config/	  
-  providers: [UserDataService, Pollingstationservice, Volunteerservice, RestService, Recordservice]
+    providers: [UserDataService, Pollingstationservice, Volunteerservice, RestService, RestService2, Recordservice]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page
-  rootPage: any = HomePage;
+  rootPage: any = HomePageMa;
   pages: Array<{title: string, component: any}>;
   userDataSvc: UserDataService;
 
@@ -70,6 +69,7 @@ class MyApp {
     this.pages = [
     //   { title: 'Hello Ionic', component: HelloIonicPage },
     //   { title: 'List', component: ListPage },
+	{ title: 'Home', component: HomePageMa}, 
        { title: 'Instructions', component: InstructionsPage },
        { title: 'FAQs', component: FaqsPage },
        { title: 'Add New Record', component: AddnewrecordPage },
@@ -80,7 +80,7 @@ class MyApp {
        { title: 'Evening Check Out', component: EveningcheckoutPage },
        { title: 'Volunteer List', component: VolunteerlistPage },
        { title: 'Activity Record', component: ActivityrecordPage },
-       { title: 'Account Settings', component: AccountsettingsPage },
+	// { title: 'Account Settings', component: AccountsettingsPage },
        //{ title: 'Amendment Verification', component: AmendmentverificationPage },
        
        

@@ -67,10 +67,7 @@ this.totalIndividualRecords = 0;
         "sex": "Female",
         "partyAffiliation": "No Party Preference",    
         "shifts": "Early Evening, Late Evening",
-        "passcode": "password",
         "associatedPollingStationKey": "ps2",
-       
-      
         }
 
         //individual

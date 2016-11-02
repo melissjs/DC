@@ -1,0 +1,54 @@
+
+<ion-header>
+  <ion-navbar>
+    <!--[disabled]="!loggedIn"-->
+    <button  menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Democracy Counts</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content class="backgroundColor" padding>
+  
+
+<!-- style=margin:0px;width:100% -->
+<ion-card padding text-wrap >		
+
+<center>
+  <img style="max-width:830px;"  src="../../img/DC.jpg" >	
+</center>
+
+<ion-item text-wrap>
+</ion-item>
+
+<button type="button"  block large>
+  Donate 
+</button>
+
+<div *ngIf="!restSvc.getLoggedIn()">
+  <button type="button" (click)="onLoginClick()" block large>
+    Log in 
+  </button>
+</div>
+<div *ngIf="restSvc.getLoggedIn()">
+  <button type="button" (click)="onLogout()" block large>
+    Log Out
+  </button>
+</div>
+<!--           <logincomponent></logincomponent>    -->
+</ion-card>
+
+
+    <P style="color:red" *ngIf="errorMessage">{{errorMessage}}</P>
+
+
+
+</ion-content>
+
+     
+
+
+     

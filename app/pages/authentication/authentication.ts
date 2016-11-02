@@ -2,9 +2,13 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
+import {RestService} from '../../providers/rest-service/rest-service';
+import {RestService2} from '../../providers/rest-service2/rest-service2';
 import {Recordservice} from '../../providers/recordservice/recordservice';
 import {SigninsuccessPage} from '../signinsuccess/signinsuccess';
 import { Timesheet } from '../../timesheet';
+
+import * as globals from '../../globals';
 
 /*
   Generated class for the AuthenticationPage page.
@@ -22,25 +26,34 @@ export class AuthenticationPage {
 
   geoLocation: string;
   affirm: boolean;
-  authenticatingVolunteerEmail: string;
+  authenticatingVolunteerPhone: string;
   authenticatingVolunteerPasscode: string;
   authenticatingVolunteerKey: string;
   newTimesheet: Timesheet;
   date: Date;
   time: number;
+  errorMessage: string;
+  restSvc: RestService;
+  restSvc2: RestService2;
 
-  constructor(private navCtrl: NavController, private alertCtrl: AlertController, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, recordservice: Recordservice) {
+  constructor(private navCtrl: NavController, private alertCtrl: AlertController, 
+	      pollingstationservice: Pollingstationservice, 
+	      volunteerservice: Volunteerservice, recordservice: Recordservice,
+	      restSvc: RestService, restSvc2: RestService2) {
     this.navCtrl = navCtrl;
     this.pollingstationservice = pollingstationservice;
     this.volunteerservice = volunteerservice;
     this.recordservice = recordservice;
+    this.restSvc = restSvc;
+    this.restSvc2 = restSvc2;
 
     this.geoLocation = null;
     this.affirm = false;
-    this.authenticatingVolunteerEmail = null;
+    this.authenticatingVolunteerPhone = null;
     this.authenticatingVolunteerPasscode = null;
     this.authenticatingVolunteerKey = null;
     this.newTimesheet = this.recordservice.createVoidTimesheet();
+    this.errorMessage = null;
 
   }
 
@@ -53,33 +66,30 @@ export class AuthenticationPage {
   this.affirm = newval;
   }
 
-  onChangeAuthenticatingVolunteerEmail(value){
-   this.authenticatingVolunteerEmail = value;
-  }
+    onChangeAuthenticatingVolunteerPhone(value) {
+        if (!value.matches(globals.REGEXPHONE)) {
+            this.errorMessage = 'ERROR: Authenticating Phone Number must be exactly 10 digits';
+            this.authenticatingVolunteerPhone = '';
+        } else {
+            this.authenticatingVolunteerPhone = value;
+        }
+    }
 
-  onChangeAuthenticatingVolunteerPasscode(value){
-  this.authenticatingVolunteerPasscode = value;
-  }
+    onChangeAuthenticatingVolunteerPasscode(value) {
+        if (value.length < 8) {
+            this.errorMessage = 'ERROR: Authentiacting Password is less than 8 characters';
+        }
+        this.authenticatingVolunteerPasscode = value;
+    }
+
 
   onSubmit(){
     var that = this;
     this.date = new Date; 
     this.time = this.date.getTime();
     
-
-     // make sure same volunteer is not authenticating 
-         if (this.volunteerservice.getNewVolunteer().emailAddress == this.authenticatingVolunteerEmail){
-                    let alertOne = this.alertCtrl.create({
-                    title: 'Authentication cannot be done with only one volunteer.',
-                    subTitle: 'Please ask a team member to help you authenticate this record by entering their email and passcode.',
-                    buttons: ['OK']
-                });
-                alertOne.present();
-                return;
-                }
-
       // make sure all fields are present
-       if (!this.authenticatingVolunteerPasscode || !this.geoLocation || !this.authenticatingVolunteerEmail || !this.affirm) {
+       if (!this.authenticatingVolunteerPasscode || !this.geoLocation || !this.authenticatingVolunteerPhone || !this.affirm) {
                 let alert = this.alertCtrl.create({
                     title: 'All fields required.',
                     subTitle: 'Signing in requires two way authentication; please ask one of your team members to help you verify this record.',
@@ -87,43 +97,76 @@ export class AuthenticationPage {
                 });
                 alert.present();
                 return;
+       } else {
+
+	   this.restSvc.verifyExtraLogin
+	   (this.authenticatingVolunteerPhone, this.authenticatingVolunteerPasscode, false,
+	    this.avSuccessCb, this.avFailureCb, this);
+
+
        }
 
-        // verify email exists
-                if (!this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail)){let alertEmailIncorrect = this.alertCtrl.create({
-                    title: 'Authenticating Volunteer Email Invalid.',
-                    subTitle: 'Please re-enter authenticating email.',
-                    buttons: ['OK']
-                });
-                alertEmailIncorrect.present();
-                return;}
+  }
 
-       // verify credentials, get key
-                if (this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail).passcode == this.authenticatingVolunteerPasscode){
-                this.authenticatingVolunteerKey = this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail).volunteerKey;
-                } else {
-                    let alertEmail = this.alertCtrl.create({
-                    title: 'Authenticating Volunteer Credentials Invalid.',
-                    subTitle: 'Please re-enter authenticating email and passcode.',
-                    buttons: ['OK']
-                });
-                alertEmail.present();
-                return;
-                }
-        
+    avSuccessCb(that:any, real: boolean, data: any) {
+        if (!real) {
+            // For the fake scenario, just succeed
+            var err = { status: 0, _body: ''};
+            // otherwise success...
+        }
         // fill timesheet 
         this.newTimesheet = {
-        volunteerKey: this.volunteerservice.getNewVolunteer().volunteerKey,
-        authenticatingVolunteerKey: this.volunteerservice.getVolunteerByEmail(this.authenticatingVolunteerEmail).volunteerKey,
-        checkInTime: this.time.toString(),
-        checkOuttime: null,
-        geoLocation: this.geoLocation,
+            volunteerKey: this.volunteerservice.getNewVolunteer().volunteerKey,
+            authenticatingVolunteerKey: this.authenticatingVolunteerPhone,
+            checkInTime: this.time.toString(),
+            checkOuttime: null,
+            geoLocation: this.geoLocation,
         }
         this.recordservice.addTimesheetToList(this.newTimesheet);
         console.log(this.recordservice.getTimesheetList());
+	that.restSvc2.saveTimesheetList(that.amSuccessCb, that.amFailureCb, that);
+    }
+
+    avFailureCb(that:any, err: any) {
+        that.errorMessage = err._body;
+        return;
+    }
+
+
+    amFailureCb(that:any, errStr: string) {
+	// Handle error to write amendment record...
+	var title = 'Error Saving Amendment Record';
+	let alert = that.alertCtrl.create({
+            title: title,
+            subTitle: errStr + ':Flush Data when connected to Internet',
+            buttons: [{
+		text: 'OK',
+		handler: () => {
+                    alert.dismiss();
+		}
+            }]
+	});
         // navigate 
 
-    that.navCtrl.setRoot(SigninsuccessPage, {});
-  }
+	that.navCtrl.setRoot(SigninsuccessPage, {});
+
+    }
+
+    amSuccessCb(that:any, real: boolean, data: any) {
+	if (!real) {
+	    // act like success anyway..
+	}
+        let alertOne = this.alertCtrl.create({
+            title: 'Successful Save of Time Sheet Record',
+            buttons: ['OK']
+        });
+        alertOne.present();
+
+        // navigate 
+
+	that.navCtrl.setRoot(SigninsuccessPage, {});
+
+    }
 
 }
+
