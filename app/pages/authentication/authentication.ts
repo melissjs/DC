@@ -78,7 +78,7 @@ export class AuthenticationPage {
 
     onChangeAuthenticatingVolunteerPasscode(value) {
         if (value.length < 8) {
-            this.errorMessage = 'ERROR: Authentiacting Password is less than 8 characters';
+            this.errorMessage = 'ERROR: Authenticating Password is less than 8 characters';
         }
         this.authenticatingVolunteerPasscode = value;
     }
