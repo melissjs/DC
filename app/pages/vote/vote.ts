@@ -38,6 +38,7 @@ export class VotePage {
     inFlorida: boolean;
     primaryCongressVoteWriteIn: string;
     primaryCongressVote: string;
+    intendedToVoteForCongress: string;
     //currentVolunteer: Volunteer;
 
     constructor(private navCtrl: NavController, private alertCtrl: AlertController, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, recordservice: Recordservice) {
@@ -65,6 +66,7 @@ export class VotePage {
         this.pollingstationservice = pollingstationservice;
         this.primaryCongressVoteWriteIn = null;
         this.primaryCongressVote = null;
+        this.intendedToVoteForCongress = null;
         //this.currentVolunteer = this.volunteerservice.getNewVolunteer();
         this.inFlorida = this.pollingstationservice.isThisInState('FL');
         console.log(this.inFlorida);
@@ -273,6 +275,14 @@ export class VotePage {
 
                         if (this.intendedToVoteFor=='writeIn' && this.intendedToVoteForWriteIn){
                             this.intendedToVoteFor = this.intendedToVoteForWriteIn;
+                        }
+
+                        if (this.primaryPresVote!=='couldNotVote'){
+                             this.intendedToVoteFor = null;
+                        }
+
+                         if (this.primaryPresVote!=='couldNotVote'){
+                             this.intendedToVoteForCongress = null;
                         }
 
                         if (this.primaryPresVote == 'writeIn' && this.primaryPresVoteWriteIn){
