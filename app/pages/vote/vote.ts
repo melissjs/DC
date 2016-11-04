@@ -4,8 +4,10 @@ import {DemographicsPage} from '../demographics/demographics';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
 import {Recordservice} from '../../providers/recordservice/recordservice';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
+import {Ovrservice} from '../../providers/ovrservice/ovrservice';
 import {OvrComponent} from '../../components/ovr-component/ovr-component';
 import {VoteRecord} from '../../voterecord';
+import {OfficeVoteRecord} from '../../officevoterecord';
 import {Volunteer} from '../../volunteer';
 import {PRIMARYPRES} from '../../candidatelists/ppreslist';
 import {PRIMARYCONGRESS} from '../../candidatelists/pcongresslist';
@@ -35,9 +37,9 @@ export class VotePage {
     reasonForCouldNotVotePrimary: string;
     otherReasonForCouldNotVotePrimary: string;
     
-    volunteerservice: Volunteerservice;
+    //volunteerservice: Volunteerservice;
     //recordservice: Recordservice;
-    pollingstationservice: Pollingstationservice;
+    //pollingstationservice: Pollingstationservice;
 
     inFlorida: boolean;
     PRESIDENT: any;
@@ -45,7 +47,7 @@ export class VotePage {
     PRIMARYPRES: any;
     //currentVolunteer: Volunteer;
 
-    constructor(private navCtrl: NavController, private alertCtrl: AlertController, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, private recordservice: Recordservice) {
+    constructor(private navCtrl: NavController, private alertCtrl: AlertController, private pollingstationservice: Pollingstationservice, private volunteerservice: Volunteerservice, private recordservice: Recordservice, private ovrservice: Ovrservice) {
         this.PRESIDENT = PRESIDENT;
         this.PRIMARYCONGRESS = PRIMARYCONGRESS;
         this.PRIMARYPRES = PRIMARYPRES;
@@ -64,6 +66,7 @@ export class VotePage {
         this.secondPresVoteWriteIn = null;
         this.thirdPresVoteWriteIn = null;
         this.pollingstationservice = pollingstationservice;
+        this.ovrservice = ovrservice;
         //this.currentVolunteer = this.volunteerservice.getNewVolunteer();
         this.inFlorida = this.pollingstationservice.isThisInState('FL');
         console.log(this.inFlorida);

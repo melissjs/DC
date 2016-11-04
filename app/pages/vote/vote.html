@@ -12,7 +12,7 @@
           <ion-content class="backgroundColor" padding>
         <ion-card>
         <ion-list>
-
+        <ion-list-header text-wrap>General Election</ion-list-header> 
         <ion-item>
         <ion-label stacked>How did you cast your vote in the general election?</ion-label>
         <ion-select text-wrap [(ngModel)]="generalCastBy" (change)="onChangeGeneralCastBy(generalCastBy)">
@@ -24,6 +24,8 @@
         </ion-select>
         </ion-item>
 
+        <!--ion-label stacked style="color:#999999; margin-left:15px"-->
+       
           <ovr-component [electThisOffice]=PRESIDENT></ovr-component>
        
         </ion-list>
@@ -31,7 +33,7 @@
 
     <ion-card>
     <ion-list>
-
+    <ion-list-header text-wrap>Primary Election</ion-list-header> 
       <!--PRIMARY-->
 
     <ion-item text-wrap>

@@ -1,19 +1,19 @@
   
   <ion-item text-wrap>
-      <ion-label stacked>Please select candidate you voted for or intended to vote for in the {{electThisOffice.election}} election for {{electThisOffice.office}}:</ion-label>
+   <ion-label text-wrap stacked>Please select candidate you voted for or intended to vote for in the {{electThisOffice.election}} election for {{electThisOffice.office}}:</ion-label>
           <ion-select text-wrap [(ngModel)]="candidateChoice"  (ionChange)="onChangeChoice(candidateChoice)">
-            <ion-option *ngFor="let cand of electThisOffice.candidates" value="{{cand.value}}">{{cand.label}}</ion-option>
+            <ion-option  *ngFor="let cand of electThisOffice.candidates" value="{{cand.value}}">{{cand.label}}</ion-option>
           </ion-select>
     </ion-item>
 
     <ion-item *ngIf="choosenCandidate=='26'">
-        <ion-label stacked>Please write in candidate name:</ion-label>
+        <ion-label text-wrap stacked>Please write in candidate name:</ion-label>
         <ion-input type="text" [(ngModel)]="candidateVoteWriteIn" (change)="onChangeCandidateVoteWriteIn(candidateVoteWriteIn)"></ion-input>
     </ion-item>
 
 
      <ion-item *ngIf="!(choosenCandidate=='25' || choosenCandidate=='27')">
-    <ion-label stacked>Level of support:</ion-label>
+    <ion-label text-wrap stacked>Level of support:</ion-label>
             <ion-select text-wrap [(ngModel)]="los"  (change)="onChangeLos(los)">
             <ion-option value="highlySupport">Highly Support</ion-option>
             <ion-option value="moderatelySupport">Moderately Support</ion-option>

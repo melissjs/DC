@@ -11,7 +11,7 @@ import { AffidavitRecord } from '../../affidavitrecord';
 import { DemographicsRecord } from '../../demographicsrecord';
 import { VoteRecord } from '../../voterecord';
 import { Timesheet } from '../../timesheet';
-import { Officevoterecord } from '../../officevoterecord';
+import { OfficeVoteRecord } from '../../officevoterecord';
 import { ANOMALYLIST, AMENDMENTLIST, AFFIDAVITLIST, DEMOGRAPHICSLIST, VOTELIST,
 	  TIMESHEETLIST } from '../../fakedatama'
 
@@ -34,7 +34,7 @@ export class Recordservice {
 
   newTimesheet: Timesheet;
   currentTimesheet: Timesheet;
-  officevoterecord: Officevoterecord;
+  officevoterecord: OfficeVoteRecord;
 
   pollingstationservice: Pollingstationservice;
   volunteerservice: Volunteerservice;

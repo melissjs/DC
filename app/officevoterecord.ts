@@ -1,6 +1,6 @@
 import {Candidate} from './candidate';
 
-export interface Officevoterecord {
+export interface OfficeVoteRecord {
 voteRecordKey: string;
 office: string;
 election: string;
