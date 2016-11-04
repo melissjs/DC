@@ -45,9 +45,15 @@ export class VotePage {
     primaryCongressVoteWriteIn: string;
     primaryCongressVote: string;
     intendedToVoteForCongress: string;
+    PRESIDENT: any;
+    PRIMARYCONGRESS: any;
+    PRIMARYPRES: any;
     //currentVolunteer: Volunteer;
 
     constructor(private navCtrl: NavController, private alertCtrl: AlertController, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, private recordservice: Recordservice) {
+	this.PRESIDENT = PRESIDENT;
+	this.PRIMARYCONGRESS = PRIMARYCONGRESS;
+	this.PRIMARYPRES = PRIMARYPRES;
         this.navCtrl = navCtrl;
         this.presVote = null;
         this.presVoteWriteIn = null;

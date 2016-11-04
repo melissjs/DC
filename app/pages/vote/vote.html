@@ -26,10 +26,11 @@
 
         <ion-item text-wrap>
         <ion-label stacked>General Election Presidential Vote:</ion-label>
-          <ovr-component [electThisOffice]=PRESIDENT.candidates></ovr-component>
+          <ovr-component [electThisOffice]=PRESIDENT></ovr-component>
        </ion-item>
+	<!--
        <ovr-component [electThisOffice]=PRESIDENT.candidates></ovr-component>
-
+       -->
 
         </ion-list>
         </ion-card>
@@ -71,16 +72,13 @@
 
     <ion-item text-wrap>
     <ion-label stacked>Primary Election Presidential Vote:</ion-label>
-          <ovr-component [electThisOffice]=PRIMARYPRES.candidates></ovr-component>
+          <ovr-component [electThisOffice]=PRIMARYPRES></ovr-component>
     </ion-item>
 
     <ion-item text-wrap *ngIf="inFlorida && (recordservice.getPrimarySuccess || recordservice.getPrimaryIntention)">
     <ion-label stacked>Primary Election Congressional Vote:</ion-label>
-          <ovr-component [electThisOffice]=PRIMARYCONGRESS.candidates></ovr-component>
+          <ovr-component [electThisOffice]=PRIMARYCONGRESS></ovr-component>
     </ion-item>
-
-
-
 
 
      <!-- Could not vote logic lines -->
