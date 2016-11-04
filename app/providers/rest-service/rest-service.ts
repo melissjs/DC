@@ -586,30 +586,6 @@ export class RestService {
         }, () => {console.log('get polling station data complete')});
     }
 
-    savePollStationInfo(doadd:boolean) {
-        var property = this.polSvc.getStation();
-        var json = JSON.stringify(property);
-        var params = /* 'json=' +  */ json;
-        let headers = new Headers();
-        headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
-        headers.append('Content-Type', 'application/json;charset=UTF-8');
-        let options = new RequestOptions({ headers: headers, withCredentials: true});
-
-        var url = config.MT_HOST + '/api/polling-stations' + this.cacheBuster(true);
-        var retval1 = null;
-        if (doadd) {
-            retval1 = this.http.post(url, params, options);
-        } else {
-            retval1 = this.http.put(url, params, options);
-        }
-        // body, options
-        var retval2 = retval1;
-        return retval2;
-    }
-
     sendCollab(collabForm: any) {
         var property = collabForm;
         var json = JSON.stringify(property);
@@ -700,5 +676,75 @@ export class RestService {
 		cbfailure(thatobj,err);
 	    }
         }, () => {console.log('send extra login data complete')});
+    }
+
+    saveObject(objtype:string	// the string that matches the object type
+	       // using dash notation (plural): so 
+	       //   PollingStation becomes polling-stations
+	       //   Volunteer      becomes volunteers
+	       //   etc...
+	       ,objdata:any	// data in a structure
+	       ,doadd:boolean	// are we creating a new object
+	       ,successcb // success callback function
+	       ,failurecb // failure callback function
+	       ,thatobj   // 'this' from the original caller
+	      ) {
+        var params = JSON.stringify(objdata);
+        let headers = new Headers();
+        headers.append('Accept', 'application/json, text/plain, */*');
+        if (this.csrf_token != null) {
+            headers.append('X-CSRF-TOKEN', this.csrf_token);
+        }
+        headers.append('Content-Type', 'application/json;charset=UTF-8');
+        let options = new RequestOptions({ headers: headers, withCredentials: true});
+
+        var url = config.MT_HOST + '/api/' + objtype + this.cacheBuster(true);
+        var retval1 = null;
+        if (doadd) {
+            retval1 = this.http.post(url, params, options);
+        } else {
+            retval1 = this.http.put(url, params, options);
+        }
+        // body, options
+        var retval2 = retval1;
+        // return retval2;
+        retval2.subscribe( (data) => {
+            // Expect response created here...
+            if (data.status == 201) {
+                console.log('successful call to save ' + objtype + ':' + data);
+		if (successcb) {
+		    successcb(thatobj,true, data._body);
+		}
+                // this.successForward(true);
+            } else {
+                // ?? shouldn't happen ??
+                console.log('UNKNOWN STATUS calling save ' + objtype + ':' + data);
+		if (successcb) {
+		    successcb(thatobj,true, data._body);
+		}
+                // this.successForward(true);
+            }
+        } , err => {
+            var errStr = null;
+            if ((err.status == 0) ||
+                (err.status == 404)) {
+		console.log('faking success in save ' + objtype);
+		if (successcb) {
+		    successcb(thatobj,false, null);
+		}
+                // this.successForward(false);
+                return;
+            } else if (err.status == 400) {
+                errStr = err._body // toString();
+            } else {
+                errStr = err.toString();
+            }
+            console.log('error occurred in save ' + objtype + ':' + err.toString());
+	    if (failurecb) {
+		failurecb(thatobj,errStr);
+	    }
+            // console.log(error.stack());
+        }, () => {console.log('save ' + objtype + ' complete')}
+			 );
     }
 }
