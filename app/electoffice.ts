@@ -1,7 +1,7 @@
-import { Candidate } from './candidate';
+// import { Candidate } from './candidate';
 
-export class Electoffice {
+export class ElectOffice {
+    electOfficeKey: string;
     office: string;
     election: string;
-    candidates: Candidate[];
 }

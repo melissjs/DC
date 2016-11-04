@@ -4,7 +4,8 @@ import { Candidate } from '../../candidate';
 import { OfficeVoteRecord } from '../../officevoterecord';
 import { Recordservice } from '../../providers/recordservice/recordservice';
 import {Ovrservice} from '../../providers/ovrservice/ovrservice';
-import { Electoffice } from '../../electoffice';
+//import { ElectOffice } from '../../electoffice';
+//import { ElectOfficeGUI } from '../../electofficegui';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class OvrComponent {
   successfullyElected: boolean;
   levelOfSupport: string;
   writeInCandidate: string;
-  //electThisOffice: Electoffice;
+  //electThisOffice: ElectOfficeGUI;
 
   constructor(private recordservice: Recordservice, public alertCtrl: AlertController, private ovrservice: Ovrservice) {
     //this.officevoterecord = this.recordservice.getVoidOfficeVoteRecord();
@@ -51,6 +52,9 @@ onChangeLos(passedLos){
   this.ovrservice.setgePresLos(passedLos);
   console.log("from service" + this.ovrservice.getgePresLos());
 }
+
+
+
 
 
 }

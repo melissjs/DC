@@ -760,4 +760,61 @@ export class RestService {
         }, () => {console.log('save ' + objtype + ' complete')}
                          );
     }
+
+    getObjectsByField(
+        objtype:string   // the string that matches the object type
+        // using dash notation (plural): so 
+        //   PollingStation becomes polling-stations
+        //   Volunteer      becomes volunteers
+        //   etc...
+        ,fieldName       // field name to assign a value to (null if all objects)
+        ,fieldValue      // value of field.
+        ,successcb // success callback function
+        ,failurecb // failure callback function
+        ,thatobj   // 'this' from the original caller
+    ) {
+        // 
+        var url = config.MT_HOST + '/api/'
+        var query = objtype;
+
+        if (fieldName != null) {
+            query = query + '?' + fieldName + '=' + fieldValue;
+        }
+
+        url = url + query + this.cacheBuster(false);
+
+        var retval1 = this.http.get(url);
+        
+        // body, options
+
+        var retval2 = retval1.map(
+            res => res.json()
+        );
+        var that=this;
+        retval2.subscribe( data => {
+            console.log('successful get ' + query + ' data call:' + data);
+            if (successcb) {
+                successcb(thatobj,true, data);
+            }
+        }, err => {
+            var errStr = null;
+            console.log('error occurred in getting ' + query + ' data ' + err.toString());
+            if ((err.status == 0) ||
+                (err.status == 404)) {
+                console.log('error expected in standalone ionic app for get data call for ' + query);
+                if (successcb) {
+                    successcb(thatobj,false, null);
+                }
+                return;
+            } else if (err.status == 400) {
+                errStr = err._body // toString();
+            } else {
+                errStr = err.toString();
+            }
+            console.log('error occurred in get data ' + query + ':' + err.toString());
+            if (failurecb) {
+                failurecb(thatobj,errStr);
+            }
+        }, () => {console.log('get ' + query + ' data complete')});
+    }
 }
