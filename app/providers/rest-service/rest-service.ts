@@ -20,6 +20,7 @@ export class RestService {
     jsessionid: string;
     csrf_token: string;
     lastLoginCheck: number;
+    lastPollingCheck: number;
     hashedPassCode: number;
     attemptedPassCode: number;
     lastPollingStationDate: any;
@@ -35,6 +36,7 @@ export class RestService {
         this.csrf_token = null;
         this.loggedIn = false;
         this.lastLoginCheck = 0;
+        this.lastPollingCheck = 0;
         this.hashedPassCode = 0;
         this.attemptedPassCode = 0;
         this.lastPollingStationDate = null;
@@ -122,6 +124,8 @@ export class RestService {
     }
 
     setLoginFalse(that) {
+        // regardlesss of whether logged in or not.. we (attempt to) fill polling station data.
+        that.getLatestPollStations();
         that.loggedIn = false;
     }
 
@@ -554,6 +558,15 @@ export class RestService {
 
     getLatestPollStations() {
 
+        var dnow = new Date();
+        var inow = dnow.getTime();
+
+        if ((inow - this.lastPollingCheck) < this.MIN_LOGIN_CHECK_TIME) {
+            return;
+        }
+        // Force to wait 15 more seconds before allowing another call.
+        this.lastPollingCheck = inow;
+
         var lastPollingDate = '';
         if (this.lastPollingStationDate != null) {
             lastPollingDate = '?createDate=' + this.lastPollingStationDate;
@@ -645,7 +658,7 @@ export class RestService {
     }
 
     verifyExtraLogin(volunteerKey: string, passcode: string, checkonly: boolean, 
-		     cbsuccess: any, cbfailure: any, thatobj: any) {
+                     cbsuccess: any, cbfailure: any, thatobj: any) {
         var property = { "volunteerKey": volunteerKey, "passcode": passcode };
         var json = JSON.stringify(property);
         var params = /* 'json=' +  */ json;
@@ -664,31 +677,31 @@ export class RestService {
         var that=this;
         retval2.subscribe( data => {
             console.log('successful send extra login data call:' + data);
-	    cbsuccess(thatobj,true,data);
+            cbsuccess(thatobj,true,data);
         }, err => {
             console.log('error occurred in sending extra login data ' + err.toString());
             if ((err.status == 0) ||
                 (err.status == 404)) {
                 console.log('error expected in standalone ionic app for send extra login');
-		cbsuccess(thatobj,false,null);
+                cbsuccess(thatobj,false,null);
                 return;
             } else {
-		cbfailure(thatobj,err);
-	    }
+                cbfailure(thatobj,err);
+            }
         }, () => {console.log('send extra login data complete')});
     }
 
-    saveObject(objtype:string	// the string that matches the object type
-	       // using dash notation (plural): so 
-	       //   PollingStation becomes polling-stations
-	       //   Volunteer      becomes volunteers
-	       //   etc...
-	       ,objdata:any	// data in a structure
-	       ,doadd:boolean	// are we creating a new object
-	       ,successcb // success callback function
-	       ,failurecb // failure callback function
-	       ,thatobj   // 'this' from the original caller
-	      ) {
+    saveObject(objtype:string   // the string that matches the object type
+               // using dash notation (plural): so 
+               //   PollingStation becomes polling-stations
+               //   Volunteer      becomes volunteers
+               //   etc...
+               ,objdata:any     // data in a structure
+               ,doadd:boolean   // are we creating a new object
+               ,successcb // success callback function
+               ,failurecb // failure callback function
+               ,thatobj   // 'this' from the original caller
+              ) {
         var params = JSON.stringify(objdata);
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
@@ -712,26 +725,26 @@ export class RestService {
             // Expect response created here...
             if (data.status == 201) {
                 console.log('successful call to save ' + objtype + ':' + data);
-		if (successcb) {
-		    successcb(thatobj,true, data._body);
-		}
+                if (successcb) {
+                    successcb(thatobj,true, data._body);
+                }
                 // this.successForward(true);
             } else {
                 // ?? shouldn't happen ??
                 console.log('UNKNOWN STATUS calling save ' + objtype + ':' + data);
-		if (successcb) {
-		    successcb(thatobj,true, data._body);
-		}
+                if (successcb) {
+                    successcb(thatobj,true, data._body);
+                }
                 // this.successForward(true);
             }
         } , err => {
             var errStr = null;
             if ((err.status == 0) ||
                 (err.status == 404)) {
-		console.log('faking success in save ' + objtype);
-		if (successcb) {
-		    successcb(thatobj,false, null);
-		}
+                console.log('faking success in save ' + objtype);
+                if (successcb) {
+                    successcb(thatobj,false, null);
+                }
                 // this.successForward(false);
                 return;
             } else if (err.status == 400) {
@@ -740,11 +753,11 @@ export class RestService {
                 errStr = err.toString();
             }
             console.log('error occurred in save ' + objtype + ':' + err.toString());
-	    if (failurecb) {
-		failurecb(thatobj,errStr);
-	    }
+            if (failurecb) {
+                failurecb(thatobj,errStr);
+            }
             // console.log(error.stack());
         }, () => {console.log('save ' + objtype + ' complete')}
-			 );
+                         );
     }
 }
