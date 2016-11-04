@@ -4,7 +4,8 @@ import { Candidate } from '../../candidate';
 import { OfficeVoteRecord } from '../../officevoterecord';
 import { Recordservice } from '../../providers/recordservice/recordservice';
 import {Ovrservice} from '../../providers/ovrservice/ovrservice';
-import { Electoffice } from '../../electoffice';
+//import { ElectOffice } from '../../electoffice';
+//import { ElectOfficeGUI } from '../../electofficegui';
 
 
 @Component({
@@ -21,7 +22,7 @@ export class OvrComponent {
   successfullyElected: boolean;
   levelOfSupport: string;
   writeInCandidate: string;
-  //electThisOffice: Electoffice;
+  //electThisOffice: ElectOfficeGUI;
 
   constructor(private recordservice: Recordservice, public alertCtrl: AlertController, private ovrservice: Ovrservice) {
     this.officevoterecord = this.recordservice.getVoidOfficeVoteRecord();
@@ -54,9 +55,9 @@ onChangeLos(passedLos){
 public fillOfficeVoteRecord(){
 
   //logic for successful vote vs intended vote
-if (this.electThisOffice.election=='General' && this.recordservice.getNonVoteBool()){
+if (this.electThisOffice.inner.election=='General' && this.recordservice.getNonVoteBool()){
   this.successfullyElected = false;
-} else if (this.electThisOffice.election=='Primary' && !this.recordservice.getPrimarySuccess()){
+} else if (this.electThisOffice.inner.election=='Primary' && !this.recordservice.getPrimarySuccess()){
   this.successfullyElected = false;
 } else {
   this.successfullyElected = true;
@@ -94,8 +95,8 @@ if (this.choosenCandidate=='26' && !this.writeInCandidate){
   // fill object
 this.officevoterecord = {
 voteRecordKey: null,
-office: this.electThisOffice.office,
-election: this.electThisOffice.election,
+office: this.electThisOffice.inner.office,
+election: this.electThisOffice.inner.election,
 success: this.successfullyElected,
 candidate: this.choosenCandidate,
 levelOfSupport: this.levelOfSupport,

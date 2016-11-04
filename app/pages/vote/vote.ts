@@ -4,11 +4,13 @@ import {DemographicsPage} from '../demographics/demographics';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
 import {Recordservice} from '../../providers/recordservice/recordservice';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
+import {RestService} from '../../providers/rest-service/rest-service';
 import {Ovrservice} from '../../providers/ovrservice/ovrservice';
 import {OvrComponent} from '../../components/ovr-component/ovr-component';
 import {VoteRecord} from '../../voterecord';
 import {OfficeVoteRecord} from '../../officevoterecord';
 import {Volunteer} from '../../volunteer';
+import {ElectOfficeGUI} from '../../electofficegui';
 import {PRIMARYPRES} from '../../candidatelists/ppreslist';
 import {PRIMARYCONGRESS} from '../../candidatelists/pcongresslist';
 import {PRESIDENT} from '../../candidatelists/preslist';
@@ -42,12 +44,16 @@ export class VotePage {
     //pollingstationservice: Pollingstationservice;
 
     inFlorida: boolean;
-    PRESIDENT: any;
-    PRIMARYCONGRESS: any;
-    PRIMARYPRES: any;
+    PRESIDENT: ElectOfficeGUI;
+    PRIMARYCONGRESS: ElectOfficeGUI;
+    PRIMARYPRES: ElectOfficeGUI;
     //currentVolunteer: Volunteer;
 
-    constructor(private navCtrl: NavController, private alertCtrl: AlertController, private pollingstationservice: Pollingstationservice, private volunteerservice: Volunteerservice, private recordservice: Recordservice, private ovrservice: Ovrservice) {
+    constructor(private navCtrl: NavController, private alertCtrl: AlertController,
+                private pollingstationservice: Pollingstationservice,
+                private volunteerservice: Volunteerservice,
+                private recordservice: Recordservice, private ovrservice: Ovrservice,
+                private restSvc: RestService) {
         this.PRESIDENT = PRESIDENT;
         this.PRIMARYCONGRESS = PRIMARYCONGRESS;
         this.PRIMARYPRES = PRIMARYPRES;
@@ -72,6 +78,100 @@ export class VotePage {
         console.log(this.inFlorida);
         console.log(this.pollingstationservice.selectedStationXX.state);
        
+        this.restSvc.getObjectsByField('elect-offices','electOfficeKey','President2016'
+                                       ,this.successElectOfficePresCb, this.failureElectOfficePresCb, this);
+        this.restSvc.getObjectsByField('candidates','electOfficeKey','President2016'
+                                       ,this.successCandsPresCb, this.failureCandsPresCb, this);
+
+        this.restSvc.getObjectsByField('elect-offices','electOfficeKey','PrimaryPresident2016'
+                                       ,this.successElectOfficePrimPresCb, this.failureElectOfficePrimPresCb, this);
+        this.restSvc.getObjectsByField('candidates','electOfficeKey','PrimaryPresident2016'
+                                       ,this.successCandsPrimPresCb, this.failureCandsPrimPresCb, this);
+
+
+        this.restSvc.getObjectsByField('elect-offices','electOfficeKey','Congress Primary 2016'
+                                       ,this.successElectOfficePrimCongCb, this.failureElectOfficePrimCongCb, this);
+        this.restSvc.getObjectsByField('candidates','electOfficeKey','Congress Primary 2016'
+                                       ,this.successCandsPrimCongCb, this.failureCandsPrimCongCb, this);
+
+    }
+
+    successElectOfficePresCb(that, real, data) {
+        if (real) {
+            that.PRESIDENT.inner = data;
+        } else {
+            // If fake.. just keep using the fake data...
+        }
+    }
+
+    failureElectOfficePresCb(that, errStr) {
+        // Error retrieving the candidates data from the database.. (keep using fake data?)
+        console.log('Error seen in callback ' + errStr);
+    }
+
+    successElectOfficePrimPresCb(that, real, data) {
+        if (real) {
+            that.PRIMARYPRES.inner = data;
+        } else {
+            // If fake.. just keep using the fake data...
+        }
+    }
+
+    failureElectOfficePrimPresCb(that, errStr) {
+        // Error retrieving the candidates data from the database.. (keep using fake data?)
+        console.log('Error seen in callback ' + errStr);
+    }
+
+    successElectOfficePrimCongCb(that, real, data) {
+        if (real) {
+            that.PRIMARYCONGRESS.inner = data;
+        } else {
+            // If fake.. just keep using the fake data...
+        }
+    }
+
+    failureElectOfficePrimCongCb(that, errStr) {
+        // Error retrieving the candidates data from the database.. (keep using fake data?)
+        console.log('Error seen in callback ' + errStr);
+    }
+
+    successCandsPresCb(that, real, data) {
+        if (real) {
+            that.PRESIDENT.candidates = data;
+        } else {
+            // If fake.. just keep using the fake data...
+        }
+    }
+
+    failureCandsPresCb(that, errStr) {
+        // Error retrieving the candidates data from the database.. (keep using fake data?)
+        console.log('Error seen in callback ' + errStr);
+    }
+
+    successCandsPrimPresCb(that, real, data) {
+        if (real) {
+            that.PRIMARYPRES.candidates = data;
+        } else {
+            // If fake.. just keep using the fake data...
+        }
+    }
+
+    failureCandsPrimPresCb(that, errStr) {
+        // Error retrieving the candidates data from the database.. (keep using fake data?)
+        console.log('Error seen in callback ' + errStr);
+    }
+
+    successCandsPrimCongCb(that, real, data) {
+        if (real) {
+            that.PRIMARYCONGRESS.candidates = data;
+        } else {
+            // If fake.. just keep using the fake data...
+        }
+    }
+
+    failureCandsPrimCongCb(that, errStr) {
+        // Error retrieving the candidates data from the database.. (keep using fake data?)
+        console.log('Error seen in callback ' + errStr);
     }
 
   // General
