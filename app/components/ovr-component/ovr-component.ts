@@ -24,8 +24,8 @@ export class OvrComponent {
   //electThisOffice: Electoffice;
 
   constructor(private recordservice: Recordservice, public alertCtrl: AlertController, private ovrservice: Ovrservice) {
-    this.officevoterecord = this.recordservice.getVoidOfficeVoteRecord();
-    this.successfullyElected = false;
+    //this.officevoterecord = this.recordservice.getVoidOfficeVoteRecord();
+    //this.successfullyElected = false;
     this.levelOfSupport = null;
     this.writeInCandidate = null;
     this.choosenCandidate = null;
@@ -34,7 +34,7 @@ export class OvrComponent {
 
 onChangeChoice(candidateChoice){
   this.choosenCandidate = candidateChoice;
-    //console.log(this.choosenCandidate);
+    console.log(this.choosenCandidate);
     this.ovrservice.setgePres(candidateChoice);
     
 
@@ -47,60 +47,10 @@ onChangeCandidateVoteWriteIn(candidateVoteWriteIn){
 
 onChangeLos(passedLos){
   this.levelOfSupport = passedLos;
+  console.log(this.levelOfSupport);
   this.ovrservice.setgePresLos(passedLos);
+  console.log("from service" + this.ovrservice.getgePresLos());
 }
 
-// function called from host page onSubmit
-public fillOfficeVoteRecord(){
-
-  //logic for successful vote vs intended vote
-if (this.electThisOffice.election=='General' && this.recordservice.getNonVoteBool()){
-  this.successfullyElected = false;
-} else if (this.electThisOffice.election=='Primary' && !this.recordservice.getPrimarySuccess()){
-  this.successfullyElected = false;
-} else {
-  this.successfullyElected = true;
-}
-
-// logic for write in candidate
-if (this.choosenCandidate=='26' && this.writeInCandidate){
-  this.choosenCandidate = this.writeInCandidate;
-
-}
-
-// alert for choosing President && !this.writeInCandidate && this.electThisOffice=="PRESIDENT"
-if (this.choosenCandidate=='26' ){
-   let alertP = this.alertCtrl.create({
-                    title: 'President and cast by selections are required.',
-                    subTitle: 'Please select the candidate you voted for today and specify how you cast your vote, everything else on this page is optional.',
-                    buttons: ['OK']
-                });
-                        alertP.present();
-                        return;
-}
-
-
-// alert for write in if none
-if (this.choosenCandidate=='26' && !this.writeInCandidate){
-   let alert = this.alertCtrl.create({
-                            //title: 'Please write in Primary Presidential Vote.',
-                            subTitle: 'Please Write in Candidate Name.',
-                            buttons: ['OK']
-                            });
-                        alert.present();
-                        return;
-}
-
-  // fill object
-this.officevoterecord = {
-voteRecordKey: null,
-office: this.electThisOffice.office,
-election: this.electThisOffice.election,
-success: this.successfullyElected,
-candidate: this.choosenCandidate,
-levelOfSupport: this.levelOfSupport,
-}
-
-}
 
 }

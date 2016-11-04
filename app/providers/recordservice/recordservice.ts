@@ -11,7 +11,6 @@ import { AffidavitRecord } from '../../affidavitrecord';
 import { DemographicsRecord } from '../../demographicsrecord';
 import { VoteRecord } from '../../voterecord';
 import { Timesheet } from '../../timesheet';
-import { OfficeVoteRecord } from '../../officevoterecord';
 import { ANOMALYLIST, AMENDMENTLIST, AFFIDAVITLIST, DEMOGRAPHICSLIST, VOTELIST,
 	  TIMESHEETLIST } from '../../fakedatama'
 
@@ -34,7 +33,7 @@ export class Recordservice {
 
   newTimesheet: Timesheet;
   currentTimesheet: Timesheet;
-  officevoterecord: OfficeVoteRecord;
+  
 
   pollingstationservice: Pollingstationservice;
   volunteerservice: Volunteerservice;
@@ -431,17 +430,7 @@ this.totalIndividualRecords = this.getTotalIndividualAffidavitRecords(passedVolu
 return this.totalIndividualRecords;
 }
 
-getVoidOfficeVoteRecord(){
-this.officevoterecord = {
-voteRecordKey: null,
-office: null,
-election: null,
-success: false,
-candidate: null,
-levelOfSupport: null,
-}
-return this.officevoterecord;
-}
+
 
 
 // booleans

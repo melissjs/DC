@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { OfficeVoteRecord } from '../../officevoterecord';
 
 
 @Injectable()
 export class Ovrservice {
+  officevoterecord: OfficeVoteRecord;
+
   gePres:string;
   gePresWriteIn:string;
   gePresLos:string;
@@ -30,6 +33,34 @@ export class Ovrservice {
   this.pCongWriteIn=null;
   this.pCongLos=null;
 
+  }
+
+  // clear all records
+  clearAll(){
+  this.gePres=null;
+  this.gePresWriteIn=null;
+  this.gePresLos=null;
+
+  this.pPres=null;
+  this.pPresWriteIn=null;
+  this.pPresLos=null;
+
+  this.pCong=null;
+  this.pCongWriteIn=null;
+  this.pCongLos=null;
+  }
+
+  // get void
+  getVoidOfficeVoteRecord(){
+  this.officevoterecord = {
+  voteRecordKey: null,
+  office: null,
+  election: null,
+  success: false,
+  candidate: null,
+  levelOfSupport: null,
+  }
+  return this.officevoterecord;
   }
 
 // gePres
