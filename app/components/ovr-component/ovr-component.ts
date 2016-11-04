@@ -47,7 +47,7 @@ onChangeCandidateVoteWriteIn(candidateVoteWriteIn){
 
 onChangeLos(passedLos){
   this.levelOfSupport = passedLos;
-  this.ovrservice.setgePresLos(candidateVoteWriteIn);
+  this.ovrservice.setgePresLos(passedLos);
 }
 
 // function called from host page onSubmit
