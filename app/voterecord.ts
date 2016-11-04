@@ -1,17 +1,13 @@
 export interface VoteRecord {
 voteRecordKey: string;
 volunteerKey: string;
-gePresVote?: string;
-gePresVoteCastBy?: string;
-gePresVoteLevelOfSupport?: string;
-pPresVoteCouldNotVote?: boolean;
-pPresVoteCouldNotVoteReason?: string;
-pPresVoteIntended?: string;
-pPresVote?: string;
-pCongressVote?: string;
-pPresVoteCastBy?: string;
-pPresVoteLevelOfSupport?: string;
-pPresVotePollingLocation?: string;
+generalSuccess: boolean;
+generalCouldNotVoteReason?: string;
+generalCastBy?: string;
+primarySuccess?: boolean;
+primaryCouldNotVoteReason?: string;
+primaryCastBy?: string;
+primaryVotePollingLocation?: string;
 presFirst?: string;
 presSecond?: string;
 presThird?: string;

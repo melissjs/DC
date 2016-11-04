@@ -15,7 +15,7 @@
 
         <ion-item>
         <ion-label stacked>How did you cast your vote in the general election?</ion-label>
-        <ion-select text-wrap [(ngModel)]="presVoteCastBy" (change)="onChangePresVoteCastBy(presVoteCastBy)">
+        <ion-select text-wrap [(ngModel)]="generalCastBy" (change)="onChangeGeneralCastBy(generalCastBy)">
             <ion-option value="votingMachine">Voting Machine</ion-option>
             <ion-option value="voteByMail">Vote by Mail (returned at this location)</ion-option>
             <ion-option value="absentee">Absentee Ballot (returned at this location)</ion-option>
@@ -66,8 +66,8 @@
 
   
     <ovr-component [electThisOffice]=PRIMARYPRES></ovr-component>
-  
 
+ 
    <ovr-component [electThisOffice]=PRIMARYCONGRESS></ovr-component>
     
 

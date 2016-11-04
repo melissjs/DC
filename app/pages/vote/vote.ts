@@ -18,33 +18,28 @@ import {PRESIDENT} from '../../candidatelists/preslist';
   directives: [OvrComponent],
 })
 export class VotePage {
-    presVote: string;
-    presVoteWriteIn: string;
-    presVoteCastBy: string;
-    presVoteLOS: string;
-    primaryPresVote: string;
-    primaryPresVoteWriteIn: string;
+    generalCastBy: string;
     primaryLocation: string;
-    primaryPresVoteCastBy: string;
-    primaryPresVoteLOS: string;
+    primaryCastBy: string;
+
     firstPresVote: string;
     secondPresVote: string;
     thirdPresVote: string;
-    reasonForCouldNotVotePrimary: string;
-    otherReasonForCouldNotVotePrimary: string;
-    intendedToVoteFor: string;
-    intendedToVoteForWriteIn: string;
-    volunteerservice: Volunteerservice;
-    //recordservice: Recordservice;
     newVoteRecord: VoteRecord;
     firstPresVoteWriteIn: string;
     secondPresVoteWriteIn: string;
     thirdPresVoteWriteIn: string;
+
+    reasonForCouldNotVoteGeneral: string;
+    otherReasonForCouldNotVoteGeneral: string;
+    reasonForCouldNotVotePrimary: string;
+    otherReasonForCouldNotVotePrimary: string;
+    
+    volunteerservice: Volunteerservice;
+    //recordservice: Recordservice;
     pollingstationservice: Pollingstationservice;
+
     inFlorida: boolean;
-    primaryCongressVoteWriteIn: string;
-    primaryCongressVote: string;
-    intendedToVoteForCongress: string;
     PRESIDENT: any;
     PRIMARYCONGRESS: any;
     PRIMARYPRES: any;
@@ -55,20 +50,13 @@ export class VotePage {
         this.PRIMARYCONGRESS = PRIMARYCONGRESS;
         this.PRIMARYPRES = PRIMARYPRES;
         this.navCtrl = navCtrl;
-        this.presVote = null;
-        this.presVoteWriteIn = null;
-        this.presVoteCastBy = null;
-        this.presVoteLOS = null;
-        this.primaryPresVote = null;
-        this.primaryPresVoteWriteIn = null;
-        this.primaryPresVoteCastBy = null;
-        this.primaryPresVoteLOS = null;
+        this.generalCastBy = null;
+        this.primaryCastBy = null;
         this.primaryLocation = null;
         this.firstPresVote = null;
         this.secondPresVote = null;
         this.thirdPresVote = null;
         this.reasonForCouldNotVotePrimary = null;
-        this.intendedToVoteFor = null;
         this.volunteerservice = volunteerservice;
         this.recordservice = recordservice;
         this.newVoteRecord = this.recordservice.createVoidVoteRecord();
@@ -76,9 +64,6 @@ export class VotePage {
         this.secondPresVoteWriteIn = null;
         this.thirdPresVoteWriteIn = null;
         this.pollingstationservice = pollingstationservice;
-        this.primaryCongressVoteWriteIn = null;
-        this.primaryCongressVote = null;
-        this.intendedToVoteForCongress = null;
         //this.currentVolunteer = this.volunteerservice.getNewVolunteer();
         this.inFlorida = this.pollingstationservice.isThisInState('FL');
         console.log(this.inFlorida);
@@ -86,23 +71,15 @@ export class VotePage {
        
     }
 
-        onChangePresVote(value){
-        this.presVote = value;
-        console.log(this.presVote);
+  // General
+
+       onChangeGeneralCastBy(value){
+        this.generalCastBy = value;
    }
 
-        onChangePresVoteWriteIn(passedPresVoteWriteIn){
-        this.presVoteWriteIn = passedPresVoteWriteIn;
+ 
 
-   }
-
-       onChangePresVoteCastBy(value){
-        this.presVoteCastBy = value;
-   }
-
-       onChangePresVoteLOS(value){
-        this.presVoteLOS = value;
-   }
+   // Primary
 
         onChangePrimarySuccess(primarySuccess){
         if (primarySuccess=='didVote'){
@@ -113,57 +90,29 @@ export class VotePage {
         } else if(primarySuccess=='didNotVote'){
             this.recordservice.setPrimarySuccess(false);
         }
-   }
-
-       onChangePrimaryPresVote(value){
-        this.primaryPresVote = value;
-   }
-
-      onChangePrimaryPresVoteWriteIn(passedPrimaryPresVoteWriteIn){
-          this.primaryPresVoteWriteIn = passedPrimaryPresVoteWriteIn;
-
-   }
-
-    onChangePrimaryCongressVote(value){
-        this.primaryCongressVote = value;
-   }
-
-      onChangePrimaryCongressVoteWriteIn(passedPrimaryCongressVoteWriteIn){
-          this.primaryCongressVoteWriteIn = passedPrimaryCongressVoteWriteIn;
-
-   }
+        }
 
 
       onChangePrimaryLocation(passedPrimaryLocation){
           this.primaryLocation = passedPrimaryLocation;
 
-   }
+      }
 
       onChangeReasonForCouldNotVotePrimary(passedReasonForCouldNotVotePrimary){
           this.reasonForCouldNotVotePrimary = passedReasonForCouldNotVotePrimary;
-  }
+      }
 
      onChangeOtherReasonForCouldNotVotePrimary(passedOtherReasonForCouldNotVotePrimary){
          this.otherReasonForCouldNotVotePrimary = passedOtherReasonForCouldNotVotePrimary;
-  }
+      }
 
-     onChangeIntendedToVoteFor(passedIntendedToVoteFor){
-        this.intendedToVoteFor = passedIntendedToVoteFor;
-    }
+       onChangePrimaryCastBy(value){
+        this.primaryCastBy = value;
+     }
 
-    onChangeIntendedToVoteForWriteIn(passedIntendedToVoteForWriteIn){
-        this.intendedToVoteForWriteIn = passedIntendedToVoteForWriteIn;
-    }
+   // Ranking
 
-       onChangePrimaryPresVoteCastBy(value){
-        this.primaryPresVoteCastBy = value;
-   }
-
-       onChangePrimaryPresVoteLOS(value){
-        this.primaryPresVoteLOS = value;
-   }
-
-          onChangeFirstPresVote(value){
+        onChangeFirstPresVote(value){
         this.firstPresVote = value;
    }
 
@@ -190,13 +139,13 @@ export class VotePage {
     onSubmit() {
        var that = this;
         try {
-            if (this.presVote == null || this.presVoteCastBy == null || (this.presVote=='writeIn' && this.presVoteWriteIn==null)) {
+            if (this.generalCastBy == null) {
                 let alert = this.alertCtrl.create({
-                    title: 'President and cast by selections are required.',
+                    title: 'Cast by selection is required.',
                     subTitle: 'Please select the candidate you voted for today and specify how you cast your vote, everything else on this page is optional.',
                     buttons: ['OK']
                 });
-                //alert.present();
+                alert.present();
             } else {
 
             // logic for write ins
@@ -214,38 +163,9 @@ export class VotePage {
 
 
 
-                        if (this.intendedToVoteFor=='writeIn' && !this.intendedToVoteForWriteIn){
-                            let alert = this.alertCtrl.create({
-                            //title: 'Please write in Primary Presidential Vote.',
-                            subTitle: 'Please Write in Intended Primary Presidential Vote.',
-                            buttons: ['OK']
-                            });
-                            alert.present();
-                            return;
-                        } 
+                      
 
-
-                        if(this.primaryPresVote == 'writeIn' && !this.primaryPresVoteWriteIn){
-                            let alert = this.alertCtrl.create({
-                            //title: 'Please write in Primary Presidential Vote.',
-                            subTitle: 'Please Write in Primary Presidential Vote.',
-                            buttons: ['OK']
-                            });
-                            alert.present();
-                            return;
-                        } 
-
-
-                        if(this.primaryCongressVote == 'writeIn' && !this.primaryCongressVoteWriteIn){
-                            let alert = this.alertCtrl.create({
-                            //title: 'Please write in Primary Presidential Vote.',
-                            subTitle: 'Please Write in Primary Congressional Vote.',
-                            buttons: ['OK']
-                            });
-                            alert.present();
-                            return;
-                        } 
-
+                   
 
 
                         if (this.firstPresVote=='writeIn' && !this.firstPresVoteWriteIn){
@@ -284,38 +204,6 @@ export class VotePage {
 
                         // put in
 
-                        if(this.presVote == 'writeIn' && !this.presVoteWriteIn){
-                        this.presVote = this.presVoteWriteIn;
-                        }
-          
-                        if (this.primaryPresVote!=="couldNotVote") {
-                            this.reasonForCouldNotVotePrimary = null;
-                        }
-
-                        if (this.primaryPresVote=="couldNotVote" && this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && this.otherReasonForCouldNotVotePrimary){
-                            this.reasonForCouldNotVotePrimary = this.otherReasonForCouldNotVotePrimary;
-                        }
-
-                        if (this.intendedToVoteFor=='writeIn' && this.intendedToVoteForWriteIn){
-                            this.intendedToVoteFor = this.intendedToVoteForWriteIn;
-                        }
-
-                        if (this.primaryPresVote!=='couldNotVote'){
-                             this.intendedToVoteFor = null;
-                        }
-
-                         if (this.primaryPresVote!=='couldNotVote'){
-                             this.intendedToVoteForCongress = null;
-                        }
-
-                        if (this.primaryPresVote == 'writeIn' && this.primaryPresVoteWriteIn){
-                            this.primaryPresVote = this.primaryPresVoteWriteIn;
-                        }
-
-                        if (this.primaryCongressVote == 'writeIn' && this.primaryCongressVoteWriteIn){
-                            this.primaryCongressVote = this.primaryCongressVoteWriteIn;
-                        }
-
                          if (this.firstPresVote=='writeIn' && !this.firstPresVoteWriteIn){
                         this.firstPresVote = this.firstPresVoteWriteIn;
                          }
@@ -332,22 +220,20 @@ export class VotePage {
 
             // fill object
             this.newVoteRecord = {
-            voteRecordKey: this.recordservice.generateNextVoteNumber(),
-            volunteerKey: this.volunteerservice.getNewVolunteerKey(),
-            gePresVote: this.presVote,
-            gePresVoteCastBy: this.presVoteCastBy,
-            gePresVoteLevelOfSupport: this.presVoteLOS,
-            pPresVoteCouldNotVoteReason: this.reasonForCouldNotVotePrimary,
-            pPresVoteIntended: this.intendedToVoteFor,
-            pPresVote: this.primaryPresVote,
-            pCongressVote: this.primaryCongressVote,
-            pPresVoteCastBy: this.primaryPresVoteCastBy,
-            pPresVoteLevelOfSupport: this.primaryPresVoteLOS,
-            pPresVotePollingLocation: this.primaryLocation,
-            presFirst: this.firstPresVote,
-            presSecond: this.secondPresVote,
-            presThird: this.thirdPresVote,
+                voteRecordKey: null,
+                volunteerKey: this.volunteerservice.getNewVolunteerKey(),
+                generalSuccess: !this.recordservice.getNonVoteBool(),
+                generalCouldNotVoteReason:  null,
+                generalCastBy:  this.generalCastBy,
+                primarySuccess: this.recordservice.getPrimarySuccess(),
+                primaryCouldNotVoteReason: this.reasonForCouldNotVotePrimary,
+                primaryCastBy: this.primaryCastBy,
+                primaryVotePollingLocation: this.primaryLocation, 
+                presFirst: this.firstPresVote,
+                presSecond: this.secondPresVote,
+                presThird: this.thirdPresVote,
             }
+
             console.log(this.newVoteRecord );
             this.recordservice.addVoteRecordToList(this.newVoteRecord);
             console.log(this.recordservice.getVoteList());

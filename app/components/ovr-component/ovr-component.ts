@@ -27,12 +27,17 @@ export class OvrComponent {
     this.successfullyElected = false;
     this.levelOfSupport = null;
     this.writeInCandidate = null;
+    this.choosenCandidate = null;
   }
 
-onChangeChoice(passedCand){
-  this.choosenCandidate = passedCand;
+onChangeChoice(candidateChoice){
+  this.choosenCandidate = candidateChoice;
     console.log(this.choosenCandidate);
 
+}
+
+onChangeCandidateVoteWriteIn(candidateVoteWriteIn){
+  this.choosenCandidate = candidateVoteWriteIn;
 }
 
 onChangeLos(passedLos){
@@ -40,7 +45,7 @@ onChangeLos(passedLos){
 }
 
 // function called from host page onSubmit
-fillOfficeVoteRecord(){
+public fillOfficeVoteRecord(){
 
   //logic for successful vote vs intended vote
 if (this.electThisOffice.election=='General' && this.recordservice.getNonVoteBool()){
@@ -56,6 +61,18 @@ if (this.choosenCandidate=='26' && this.writeInCandidate){
   this.choosenCandidate = this.writeInCandidate;
 
 }
+
+// alert for choosing President && !this.writeInCandidate && this.electThisOffice=="PRESIDENT"
+if (this.choosenCandidate=='26' ){
+   let alertP = this.alertCtrl.create({
+                    title: 'President and cast by selections are required.',
+                    subTitle: 'Please select the candidate you voted for today and specify how you cast your vote, everything else on this page is optional.',
+                    buttons: ['OK']
+                });
+                        alertP.present();
+                        return;
+}
+
 
 // alert for write in if none
 if (this.choosenCandidate=='26' && !this.writeInCandidate){

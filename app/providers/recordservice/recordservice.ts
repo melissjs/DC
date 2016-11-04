@@ -10,11 +10,10 @@ import { AmendmentRecord } from '../../amendmentrecord';
 import { AffidavitRecord } from '../../affidavitrecord';
 import { DemographicsRecord } from '../../demographicsrecord';
 import { VoteRecord } from '../../voterecord';
-import { NonvoteRecord } from '../../nonvoterecord';
 import { Timesheet } from '../../timesheet';
 import { Officevoterecord } from '../../officevoterecord';
 import { ANOMALYLIST, AMENDMENTLIST, AFFIDAVITLIST, DEMOGRAPHICSLIST, VOTELIST,
-	 NONVOTELIST, TIMESHEETLIST } from '../../fakedatama'
+	  TIMESHEETLIST } from '../../fakedatama'
 
 
 
@@ -25,7 +24,6 @@ export class Recordservice {
   affidavitRecordList: AffidavitRecord[];
   demographicsRecordList: DemographicsRecord[];
   voteRecordList: VoteRecord[];
-  nonVoteRecordList: NonvoteRecord[];
   timesheetList: Timesheet[];
 
   newAnomalyRecord: AnomalyRecord;
@@ -33,7 +31,6 @@ export class Recordservice {
   newAffidavitRecord: AffidavitRecord;
   newDemographicsRecord: DemographicsRecord;
   newVoteRecord: VoteRecord;
-  newNonVoteRecord: NonvoteRecord;
 
   newTimesheet: Timesheet;
   currentTimesheet: Timesheet;
@@ -76,7 +73,6 @@ export class Recordservice {
   this.affidavitRecordList = AFFIDAVITLIST;
   this.demographicsRecordList = DEMOGRAPHICSLIST;
   this.voteRecordList = VOTELIST;
-  this.nonVoteRecordList = NONVOTELIST;
   this.timesheetList = TIMESHEETLIST;
   this.pollingstationservice = pollingstationservice;
   this.volunteerservice = volunteerservice;
@@ -324,16 +320,13 @@ createVoidVoteRecord(){
 this.newVoteRecord = {
 voteRecordKey: null,
 volunteerKey: null,
-gePresVote: null,
-gePresVoteCastBy: null,
-gePresVoteLevelOfSupport: null,
-pPresVoteCouldNotVote: null,
-pPresVoteCouldNotVoteReason: null,
-pPresVoteIntended: null,
-pPresVote: null,
-pPresVoteCastBy: null,
-pPresVoteLevelOfSupport: null,
-pPresVotePollingLocation: null,
+generalSuccess: false,
+generalCouldNotVoteReason:  null,
+generalCastBy:  null,
+primarySuccess: false,
+primaryCouldNotVoteReason: null,
+primaryCastBy: null,
+primaryVotePollingLocation: null,
 presFirst: null,
 presSecond: null,
 presThird: null,
@@ -352,7 +345,7 @@ generateNextVoteNumber(){
 getTotalIndividualVoteRecords(passedVolunteerKey){
   this.totalIndividualVoteRecords = 0;
   for (var i=0; i < this.voteRecordList.length; i++){
-    if(this.voteRecordList[i].volunteerKey == passedVolunteerKey){
+    if(this.voteRecordList[i].volunteerKey==passedVolunteerKey && this.voteRecordList[i].generalSuccess==true){
       this.totalIndividualVoteRecords++;
     }   
   }
@@ -364,7 +357,7 @@ getTotalTeamVoteRecords(passedTeamVolunteerArray){
   for (var m=0; m < passedTeamVolunteerArray.length; m++){
     var member = passedTeamVolunteerArray[m].volunteerKey
         for (var i=0; i < this.voteRecordList.length; i++){
-          if(this.voteRecordList[i].volunteerKey == passedTeamVolunteerArray[m].volunteerKey){
+          if(this.voteRecordList[i].volunteerKey==passedTeamVolunteerArray[m].volunteerKey && this.voteRecordList[i].generalSuccess==true){
             this.totalTeamVoteRecords++;
           }
         } 
@@ -372,47 +365,12 @@ getTotalTeamVoteRecords(passedTeamVolunteerArray){
 return this.totalTeamVoteRecords;
 }
 
-// NON VOTE
-
-getNonVoteList(){
-  return this.nonVoteRecordList;
-};
-
- addNonVoteRecordToList(passedNonVoteRecord){
-  this.nonVoteRecordList.push(passedNonVoteRecord);
-}
-
-createVoidNonVoteRecord(){
-this.newNonVoteRecord = {
-voteRecordKey: null,
-volunteerKey: null,
-gePresVoteCouldNotVoteReason: null,
-gePresVoteIntended: null,
-gePresVoteLevelOfSupport: null,
-pPresVoteCouldNotVoteReason: null,
-pPresVoteIntended: null,
-pPresVote: null,
-pPresVoteCastBy: null,
-pPresVoteLevelOfSupport: null,
-pPresVotePollingLocation: null,
-presFirst: null,
-presSecond: null,
-presThird: null,
-}
-return this.newVoteRecord;
-}
-
-// These are assigned automatically by the database
-generateNextNonVoteNumber(){
-//this.nextNonVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'nv' + (++this.nvcounter));
-//return this.nextNonVoteNumber;
-    return null;
-}
+// nonvote (get voterecords with !successful)
 
 getTotalIndividualNonVoteRecords(passedVolunteerKey){
   this.totalIndividualNonVoteRecords = 0;
-  for (var i=0; i < this.nonVoteRecordList.length; i++){
-    if(this.nonVoteRecordList[i].volunteerKey == passedVolunteerKey){
+  for (var i=0; i < this.voteRecordList.length; i++){
+    if(this.voteRecordList[i].volunteerKey==passedVolunteerKey && this.voteRecordList[i].generalSuccess==false){
       this.totalIndividualNonVoteRecords++;
     }   
   }
@@ -423,15 +381,14 @@ getTotalTeamNonVoteRecords(passedTeamVolunteerArray){
   this.totalTeamNonVoteRecords = 0;
   for (var m=0; m < passedTeamVolunteerArray.length; m++){
     var member = passedTeamVolunteerArray[m].volunteerKey
-        for (var i=0; i < this.nonVoteRecordList.length; i++){
-          if(this.nonVoteRecordList[i].volunteerKey == passedTeamVolunteerArray[m].volunteerKey){
+        for (var i=0; i < this.voteRecordList.length; i++){
+          if(this.voteRecordList[i].volunteerKey==passedTeamVolunteerArray[m].volunteerKey && this.voteRecordList[i].generalSuccess==false){
             this.totalTeamNonVoteRecords++;
           }
         } 
   }
 return this.totalTeamNonVoteRecords;
 }
-
 
 // timesheet
 

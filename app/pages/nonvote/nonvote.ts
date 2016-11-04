@@ -4,7 +4,7 @@ import {DemographicsPage} from '../demographics/demographics';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
 import {Recordservice} from '../../providers/recordservice/recordservice';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
-import {NonvoteRecord} from '../../nonvoterecord';
+import {VoteRecord} from '../../voterecord';
 
 @Component({
   templateUrl: 'build/pages/nonvote/nonvote.html'
@@ -29,7 +29,7 @@ export class NonvotePage {
     thirdPresVote: string; 
     volunteerservice: Volunteerservice;
     recordservice: Recordservice;
-    newNonVoteRecord: NonvoteRecord;
+    newNonVoteRecord: VoteRecord;
     firstPresVoteWriteIn: string;
     secondPresVoteWriteIn: string;
     thirdPresVoteWriteIn: string;
@@ -53,7 +53,7 @@ export class NonvotePage {
         this.intendedToVoteForPGE = null;
         this.volunteerservice = volunteerservice;
         this.recordservice = recordservice;
-        this.newNonVoteRecord = this.recordservice.createVoidNonVoteRecord();
+        this.newNonVoteRecord = this.recordservice.createVoidVoteRecord();
         this.firstPresVoteWriteIn = null;
         this.secondPresVoteWriteIn = null;
         this.thirdPresVoteWriteIn = null;
@@ -316,7 +316,7 @@ export class NonvotePage {
                          if (this.thirdPresVote=='writeInT' && this.thirdPresVoteWriteIn){
                         this.thirdPresVote = this.thirdPresVoteWriteIn;
                          }
-
+/*
                         // fill nonvote obj
                         this.newNonVoteRecord = {
                         voteRecordKey: this.recordservice.generateNextNonVoteNumber(),
@@ -335,10 +335,11 @@ export class NonvotePage {
                         presSecond: this.secondPresVote,
                         presThird: this.thirdPresVote,
                         }
+
                         console.log(this.newNonVoteRecord );
                         this.recordservice.addNonVoteRecordToList(this.newNonVoteRecord);
                         console.log(this.recordservice.getNonVoteList());
-
+*/
                         that.navCtrl.setRoot(DemographicsPage, {
                         });
                     
