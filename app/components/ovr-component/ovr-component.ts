@@ -31,6 +31,8 @@ export class OvrComponent {
 
 onChangeChoice(passedCand){
   this.choosenCandidate = passedCand;
+    console.log(this.choosenCandidate);
+
 }
 
 onChangeLos(passedLos){

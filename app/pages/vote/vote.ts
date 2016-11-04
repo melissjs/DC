@@ -188,7 +188,7 @@ export class VotePage {
    }
 
     onSubmit() {
-        var that = this;
+       var that = this;
         try {
             if (this.presVote == null || this.presVoteCastBy == null || (this.presVote=='writeIn' && this.presVoteWriteIn==null)) {
                 let alert = this.alertCtrl.create({
@@ -196,7 +196,7 @@ export class VotePage {
                     subTitle: 'Please select the candidate you voted for today and specify how you cast your vote, everything else on this page is optional.',
                     buttons: ['OK']
                 });
-                alert.present();
+                //alert.present();
             } else {
 
             // logic for write ins
