@@ -6,6 +6,10 @@ import {Recordservice} from '../../providers/recordservice/recordservice';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
 import {VoteRecord} from '../../voterecord';
 import {Volunteer} from '../../volunteer';
+import {PRIMARYPRES} from '../../candidatelists/ppreslist';
+import {PRIMARYCONGRESS} from '../../candidatelists/pcongresslist';
+import {PRESIDENT} from '../../candidatelists/preslist';
+
 
 
 @Component({
@@ -90,6 +94,17 @@ export class VotePage {
 
        onChangePresVoteLOS(value){
         this.presVoteLOS = value;
+   }
+
+        onChangePrimarySuccess(primarySuccess){
+        if (primarySuccess=='didVote'){
+            this.recordservice.setPrimarySuccess(true);
+        } else if(primarySuccess=='couldNotVote'){
+            this.recordservice.setPrimaryIntention(true);
+            this.recordservice.setPrimarySuccess(false);
+        } else if(primarySuccess=='didNotVote'){
+            this.recordservice.setPrimarySuccess(false);
+        }
    }
 
        onChangePrimaryPresVote(value){

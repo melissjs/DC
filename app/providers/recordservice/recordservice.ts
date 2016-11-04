@@ -12,6 +12,7 @@ import { DemographicsRecord } from '../../demographicsrecord';
 import { VoteRecord } from '../../voterecord';
 import { NonvoteRecord } from '../../nonvoterecord';
 import { Timesheet } from '../../timesheet';
+import { Officevoterecord } from '../../officevoterecord';
 import { ANOMALYLIST, AMENDMENTLIST, AFFIDAVITLIST, DEMOGRAPHICSLIST, VOTELIST,
 	 NONVOTELIST, TIMESHEETLIST } from '../../fakedatama'
 
@@ -36,6 +37,7 @@ export class Recordservice {
 
   newTimesheet: Timesheet;
   currentTimesheet: Timesheet;
+  officevoterecord: Officevoterecord;
 
   pollingstationservice: Pollingstationservice;
   volunteerservice: Volunteerservice;
@@ -49,6 +51,8 @@ export class Recordservice {
    vcounter: number;
    nvcounter: number;
    nonVoteRecordBool: boolean;
+   primarySuccess: boolean;
+   primaryIntention: boolean;
 
    totalIndividualAnomalyRecords: number;
    totalTeamAnomalyRecords: number;
@@ -95,18 +99,11 @@ export class Recordservice {
   this.totalIndividualDemographicsRecords = 0;
   this.totalTeamRecords = 0;
   this.totalIndividualRecords = 0;
+  this.primarySuccess = false;
+  this.primaryIntention = false;
   }
 
-// NON VOTER VS VOTER SWITCH
 
-getNonVoteBool(){
-  return this.nonVoteRecordBool;
-
-}
-
-setToNonVote(passedBool){
- this.nonVoteRecordBool = passedBool;
-}
 
 // ANOMALY
 
@@ -477,6 +474,47 @@ this.totalIndividualRecords = this.getTotalIndividualAffidavitRecords(passedVolu
 return this.totalIndividualRecords;
 }
 
+getVoidOfficeVoteRecord(){
+this.officevoterecord = {
+voteRecordKey: null,
+office: null,
+election: null,
+success: false,
+candidate: null,
+levelOfSupport: null,
+}
+return this.officevoterecord;
+}
+
+
+// booleans
+
+setPrimarySuccess(passedBool){
+  this.primarySuccess = passedBool;
+}
+
+getPrimarySuccess(){
+  return this.primarySuccess;
+}
+
+setPrimaryIntention(passedBool){
+  this.primaryIntention = passedBool;
+}
+
+getPrimaryIntention(){
+  return this.primaryIntention;
+}
+
+// NON VOTER VS VOTER SWITCH
+
+getNonVoteBool(){
+  return this.nonVoteRecordBool;
+
+}
+
+setToNonVote(passedBool){
+ this.nonVoteRecordBool = passedBool;
+}
 
 
 }
