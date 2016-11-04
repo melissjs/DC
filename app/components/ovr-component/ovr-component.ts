@@ -34,16 +34,20 @@ export class OvrComponent {
 
 onChangeChoice(candidateChoice){
   this.choosenCandidate = candidateChoice;
-    console.log(this.choosenCandidate);
+    //console.log(this.choosenCandidate);
+    this.ovrservice.setgePres(candidateChoice);
+    
 
 }
 
 onChangeCandidateVoteWriteIn(candidateVoteWriteIn){
   this.choosenCandidate = candidateVoteWriteIn;
+  this.ovrservice.setgePresWriteIn(candidateVoteWriteIn);
 }
 
 onChangeLos(passedLos){
   this.levelOfSupport = passedLos;
+  this.ovrservice.setgePresLos(candidateVoteWriteIn);
 }
 
 // function called from host page onSubmit

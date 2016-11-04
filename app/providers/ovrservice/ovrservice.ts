@@ -39,7 +39,7 @@ this.gePres = passedString;
 }
 
 
-getgePres(passedString){
+getgePres(){
 return this.gePres;
 }
 
@@ -48,7 +48,7 @@ this.gePresWriteIn = passedString;
 }
 
 
-getgePresWriteIn(passedString){
+getgePresWriteIn(){
 return this.gePresWriteIn;
 }
 
@@ -57,7 +57,7 @@ this.gePresLos = passedString;
 }
 
 
-getgePresLos(passedString){
+getgePresLos(){
 return this.gePresLos;
 }
 
@@ -68,7 +68,7 @@ this.pPres = passedString;
 }
 
 
-getpPres(passedString){
+getpPres(){
 return this.pPres;
 }
 
@@ -77,7 +77,7 @@ this.pPresWriteIn = passedString;
 }
 
 
-getpPresWriteIn(passedString){
+getpPresWriteIn(){
 return this.pPresWriteIn;
 }
 
@@ -86,7 +86,7 @@ this.pPresLos = passedString;
 }
 
 
-getpPresLos(passedString){
+getpPresLos(){
 return this.pPresLos;
 }
 
@@ -98,7 +98,7 @@ this.pCong = passedString;
 }
 
 
-getpCong(passedString){
+getpCong(){
 return this.pCong;
 }
 
@@ -107,7 +107,7 @@ this.pCongWriteIn = passedString;
 }
 
 
-getpCongWriteIn(passedString){
+getpCongWriteIn(){
 return this.pCongWriteIn;
 }
 
@@ -116,9 +116,11 @@ this.pCongLos = passedString;
 }
 
 
-getpCongLos(passedString){
+getpCongLos(){
 return this.pCongLos;
 }
+
+
 
 }
 

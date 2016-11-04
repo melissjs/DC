@@ -39,14 +39,14 @@ import { Volunteerservice } from './providers/volunteerservice/volunteerservice'
 import {RestService} from './providers/rest-service/rest-service';
 import {RestService2} from './providers/rest-service2/rest-service2';
 import {Recordservice} from './providers/recordservice/recordservice';
-
+import {Ovrservice} from './providers/ovrservice/ovrservice';
 import {UserDataService} from './user-data-service';
 
 
 @Component({
   templateUrl: 'build/app.html',
   // config: {}, // http://ionicframework.com/docs/v2/api/config/Config/	  
-    providers: [UserDataService, Pollingstationservice, Volunteerservice, RestService, RestService2, Recordservice]
+    providers: [UserDataService, Pollingstationservice, Volunteerservice, RestService, RestService2, Recordservice, Ovrservice]
 })
 class MyApp {
   @ViewChild(Nav) nav: Nav;
