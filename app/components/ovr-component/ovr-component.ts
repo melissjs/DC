@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component , Input } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { Candidate } from '../../candidate';
 import { Officevoterecord } from '../../officevoterecord';
@@ -16,13 +16,13 @@ export class OvrComponent {
   @Input() electThisOffice;
   choosenCandidate: string;
   officevoterecord: Officevoterecord;
-  recordservice: Recordservice;
+  //recordservice: Recordservice;
   successfullyElected: boolean;
   levelOfSupport: string;
   writeInCandidate: string;
   //electThisOffice: Electoffice;
 
-  constructor(recordservice: Recordservice, public alertCtrl: AlertController) {
+  constructor(private recordservice: Recordservice, public alertCtrl: AlertController) {
     this.officevoterecord = this.recordservice.getVoidOfficeVoteRecord();
     this.successfullyElected = false;
     this.levelOfSupport = null;
