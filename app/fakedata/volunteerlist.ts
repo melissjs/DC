@@ -3,7 +3,7 @@ import { Volunteer } from '../volunteer'
 
 
 export var VOLUNTEERS: Volunteer[] = [{
-        "volunteerKey": "v1",         
+        "volunteerKey": "1",         
         "fullName":"Melissa Schwartz",
         "emailAddress":"melissjs@gmail.com",
         "exposeEmail": true,
@@ -15,7 +15,7 @@ export var VOLUNTEERS: Volunteer[] = [{
         "associatedPollingStationKey": "ps2"
       
         },      {
-        "volunteerKey": "v2",        
+        "volunteerKey": "2",        
         "fullName":"James Patrick",
         "emailAddress":"jp@gmail.com",
         "exposeEmail": true,
@@ -27,7 +27,7 @@ export var VOLUNTEERS: Volunteer[] = [{
         "associatedPollingStationKey": "ps2"
       
         }, {
-        "volunteerKey": "v3",
+        "volunteerKey": "3",
         "fullName":"Janice Row",
         "emailAddress":"janice@gmail.com",
         "exposeEmail": false,
@@ -39,7 +39,7 @@ export var VOLUNTEERS: Volunteer[] = [{
         "associatedPollingStationKey": "ps2"
       
         }, {
-        "volunteerKey": "v4",
+        "volunteerKey": "4",
         "fullName":"Eric Hillis",
         "emailAddress":"eric@hillis.com",
         "exposeEmail": true,
@@ -50,7 +50,7 @@ export var VOLUNTEERS: Volunteer[] = [{
         "shifts": "Late Morning",
         "associatedPollingStationKey": "ps1"
         }, {
-        "volunteerKey": "v5",
+        "volunteerKey": "5",
         "fullName": "Raya Hammond",
         "emailAddress": "email@email.com",
         "exposeEmail": true,
