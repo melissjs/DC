@@ -26,7 +26,6 @@ export class AuthenticationPage {
 
   geoLocation: string;
   affirm: boolean;
-  authenticatingVolunteerPhone: string;
   authenticatingVolunteerPasscode: string;
   authenticatingVolunteerKey: string;
   newTimesheet: Timesheet;
@@ -50,7 +49,6 @@ export class AuthenticationPage {
 
     this.geoLocation = null;
     this.affirm = false;
-    this.authenticatingVolunteerPhone = null;
     this.authenticatingVolunteerPasscode = null;
     this.authenticatingVolunteerKey = null;
     this.newTimesheet = this.recordservice.createVoidTimesheet();
@@ -67,12 +65,12 @@ export class AuthenticationPage {
   this.affirm = newval;
   }
 
-    onChangeAuthenticatingVolunteerPhone(value) {
-        if (!value.match(globals.REGEXPHONE)) {
-            this.errorMessage = 'ERROR: Authenticating Phone Number must be exactly 10 digits';
-            this.authenticatingVolunteerPhone = '';
+    onChangeAuthenticatingVolunteerKey(value) {
+        if (!value.match("[0-9][0-9]*")) {
+            this.errorMessage = 'ERROR: Authenticating Key must be a number';
+            this.authenticatingVolunteerKey = '';
         } else {
-            this.authenticatingVolunteerPhone = value;
+            this.authenticatingVolunteerKey = value;
         }
     }
 
@@ -90,7 +88,7 @@ export class AuthenticationPage {
     this.time = this.date.getTime();
     
       // make sure all fields are present
-       if (!this.authenticatingVolunteerPasscode || !this.geoLocation || !this.authenticatingVolunteerPhone || !this.affirm) {
+       if (!this.authenticatingVolunteerPasscode || !this.geoLocation || !this.authenticatingVolunteerKey || !this.affirm) {
                 let alert = this.alertCtrl.create({
                     title: 'All fields required.',
                     subTitle: 'Signing in requires two way authentication; please ask one of your team members to help you verify this record.',
@@ -101,7 +99,7 @@ export class AuthenticationPage {
        } else {
 
            this.restSvc.verifyExtraLogin
-           (this.authenticatingVolunteerPhone, this.authenticatingVolunteerPasscode, false,
+           (this.authenticatingVolunteerKey, this.authenticatingVolunteerPasscode, false,
             this.avSuccessCb, this.avFailureCb, this);
 
 
@@ -118,7 +116,7 @@ export class AuthenticationPage {
         // fill timesheet 
         that.newTimesheet = {
             volunteerKey: that.volunteerservice.getNewVolunteer().volunteerKey,
-            authenticatingVolunteerKey: that.authenticatingVolunteerPhone,
+            authenticatingVolunteerKey: that.authenticatingVolunteerKey,
             checkInTime: that.time.toString(),
             checkOuttime: null,
             geoLocation: that.geoLocation,
