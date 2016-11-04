@@ -1,4 +1,4 @@
-  <ion-item text-wrap *ngfor="let cand of electThisOffice.candidates">
+  <ion-item text-wrap *ngfor="let cand of electThisOffice">
           <ion-select text-wrap [(ngModel)]="candidateChoice"  (change)="onChangeChoice(candidateChoice)">
             <ion-option value="{{cand.value}">{{cand.label}}</ion-option>
           </ion-select>

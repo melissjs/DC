@@ -22,7 +22,7 @@ export class OvrComponent {
   writeInCandidate: string;
   //electThisOffice: Electoffice;
 
-  constructor(recordservice: Recordservice, alertCtrl: AlertController) {
+  constructor(recordservice: Recordservice, public alertCtrl: AlertController) {
     this.officevoterecord = this.recordservice.getVoidOfficeVoteRecord();
     this.successfullyElected = false;
     this.levelOfSupport = null;

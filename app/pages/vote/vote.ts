@@ -4,6 +4,7 @@ import {DemographicsPage} from '../demographics/demographics';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
 import {Recordservice} from '../../providers/recordservice/recordservice';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
+import {OvrComponent} from '../../components/ovr-component/ovr-component';
 import {VoteRecord} from '../../voterecord';
 import {Volunteer} from '../../volunteer';
 import {PRIMARYPRES} from '../../candidatelists/ppreslist';
@@ -13,7 +14,8 @@ import {PRESIDENT} from '../../candidatelists/preslist';
 
 
 @Component({
-  templateUrl: 'build/pages/vote/vote.html'
+  templateUrl: 'build/pages/vote/vote.html',
+  directives: [OvrComponent],
 })
 export class VotePage {
     presVote: string;
