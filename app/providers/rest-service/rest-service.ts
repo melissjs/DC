@@ -668,9 +668,9 @@ export class RestService {
         }, () => {console.log('send contact form data complete')});
     }
 
-    verifyExtraLogin(phoneNumber: string, passcode: string, checkonly: boolean, 
+    verifyExtraLogin(volunteerKey: string, passcode: string, checkonly: boolean, 
 		     cbsuccess: any, cbfailure: any, thatobj: any) {
-        var property = { "phoneNumber": phoneNumber, "passcode": passcode };
+        var property = { "volunteerKey": volunteerKey, "passcode": passcode };
         var json = JSON.stringify(property);
         var params = /* 'json=' +  */ json;
         let headers = new Headers();
@@ -701,6 +701,4 @@ export class RestService {
 	    }
         }, () => {console.log('send extra login data complete')});
     }
-    
-
 }
