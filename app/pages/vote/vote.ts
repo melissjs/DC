@@ -35,7 +35,7 @@ export class VotePage {
     intendedToVoteFor: string;
     intendedToVoteForWriteIn: string;
     volunteerservice: Volunteerservice;
-    recordservice: Recordservice;
+    //recordservice: Recordservice;
     newVoteRecord: VoteRecord;
     firstPresVoteWriteIn: string;
     secondPresVoteWriteIn: string;
@@ -47,7 +47,7 @@ export class VotePage {
     intendedToVoteForCongress: string;
     //currentVolunteer: Volunteer;
 
-    constructor(private navCtrl: NavController, private alertCtrl: AlertController, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, recordservice: Recordservice) {
+    constructor(private navCtrl: NavController, private alertCtrl: AlertController, pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, private recordservice: Recordservice) {
         this.navCtrl = navCtrl;
         this.presVote = null;
         this.presVoteWriteIn = null;
