@@ -346,6 +346,11 @@ export class VotePage {
                 that.navCtrl.setRoot(DemographicsPage, {
                 });
 
+if(this.ovrservice.checkFields()){
+    console.log(this.ovrservice.checkFields());
+return;
+}
+
 this.ovrservice.fillRecord();
 
 

@@ -85,11 +85,8 @@ this.electOffice = passedElectOffice;
 }
 
 
-fillRecord(){
-
-
-
-            // alert if gePres not filled
+checkFields(){
+  // alert if gePres not filled
             if (this.electOffice.inner.office=='President' && this.electOffice.inner.election=='General' &&!this.candidate){
                 let alertPR = this.alertCtrl.create({
                 title: 'General Election Presidential Vote Required.',
@@ -111,6 +108,14 @@ fillRecord(){
             return;
             }
 
+}
+
+
+fillRecord(){
+
+
+
+          
 
             // logic for candidate
             if (this.candidate=='26' && this.candidateWriteIn){
