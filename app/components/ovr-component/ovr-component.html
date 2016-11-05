@@ -14,7 +14,7 @@
 
      <ion-item *ngIf="!(choosenCandidate=='25' || choosenCandidate=='27')">
     <ion-label text-wrap stacked>Level of support:</ion-label>
-            <ion-select text-wrap [(ngModel)]="los"  (change)="onChangeLos(los)">
+            <ion-select text-wrap [(ngModel)]="los"  (ionChange)="onChangeLos(los)">
             <ion-option value="highlySupport">Highly Support</ion-option>
             <ion-option value="moderatelySupport">Moderately Support</ion-option>
             <ion-option value="dislike">Dislike but dislike other candidate(s) more.</ion-option>

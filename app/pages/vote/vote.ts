@@ -346,22 +346,7 @@ export class VotePage {
                 that.navCtrl.setRoot(DemographicsPage, {
                 });
 
-            // fill ovr record
-            this.gePresOfficeVoteRecord = this.ovrservice.getVoidOfficeVoteRecord();
-
-                this.gePresOfficeVoteRecord = {
-                voteRecordKey: null,
-                office: "President",
-                election: "General",
-                success: !this.recordservice.getNonVoteBool(),
-                candidate: this.ovrservice.getgePres(),
-                levelOfSupport: this.ovrservice.getgePresLos(),
-                }
-                console.log(this.gePresOfficeVoteRecord);
-                console.log("hey" + this.gePresOfficeVoteRecord);
-                
-
-
+this.ovrservice.fillRecord();
 
 
             }

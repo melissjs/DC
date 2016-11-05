@@ -36,21 +36,30 @@ export class OvrComponent {
 onChangeChoice(candidateChoice){
   this.choosenCandidate = candidateChoice;
     console.log(this.choosenCandidate);
-    this.ovrservice.setgePres(candidateChoice);
-    
+    this.ovrservice.setCandidate(candidateChoice);
+
+    this.ovrservice.setElectOffice(this.electThisOffice);
 
 }
 
 onChangeCandidateVoteWriteIn(candidateVoteWriteIn){
   this.choosenCandidate = candidateVoteWriteIn;
-  this.ovrservice.setgePresWriteIn(candidateVoteWriteIn);
+  this.ovrservice.setCandidateWriteIn(candidateVoteWriteIn);
+  console.log(this.choosenCandidate);
+  console.log(candidateVoteWriteIn);
+
+  this.ovrservice.setElectOffice(this.electThisOffice);
+
 }
 
 onChangeLos(passedLos){
   this.levelOfSupport = passedLos;
   console.log(this.levelOfSupport);
-  this.ovrservice.setgePresLos(passedLos);
-  console.log("from service" + this.ovrservice.getgePresLos());
+  this.ovrservice.setLos(passedLos);
+  console.log("from service" + this.ovrservice.getLos());
+
+  this.ovrservice.setElectOffice(this.electThisOffice);
+
 }
 
 

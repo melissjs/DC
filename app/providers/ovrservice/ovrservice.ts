@@ -1,58 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { NavController, AlertController } from 'ionic-angular';
 import { OfficeVoteRecord } from '../../officevoterecord';
+import { Recordservice } from '../recordservice/recordservice';
+import { ElectOfficeGUI } from '../../electofficegui';
 
 
 @Injectable()
 export class Ovrservice {
-  officevoterecord: OfficeVoteRecord;
+  officeVoteRecord: OfficeVoteRecord;
+  candidate:string;
+  candidateWriteIn:string;
+  levelOfSupport:string;
+  electOffice: ElectOfficeGUI;
 
-  gePres:string;
-  gePresWriteIn:string;
-  gePresLos:string;
-
-  pPres:string;
-  pPresWriteIn:string;
-  pPresLos:string;
-
-  pCong:string;
-  pCongWriteIn:string;
-  pCongLos:string;
-
-  constructor(private http: Http) {
-  this.gePres=null;
-  this.gePresWriteIn=null;
-  this.gePresLos=null;
-
-  this.pPres=null;
-  this.pPresWriteIn=null;
-  this.pPresLos=null;
-
-  this.pCong=null;
-  this.pCongWriteIn=null;
-  this.pCongLos=null;
-
+  constructor(private http: Http, private recordservice: Recordservice, private alertCtrl: AlertController) {
+  this.candidate=null;
+  this.candidateWriteIn=null;
+  this.levelOfSupport=null;
+  this.recordservice = recordservice;
   }
 
   // clear all records
   clearAll(){
-  this.gePres=null;
-  this.gePresWriteIn=null;
-  this.gePresLos=null;
-
-  this.pPres=null;
-  this.pPresWriteIn=null;
-  this.pPresLos=null;
-
-  this.pCong=null;
-  this.pCongWriteIn=null;
-  this.pCongLos=null;
+  this.candidate=null;
+  this.candidateWriteIn=null;
+  this.levelOfSupport=null;
   }
 
-  // get void
+  // get void OVR
   getVoidOfficeVoteRecord(){
-  this.officevoterecord = {
+  this.officeVoteRecord = {
   voteRecordKey: null,
   office: null,
   election: null,
@@ -60,96 +39,100 @@ export class Ovrservice {
   candidate: null,
   levelOfSupport: null,
   }
-  return this.officevoterecord;
+  return this.officeVoteRecord;
+  }
+
+    // get void ElectOffice
+  getVoidElectOffice(){
+  this.electOffice = {
+  inner: null,
+  candidates: [],
+  }
+  return this.electOffice;
   }
 
 // gePres
 
-setgePres(passedString){
-this.gePres = passedString;
+setCandidate(passedString){
+this.candidate = passedString;
 }
 
 
-getgePres(){
-return this.gePres;
+getCandidate(){
+return this.candidate;
 }
 
-setgePresWriteIn(passedString){
-this.gePresWriteIn = passedString;
-}
-
-
-getgePresWriteIn(){
-return this.gePresWriteIn;
-}
-
-setgePresLos(passedString){
-this.gePresLos = passedString;
+setCandidateWriteIn(passedString){
+this.candidateWriteIn = passedString;
 }
 
 
-getgePresLos(){
-return this.gePresLos;
+getCandidateWriteIn(){
+return this.candidateWriteIn;
 }
 
-// pPres
-
-setpPres(passedString){
-this.pPres = passedString;
-}
-
-
-getpPres(){
-return this.pPres;
-}
-
-setpPresWriteIn(passedString){
-this.pPresWriteIn = passedString;
+setLos(passedString){
+this.levelOfSupport = passedString;
 }
 
 
-getpPresWriteIn(){
-return this.pPresWriteIn;
+getLos(){
+return this.levelOfSupport;
 }
 
-setpPresLos(passedString){
-this.pPresLos = passedString;
-}
-
-
-getpPresLos(){
-return this.pPresLos;
+setElectOffice(passedElectOffice){
+this.electOffice = passedElectOffice;
 }
 
 
-// pCong
+fillRecord(){
 
-setpCong(passedString){
-this.pCong = passedString;
+
+
+            // alert if gePres not filled
+            if (this.electOffice.inner.office=='President' && this.electOffice.inner.election=='General' &&!this.candidate){
+                let alertPR = this.alertCtrl.create({
+                title: 'General Election Presidential Vote Required.',
+                subTitle: 'Please select Presidential Vote.',
+                buttons: ['OK']
+                });
+            alertPR.present();
+            return;
+            }
+
+            // alert if other but no write in
+            if (this.candidate=='26' && !this.candidateWriteIn){
+                let alertPR = this.alertCtrl.create({
+                title: 'Please write in candidate name.',
+                subTitle: 'When selecting "other" please write in candidate name.',
+                buttons: ['OK']
+                });
+            alertPR.present();
+            return;
+            }
+
+
+            // logic for candidate
+            if (this.candidate=='26' && this.candidateWriteIn){
+              this.candidate = this.candidateWriteIn;
+            }
+
+
+            // fill ovr record with 
+                this.officeVoteRecord = this.getVoidOfficeVoteRecord();
+
+                this.officeVoteRecord = {
+                voteRecordKey: null,
+                office: this.electOffice.inner.office,
+                election: this.electOffice.inner.election,
+                success: !this.recordservice.getNonVoteBool(),
+                candidate: this.candidate,
+                levelOfSupport: this.levelOfSupport,
+                }
+                console.log(this.officeVoteRecord);
+                console.log("from ovr " + this.officeVoteRecord);
 }
 
-
-getpCong(){
-return this.pCong;
-}
-
-setpCongWriteIn(passedString){
-this.pCongWriteIn = passedString;
-}
-
-
-getpCongWriteIn(){
-return this.pCongWriteIn;
-}
-
-setpCongsLos(passedString){
-this.pCongLos = passedString;
-}
-
-
-getpCongLos(){
-return this.pCongLos;
-}
 
 
 
