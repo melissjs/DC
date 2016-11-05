@@ -94,7 +94,7 @@ checkFields(){
                 buttons: ['OK']
                 });
             alertPR.present();
-            return;
+            return true;
             }
 
             // alert if other but no write in
@@ -105,7 +105,7 @@ checkFields(){
                 buttons: ['OK']
                 });
             alertPR.present();
-            return;
+            return true;
             }
 
 }

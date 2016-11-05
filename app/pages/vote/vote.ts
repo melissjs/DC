@@ -307,6 +307,16 @@ export class VotePage {
                         return;
                         }
 
+//var boolhere = this.ovrservice.checkFields();
+//console.log(boolhere);
+    if(this.ovrservice.checkFields()){
+    console.log(this.ovrservice.checkFields());
+    return;
+    }
+   // this.ovrservice.checkFields();
+    this.ovrservice.fillRecord();
+
+
 
                         // put in
 
@@ -343,15 +353,11 @@ export class VotePage {
             console.log(this.newVoteRecord );
             this.recordservice.addVoteRecordToList(this.newVoteRecord);
             console.log(this.recordservice.getVoteList());
+
+
                 that.navCtrl.setRoot(DemographicsPage, {
                 });
 
-if(this.ovrservice.checkFields()){
-    console.log(this.ovrservice.checkFields());
-return;
-}
-
-this.ovrservice.fillRecord();
 
 
             }
