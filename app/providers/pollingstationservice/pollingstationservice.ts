@@ -218,6 +218,21 @@ isThisInState(state){
     return isInState;
 }
 
+setTestStation(){
+    this.selectedStationXX = {
+        "pollingStationKey": "ps1",
+        "precinctNumber": "9001A",
+        "streetAddress": "515 Almont Drive",
+        "unitNumber": "11",
+        "roomNumber": "3",
+        "city": "Los Angeles",
+        "state": "Florida",
+        "zip": 90025,        
+      }
+    }
+
+
+
 
 
 }

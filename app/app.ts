@@ -51,8 +51,8 @@ import {UserDataService} from './user-data-service';
 class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // make HelloIonicPage the root (or first) page
-  rootPage: any = HomePageMa;
+  // make HelloIonicPage the root (or first) page HomePageMa
+  rootPage: any = VotePage;
   pages: Array<{title: string, component: any}>;
   userDataSvc: UserDataService;
 

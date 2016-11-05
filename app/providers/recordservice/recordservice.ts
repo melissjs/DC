@@ -78,7 +78,7 @@ export class Recordservice {
   this.afcounter = 0;
   this.vcounter = 0;
   this.nvcounter = 0;
-  this.nonVoteRecordBool = false;
+  this.nonVoteRecordBool = false;  // change to false after testing
   this.currentTimesheet = this.createVoidTimesheet();
   this.totalIndividualAnomalyRecords = 0;
   this.totalTeamAnomalyRecords = 0;

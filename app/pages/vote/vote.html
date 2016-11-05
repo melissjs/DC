@@ -13,8 +13,8 @@
         <ion-card>
         <ion-list>
         <ion-list-header text-wrap>General Election</ion-list-header> 
-        <ion-item>
-        <ion-label stacked>How did you cast your vote in the general election?</ion-label>
+        <ion-item *ngIf="!recordservice.getNonVoteBool()">
+        <ion-label stacked>How did you cast your vote in the General Election?</ion-label>
         <ion-select text-wrap [(ngModel)]="generalCastBy" (change)="onChangeGeneralCastBy(generalCastBy)">
             <ion-option value="votingMachine">Voting Machine</ion-option>
             <ion-option value="voteByMail">Vote by Mail (returned at this location)</ion-option>
@@ -37,15 +37,34 @@
       <!--PRIMARY-->
 
     <ion-item text-wrap>
-    <ion-label stacked>Did you vote in the primary election?</ion-label>
-          <ion-select text-wrap [(ngModel)]="primarySuccess" #item (change)="onChangePrimarySuccess(primarySuccess)">
+    <ion-label stacked>Did you vote in the Primary Election?</ion-label>
+          <ion-select text-wrap [(ngModel)]="primarySuccess"  (ionChange)="onChangePrimarySuccess(primarySuccess)">
             <ion-option value="didVote">Yes, I did vote in the primary.</ion-option>
             <ion-option value="didNotVote">No, I did not vote in the primary.</ion-option>
             <ion-option value="couldNotVote">I tried but could not vote in the primary.</ion-option>
           </ion-select>
     </ion-item>
 
-             <ion-item text-wrap  *ngIf!="(primaryPresVote=='didNotVote' || primaryPresVote=='dontRemember')">
+    <ion-item  *ngIf="recordservice.getPrimaryIntention()">
+        <ion-label stacked>Reason for not being able to vote in the Primary:</ion-label>
+        <ion-select text-wrap [(ngModel)]="reasonForCouldNotVotePrimary" (change)="onChangeReasonForCouldNotVotePrimary(reasonForCouldNotVotePrimary)">
+            <ion-option value="registrationIncorrectlyChanged">My registration was incorrectly changed.</ion-option>
+            <ion-option value="notRegisteredInTime">I did not register in time.</ion-option>
+            <ion-option value="nameNotOnRole">My name was not on the voter role.</ion-option>
+            <ion-option value="incorrectVBM">I was incorrectly designated as a VBM (vote by mail) voter.</ion-option>
+            <ion-option value="noPollingLocation">There were no polling places close enough to my location.</ion-option>
+            <ion-option value="noTimeOff">I couldn't get time off work.</ion-option>
+            <ion-option value="inaccessableLocation">Polling location inaccessible due to long lines and/or insufficient parking.</ion-option>
+            <ion-option value="otherReasonForCouldNotVotePrimary">Other</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item *ngIf="(recordservice.getPrimaryIntention() && reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary')">
+        <ion-label stacked>Please explain why you could not vote in the primary:</ion-label>
+        <ion-input type="text" [(ngModel)]="otherReasonForCouldNotVotePrimary" (change)="onChangeOtherReasonForCouldNotVotePrimary(otherReasonForCouldNotVotePrimary)"></ion-input>
+        </ion-item>
+
+             <ion-item text-wrap  *ngIf="recordservice.getPrimarySuccess() || recordservice.getPrimaryIntention()">
     <ion-label stacked>Was this your primary polling location?</ion-label>
           <ion-select text-wrap [(ngModel)]="primaryLocation" #item (change)="onChangePrimaryLocation(primaryLocation)">
             <ion-option value="sameLocation">This polling station is where I voted (or attempted to vote) during the primary.</ion-option>
@@ -54,7 +73,7 @@
           </ion-select>
     </ion-item>
 
-    <ion-item *ngIf!="(primaryPresVote=='didNotVote' || primaryPresVote=='couldNotVote' || primaryPresVote=='dontRemember')">
+    <ion-item *ngIf="recordservice.getPrimarySuccess()">
     <ion-label stacked>How did you cast your primary vote?</ion-label>
         <ion-select text-wrap [(ngModel)]="primaryPresVoteCastBy" (change)="onChangePrimaryPresVoteCastBy(primaryPresVoteCastBy)">
             <ion-option value="votingMachine">Voting Machine</ion-option>
@@ -67,16 +86,16 @@
     </ion-item>
 
   
-    <ovr-component [electThisOffice]=PRIMARYPRES></ovr-component>
+    <ovr-component [electThisOffice]=PRIMARYPRES *ngIf="recordservice.getPrimarySuccess() || recordservice.getPrimaryIntention()"></ovr-component>
 
  
-   <ovr-component [electThisOffice]=PRIMARYCONGRESS></ovr-component>
+   <ovr-component [electThisOffice]=PRIMARYCONGRESS *ngIf="inFlorida && (recordservice.getPrimarySuccess() || recordservice.getPrimaryIntention())"></ovr-component>
     
 
 
      <!-- Could not vote logic lines -->
         <ion-item  *ngIf="primaryPresVote=='couldNotVote'">
-        <ion-label stacked>Reason for not being able to vote in the Primary:</ion-label>
+        <ion-label stacked>Reason for not being able to vote in the primary:</ion-label>
         <ion-select text-wrap [(ngModel)]="reasonForCouldNotVotePrimary" (change)="onChangeReasonForCouldNotVotePrimary(reasonForCouldNotVotePrimary)">
             <ion-option value="registrationIncorrectlyChanged">My registration was incorrectly changed.</ion-option>
             <ion-option value="notRegisteredInTime">I did not register in time.</ion-option>

@@ -57,6 +57,11 @@ export class VotePage {
                 private volunteerservice: Volunteerservice,
                 private recordservice: Recordservice, private ovrservice: Ovrservice,
                 private restSvc: RestService) {
+
+        //testing
+        this.pollingstationservice.setTestStation();
+        this.volunteerservice.setTestVolunteer();
+        
         this.PRESIDENT = PRESIDENT;
         this.PRIMARYCONGRESS = PRIMARYCONGRESS;
         this.PRIMARYPRES = PRIMARYPRES;
@@ -76,7 +81,6 @@ export class VotePage {
         this.thirdPresVoteWriteIn = null;
         this.pollingstationservice = pollingstationservice;
         this.ovrservice = ovrservice;
-        //this.currentVolunteer = this.volunteerservice.getNewVolunteer();
         this.inFlorida = this.pollingstationservice.isThisInState('FL');
         console.log(this.inFlorida);
         console.log(this.pollingstationservice.selectedStationXX.state);
@@ -188,13 +192,17 @@ export class VotePage {
    // Primary
 
         onChangePrimarySuccess(primarySuccess){
+            console.log("psuccess being called");
         if (primarySuccess=='didVote'){
             this.recordservice.setPrimarySuccess(true);
+            this.recordservice.setPrimaryIntention(false);
+            console.log("psuccess" + this.recordservice.getPrimarySuccess());
         } else if(primarySuccess=='couldNotVote'){
             this.recordservice.setPrimaryIntention(true);
             this.recordservice.setPrimarySuccess(false);
         } else if(primarySuccess=='didNotVote'){
             this.recordservice.setPrimarySuccess(false);
+            this.recordservice.setPrimaryIntention(false);
         }
         }
 

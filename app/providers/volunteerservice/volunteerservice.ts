@@ -60,6 +60,23 @@ export class Volunteerservice {
         that.currentVolunteer = that.setToVoidVolunteer();
     }
     */
+
+       setTestVolunteer(){
+            this.currentVolunteer = {
+           "volunteerKey": "1",         
+            "fullName":"Melissa Schwartz",
+            "emailAddress":"melissjs@gmail.com",
+            "exposeEmail": true,
+            "phoneNumber":"6025245453",
+            "age": 35,
+            "sex": "Female",
+            "partyAffiliation": "No Party Preference",    
+            "shifts": "Early Morning, Late Evening",
+            "associatedPollingStationKey": "ps2"
+        }
+        return this.currentVolunteer;
+    }
+
     
     getVolunteers() {
         if (!this.usingReal) {

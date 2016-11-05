@@ -1,6 +1,6 @@
   
   <ion-item text-wrap>
-   <ion-label text-wrap stacked>Please select candidate you voted for or intended to vote for in the {{electThisOffice.election}} election for {{electThisOffice.office}}:</ion-label>
+   <ion-label text-wrap stacked>Please select candidate you <span *ngIf="(!recordservice.getNonVoteBool() && electThisOffice.inner.election=='General') || (recordservice.getPrimarySuccess() && electThisOffice.inner.election=='Primary')">voted for</span><span *ngIf="(recordservice.getNonVoteBool() && electThisOffice.inner.election=='General') || (recordservice.getPrimaryIntention() && electThisOffice.inner.election=='Primary')">intended to vote for</span> in the {{electThisOffice.inner.election}} Election for {{electThisOffice.inner.office}}:</ion-label>
           <ion-select text-wrap [(ngModel)]="candidateChoice"  (ionChange)="onChangeChoice(candidateChoice)">
             <ion-option  *ngFor="let cand of electThisOffice.candidates" value="{{cand.value}}">{{cand.label}}</ion-option>
           </ion-select>
