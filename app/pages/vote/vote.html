@@ -66,7 +66,7 @@
 
              <ion-item text-wrap  *ngIf="recordservice.getPrimarySuccess() || recordservice.getPrimaryIntention()">
     <ion-label stacked>Was this your primary polling location?</ion-label>
-          <ion-select text-wrap [(ngModel)]="primaryLocation" #item (change)="onChangePrimaryLocation(primaryLocation)">
+          <ion-select text-wrap [(ngModel)]="primaryLocation" (change)="onChangePrimaryLocation(primaryLocation)">
             <ion-option value="sameLocation">This polling station is where I voted (or attempted to vote) during the primary.</ion-option>
             <ion-option value="notSameLocation">I did not vote (or attempt to vote) at this polling station during the primary.</ion-option>
             <ion-option value="dontRemeber">I don't remember.</ion-option>
@@ -75,7 +75,7 @@
 
     <ion-item *ngIf="recordservice.getPrimarySuccess()">
     <ion-label stacked>How did you cast your primary vote?</ion-label>
-        <ion-select text-wrap [(ngModel)]="primaryPresVoteCastBy" (change)="onChangePrimaryPresVoteCastBy(primaryPresVoteCastBy)">
+        <ion-select text-wrap [(ngModel)]="primaryVoteCastBy" (change)="onChangePrimaryCastBy(primaryVoteCastBy)">
             <ion-option value="votingMachine">Voting Machine</ion-option>
             <ion-option value="voteByMail">Vote by Mail</ion-option>
             <ion-option value="absentee">Absentee Ballot</ion-option>

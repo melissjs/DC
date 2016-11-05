@@ -277,7 +277,13 @@ export class VotePage {
 
 
 
-                      
+                       if (this.recordservice.getPrimaryIntention()==false) {
+                            this.reasonForCouldNotVotePrimary = null;
+                        }
+
+                        if (this.recordservice.getPrimaryIntention() && this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && this.otherReasonForCouldNotVotePrimary){
+                            this.reasonForCouldNotVotePrimary = this.otherReasonForCouldNotVotePrimary;
+                        }
 
                    
 
