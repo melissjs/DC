@@ -307,14 +307,10 @@ export class VotePage {
                         return;
                         }
 
-//var boolhere = this.ovrservice.checkFields();
-//console.log(boolhere);
-    if(this.ovrservice.checkFields()){
-    console.log(this.ovrservice.checkFields());
-    return;
-    }
-   // this.ovrservice.checkFields();
-    this.ovrservice.fillRecord();
+
+    
+        this.ovrservice.checkFieldsForErrors();
+        this.ovrservice.fillRecord();
 
 
 

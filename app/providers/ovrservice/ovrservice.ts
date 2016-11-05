@@ -85,7 +85,7 @@ this.electOffice = passedElectOffice;
 }
 
 
-checkFields(){
+checkFieldsForErrors(){
   // alert if gePres not filled
             if (this.electOffice.inner.office=='President' && this.electOffice.inner.election=='General' &&!this.candidate){
                 let alertPR = this.alertCtrl.create({
@@ -94,7 +94,7 @@ checkFields(){
                 buttons: ['OK']
                 });
             alertPR.present();
-            return true;
+            return;
             }
 
             // alert if other but no write in
@@ -105,7 +105,7 @@ checkFields(){
                 buttons: ['OK']
                 });
             alertPR.present();
-            return true;
+            return;
             }
 
 }
