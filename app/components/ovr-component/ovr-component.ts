@@ -50,7 +50,7 @@ export class OvrComponent {
                     candidate: null,
                     levelOfSupport: null,
                 }
-                this.ovrservice.sendInitialVoteRecord(this.officevoterecord, this.electThisOffice.mandatory);
+                this.ovrservice.sendInitialVoteRecord(this.officevoterecord, this.electThisOffice.inner.mandatory);
             } else {
                 if (setting == 'initializing') {
                     console.log('ERROR: Spurious call to ovr-component with no parameter specified!');

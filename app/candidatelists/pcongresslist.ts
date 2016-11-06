@@ -8,6 +8,7 @@ export var PRIMCONGOFFICE: ElectOffice =
 	electOfficeKey: "2016 Congress Primary",
 	office: "Congress",
 	election: "Primary",
+	mandatory: false
     }
 
 export var PRIMCONGCANDS: Candidate[] =
@@ -39,6 +40,5 @@ export var PRIMARYCONGRESS: ElectOfficeGUI =
     {
 	inner: PRIMCONGOFFICE,
 	candidates: PRIMCONGCANDS,
-	mandatory: false
     }
 
