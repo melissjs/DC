@@ -43,9 +43,9 @@ export class Ovrservice {
     // get void ElectOffice
   getVoidElectOffice(){
       this.electOffice = {
-	  inner: null,
-	  candidates: [],
-	  mandatory: false
+          inner: null,
+          candidates: [],
+          mandatory: false
   }
   return this.electOffice;
   }
@@ -89,27 +89,27 @@ checkFieldsForErrors(){
   // alert if gePres not filled
     var retmsg = null;
     if (this.inilist != null) {
-	var ii;
-	for (ii=0;ii<this.inilist.length;ii++) {
-	    var ofr = this.inilist[ii];
-	    if ((this.mandatoryList[ii]) && (!ofr.candidate)) {
-		if (retmsg = null) {
-		    retmsg = '';
-		} else {
-		    retmsg = retmsg + ', and ';
-		}
-		retmsg = retmsg + ofr.electOfficeKey +  ' Vote Required.';
+        var ii;
+        for (ii=0;ii<this.inilist.length;ii++) {
+            var ofr = this.inilist[ii];
+            if ((this.mandatoryList[ii]) && (!ofr.candidate)) {
+                if (retmsg = null) {
+                    retmsg = '';
+                } else {
+                    retmsg = retmsg + ', and ';
+                }
+                retmsg = retmsg + ofr.electOfficeKey +  ' Vote Required.';
             }
-	    if (ofr.candidate == '26') {
-		if (retmsg = null) {
-		    retmsg = '';
-		} else {
-		    retmsg = retmsg + ', and ';
-		}
-		retmsg = retmsg + ofr.electOfficeKey + 
-		    ' When selecting other please write in candidate name.'
-	    }
-	}
+            if (ofr.candidate == '26') {
+                if (retmsg = null) {
+                    retmsg = '';
+                } else {
+                    retmsg = retmsg + ', and ';
+                }
+                retmsg = retmsg + ofr.electOfficeKey + 
+                    ' When selecting other please write in candidate name.'
+            }
+        }
     }
     return retmsg;
 }
@@ -140,57 +140,57 @@ setOVRRecord(passedRecord){
     var ii;
     var found = false
     if (this.inilist != null) {
-	var ii;
-	for (ii=0;ii<this.inilist.length;ii++) {
-	    var ofr = this.inilist[ii];
-	    if (ofr.electOfficeKey == passedRecord.electOfficeKey) {
-		this.inilist[ii] = passedRecord;
-		found = true;
-		break;
-	    }
-	}
+        var ii;
+        for (ii=0;ii<this.inilist.length;ii++) {
+            var ofr = this.inilist[ii];
+            if (ofr.electOfficeKey == passedRecord.electOfficeKey) {
+                this.inilist[ii] = passedRecord;
+                found = true;
+                break;
+            }
+        }
     }
     if (!found) {
-	// Error here... report it.
-	console.log('ERROR in ovrservice.. did not find office record for passed in update');
+        // Error here... report it.
+        console.log('ERROR in ovrservice.. did not find office record for passed in update');
     }
 }
 
 
     addOVRToList(ofr) {
-	if (this.ovrlist == null) {
-	    this.ovrlist = new Array();
-	}
-	this.ovrlist.push(ofr);
+        if (this.ovrlist == null) {
+            this.ovrlist = new Array();
+        }
+        this.ovrlist.push(ofr);
     }
 
 
 addEligibleOVRRecordsToList(){
     if (this.inilist != null) {
-	var ii;
-	for (ii=0;ii<this.inilist.length;ii++) {
-	    var ofr = this.inilist[ii];
-	    if( (ofr.electOfficeKey.startsWith("President")) && (this.recordservice.getNonVoteBool())) {
-		// switch to false..
-		ofr.success = false;
-	    }
-	    if (ofr.success || ofr.candidate || ofr.levelOfSupport) {
-		this.addOVRToList(ofr);		
-	    }
-	}
-	// since we added them.. remove from inilist
-	this.inilist = null;
+        var ii;
+        for (ii=0;ii<this.inilist.length;ii++) {
+            var ofr = this.inilist[ii];
+            if( (ofr.electOfficeKey.startsWith("President")) && (this.recordservice.getNonVoteBool())) {
+                // switch to false..
+                ofr.success = false;
+            }
+            if (ofr.success || ofr.candidate || ofr.levelOfSupport) {
+                this.addOVRToList(ofr);         
+            }
+        }
+        // since we added them.. remove from inilist
+        this.inilist = null;
     }
 }
 
 
     sendInitialVoteRecord(passedOfficevoterecord, mandatory) {
-	if (this.inilist == null) {
-	    this.inilist = new Array();
-	    this.mandatoryList = new Array();
-	}
-	this.inilist.push(passedOfficevoterecord);
-	this.mandatoryList.push(mandatory);
+        if (this.inilist == null) {
+            this.inilist = new Array();
+            this.mandatoryList = new Array();
+        }
+        this.inilist.push(passedOfficevoterecord);
+        this.mandatoryList.push(mandatory);
     }
 }
 

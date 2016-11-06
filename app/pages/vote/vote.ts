@@ -253,7 +253,7 @@ export class VotePage {
     onSubmit() {
        var that = this;
         try {
-	    
+            
 
             if (this.generalCastBy == null) {
                 let alert = this.alertCtrl.create({
@@ -267,16 +267,16 @@ export class VotePage {
             // logic for write ins
             
 
-		var retmsg = this.ovrservice.checkFieldsForErrors();
-		if (retmsg) {
+                var retmsg = this.ovrservice.checkFieldsForErrors();
+                if (retmsg) {
                     let alert = this.alertCtrl.create({
-			title: 'Election Choices Missing',
-			subTitle: retmsg,
-			buttons: ['OK']
+                        title: 'Election Choices Missing',
+                        subTitle: retmsg,
+                        buttons: ['OK']
                     });
                     alert.present();
-		    return;
-		}
+                    return;
+                }
 
              if (this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && !this.otherReasonForCouldNotVotePrimary){
                             let alert = this.alertCtrl.create({
@@ -373,7 +373,7 @@ export class VotePage {
             console.log(this.recordservice.getVoteList());
 
             // check if ovr is filled enough to send, then push to list from ovrservice
-            this.ovrservice.addEligibleOVRRecordsToList();		    
+            this.ovrservice.addEligibleOVRRecordsToList();                  
 
             that.navCtrl.setRoot(DemographicsPage, {
             });

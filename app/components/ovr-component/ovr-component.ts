@@ -41,32 +41,32 @@ export class OvrComponent {
   }
 
     checkInitOfficeVoteRecord(setting) {
-	if (this.officevoterecord == null) {
-	    if (this.electThisOffice != null) {
-		this.officevoterecord = {
-		    voteRecordKey: null,
-		    electOfficeKey: this.electThisOffice.inner.electOfficeKey,
-		    success: false,           // will get set by vote.ts call to ovrservice.
-		    candidate: null,
-		    levelOfSupport: null,
-		}
-		this.ovrservice.sendInitialVoteRecord(this.officevoterecord, this.electThisOffice.mandatory);
-	    } else {
-		if (setting == 'initializing') {
-		    console.log('ERROR: Spurious call to ovr-component with no parameter specified!');
-		} else {
-		    console.log('ERROR: Spurious call to set ' + setting + ' in ovr-component without any parameter sent to component');
-		}
-		return false;
-	    }
-	}
-	return true;
+        if (this.officevoterecord == null) {
+            if (this.electThisOffice != null) {
+                this.officevoterecord = {
+                    voteRecordKey: null,
+                    electOfficeKey: this.electThisOffice.inner.electOfficeKey,
+                    success: false,           // will get set by vote.ts call to ovrservice.
+                    candidate: null,
+                    levelOfSupport: null,
+                }
+                this.ovrservice.sendInitialVoteRecord(this.officevoterecord, this.electThisOffice.mandatory);
+            } else {
+                if (setting == 'initializing') {
+                    console.log('ERROR: Spurious call to ovr-component with no parameter specified!');
+                } else {
+                    console.log('ERROR: Spurious call to set ' + setting + ' in ovr-component without any parameter sent to component');
+                }
+                return false;
+            }
+        }
+        return true;
     }
 
 onChangeChoice(candidateChoice){
     this.choosenCandidate = candidateChoice;
     if (!this.checkInitOfficeVoteRecord('candidateChoice')) {
-	return;
+        return;
     }
     this.officevoterecord.candidate = this.choosenCandidate;
 /*
@@ -89,7 +89,7 @@ this.successfullyElected = true;
 
 onChangeCandidateVoteWriteIn(candidateVoteWriteIn){
     if (!this.checkInitOfficeVoteRecord('candidateVoteWriteIn')) {
-	return;
+        return;
     }
 
     if(candidateVoteWriteIn){
@@ -100,7 +100,7 @@ onChangeCandidateVoteWriteIn(candidateVoteWriteIn){
 
 onChangeLos(passedLos){
     if (!this.checkInitOfficeVoteRecord('levelOfSupport')) {
-	return;
+        return;
     }
 
     this.levelOfSupport = passedLos;
