@@ -6,7 +6,7 @@
           </ion-select>
     </ion-item>
 
-    <ion-item *ngIf="choosenCandidate=='26'">
+    <ion-item *ngIf="choosenCandidate=='26' || (choosenCandidate==writeInCandidate && writeInCandidate!==null)">
         <ion-label text-wrap stacked>Please write in candidate name:</ion-label>
         <ion-input type="text" [(ngModel)]="candidateVoteWriteIn" (change)="onChangeCandidateVoteWriteIn(candidateVoteWriteIn)"></ion-input>
     </ion-item>

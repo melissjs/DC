@@ -94,7 +94,7 @@ export class Recordservice {
   this.totalIndividualDemographicsRecords = 0;
   this.totalTeamRecords = 0;
   this.totalIndividualRecords = 0;
-  this.primarySuccess = false;
+  this.primarySuccess = null;
   this.primaryIntention = false;
   }
 
@@ -322,7 +322,7 @@ volunteerKey: null,
 generalSuccess: false,
 generalCouldNotVoteReason:  null,
 generalCastBy:  null,
-primarySuccess: false,
+primarySuccess: null,
 primaryCouldNotVoteReason: null,
 primaryCastBy: null,
 primaryVotePollingLocation: null,

@@ -22,6 +22,7 @@ export class OvrComponent {
   successfullyElected: boolean;
   levelOfSupport: string;
   writeInCandidate: string;
+  difVar: string;
   //electThisOffice: ElectOfficeGUI;
 
   constructor(private recordservice: Recordservice, public alertCtrl: AlertController, private ovrservice: Ovrservice) {
@@ -30,25 +31,91 @@ export class OvrComponent {
     this.levelOfSupport = null;
     this.writeInCandidate = null;
     this.choosenCandidate = null;
+    this.difVar = null;
     this.ovrservice = ovrservice;
   }
 
 onChangeChoice(candidateChoice){
   this.choosenCandidate = candidateChoice;
     console.log(this.choosenCandidate);
-    this.ovrservice.setCandidate(candidateChoice);
 
-    this.ovrservice.setElectOffice(this.electThisOffice);
+
+// logic creating differntiation var
+if (this.electThisOffice.election=="General" && this.electThisOffice.office=="President"){
+this.difVar = 'passedRecord1';
+}
+if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="President"){
+this.difVar = 'passedRecord2';
+}
+if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="Congress"){
+this.difVar = 'passedRecord3';
+}
+
+// logic
+if(this.electThisOffice.election=="General" && !this.recordservice.getNonVoteBool()){
+  this.successfullyElected = true;
+} else if (this.electThisOffice.election=="Primary" && this.recordservice.getPrimarySuccess()){
+this.successfullyElected = true;
+}
+// fill
+    this.officevoterecord = {
+      voteRecordKey: null,
+      office: this.electThisOffice.inner.office,
+      election: this.electThisOffice.inner.election,
+      success: !this.recordservice.getNonVoteBool(),
+      candidate: this.choosenCandidate,
+      levelOfSupport: this.levelOfSupport,
+    }
+                                                    //console.log("from comp ");
+                                                    //console.log(this.officevoterecord);
+
+  // send
+  this.ovrservice.setOVRRecord(this.officevoterecord, this.difVar);
+ 
 
 }
 
 onChangeCandidateVoteWriteIn(candidateVoteWriteIn){
-  this.choosenCandidate = candidateVoteWriteIn;
-  this.ovrservice.setCandidateWriteIn(candidateVoteWriteIn);
+  if(candidateVoteWriteIn){
+  this.writeInCandidate = candidateVoteWriteIn;
+  this.choosenCandidate = candidateVoteWriteIn
+}
+  //this.ovrservice.setCandidateWriteIn(candidateVoteWriteIn);
   console.log(this.choosenCandidate);
-  console.log(candidateVoteWriteIn);
+  //console.log(candidateVoteWriteIn);
 
-  this.ovrservice.setElectOffice(this.electThisOffice);
+  
+// logic creating differntiation var
+if (this.electThisOffice.election=="General" && this.electThisOffice.office=="President"){
+this.difVar = 'passedRecord1';
+}
+if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="President"){
+this.difVar = 'passedRecord2';
+}
+if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="Congress"){
+this.difVar = 'passedRecord3';
+}
+
+// logic
+if(this.electThisOffice.election=="General" && !this.recordservice.getNonVoteBool()){
+  this.successfullyElected = true;
+} else if (this.electThisOffice.election=="Primary" && this.recordservice.getPrimarySuccess()){
+this.successfullyElected = true;
+}
+// fill
+    this.officevoterecord = {
+      voteRecordKey: null,
+      office: this.electThisOffice.inner.office,
+      election: this.electThisOffice.inner.election,
+      success: !this.recordservice.getNonVoteBool(),
+      candidate: this.choosenCandidate,
+      levelOfSupport: this.levelOfSupport,
+    }
+                                            //console.log("from comp ");
+                                          //console.log(this.officevoterecord);
+
+  // send
+  this.ovrservice.setOVRRecord(this.officevoterecord, this.difVar);
 
 }
 
@@ -58,7 +125,38 @@ onChangeLos(passedLos){
   this.ovrservice.setLos(passedLos);
   console.log("from service" + this.ovrservice.getLos());
 
-  this.ovrservice.setElectOffice(this.electThisOffice);
+  
+// logic creating differntiation var
+if (this.electThisOffice.election=="General" && this.electThisOffice.office=="President"){
+this.difVar = 'passedRecord1';
+}
+if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="President"){
+this.difVar = 'passedRecord2';
+}
+if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="Congress"){
+this.difVar = 'passedRecord3';
+}
+
+// logic
+if(this.electThisOffice.election=="General" && !this.recordservice.getNonVoteBool()){
+  this.successfullyElected = true;
+} else if (this.electThisOffice.election=="Primary" && this.recordservice.getPrimarySuccess()){
+this.successfullyElected = true;
+}
+// fill
+    this.officevoterecord = {
+      voteRecordKey: null,
+      office: this.electThisOffice.inner.office,
+      election: this.electThisOffice.inner.election,
+      success: !this.recordservice.getNonVoteBool(),
+      candidate: this.choosenCandidate,
+      levelOfSupport: this.levelOfSupport,
+    }
+                                                    //console.log("from comp ");
+                                                    //console.log(this.officevoterecord);
+
+  // send
+  this.ovrservice.setOVRRecord(this.officevoterecord, this.difVar);
 
 }
 

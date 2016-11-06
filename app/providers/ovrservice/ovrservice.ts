@@ -5,6 +5,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import { OfficeVoteRecord } from '../../officevoterecord';
 import { Recordservice } from '../recordservice/recordservice';
 import { ElectOfficeGUI } from '../../electofficegui';
+import { OVRLIST } from '../../fakedatama'
 
 
 @Injectable()
@@ -14,12 +15,17 @@ export class Ovrservice {
   candidateWriteIn:string;
   levelOfSupport:string;
   electOffice: ElectOfficeGUI;
+  ovrlist: OfficeVoteRecord[];
+  passedRecord1: OfficeVoteRecord;
+  passedRecord2: OfficeVoteRecord;
+  passedRecord3: OfficeVoteRecord;
 
   constructor(private http: Http, private recordservice: Recordservice, private alertCtrl: AlertController) {
   this.candidate=null;
   this.candidateWriteIn=null;
   this.levelOfSupport=null;
   this.recordservice = recordservice;
+  this.ovrlist = OVRLIST;
   }
 
   // clear all records
@@ -110,13 +116,8 @@ checkFieldsForErrors(){
 
 }
 
-
+// not using
 fillRecord(){
-
-
-
-          
-
             // logic for candidate
             if (this.candidate=='26' && this.candidateWriteIn){
               this.candidate = this.candidateWriteIn;
@@ -138,7 +139,38 @@ fillRecord(){
                 console.log("from ovr " + this.officeVoteRecord);
 }
 
+setOVRRecord(passedRecord, passedDifVar){
+if (passedDifVar == 'passedRecord1'){
+  this.passedRecord1 = passedRecord;
+}
+if (passedDifVar == 'passedRecord2'){
+  this.passedRecord2 = passedRecord;
+}
+if (passedDifVar == 'passedRecord3'){
+  this.passedRecord3 = passedRecord;
+}
 
+}
+
+addEligableOVRRecordsToList(){
+  if (this.passedRecord1.success || this.passedRecord1.candidate || this.passedRecord1.levelOfSupport) {
+  this.addOVRToList(this.passedRecord1);
+  }
+
+   if (this.passedRecord2.success || this.passedRecord2.candidate || this.passedRecord2.levelOfSupport) {
+  this.addOVRToList(this.passedRecord2);
+  }
+
+   if (this.passedRecord3.success || this.passedRecord3.candidate || this.passedRecord3.levelOfSupport) {
+  this.addOVRToList(this.passedRecord3);
+  }
+}
+
+addOVRToList(passedOfficevoterecord){
+this.ovrlist.push(passedOfficevoterecord);
+console.log("list from ovr whole record");
+console.log(this.ovrlist);
+}
 
 
 }

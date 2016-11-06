@@ -322,11 +322,6 @@ export class VotePage {
                         }
 
 
-    
-        this.ovrservice.checkFieldsForErrors();
-        this.ovrservice.fillRecord();
-
-
 
                         // put in
 
@@ -364,9 +359,11 @@ export class VotePage {
             this.recordservice.addVoteRecordToList(this.newVoteRecord);
             console.log(this.recordservice.getVoteList());
 
+            // check if ovr is filled enough to send, then push to list from ovrservice
+            this.ovrservice.addEligableOVRRecordsToList();
 
-                that.navCtrl.setRoot(DemographicsPage, {
-                });
+            that.navCtrl.setRoot(DemographicsPage, {
+            });
 
 
 

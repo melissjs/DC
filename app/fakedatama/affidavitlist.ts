@@ -1,4 +1,4 @@
-import { AffidavitRecord } from '../affidavitrecord'
+import { AffidavitRecord } from '../affidavitrecord';
 
 
 export var AFFIDAVITLIST: AffidavitRecord[] = [
