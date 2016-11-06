@@ -3,7 +3,7 @@ import { NavController, NavParams,  AlertController } from 'ionic-angular';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AffidavitRecord} from '../../affidavitrecord'
 import {VotePage} from '../vote/vote';
-import {NonvotePage} from '../nonvote/nonvote';
+//import {NonvotePage} from '../nonvote/nonvote';
 import {Recordservice} from '../../providers/recordservice/recordservice';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
 
@@ -112,7 +112,9 @@ export class AffidavitPage {
            this.recordservice.addAffidavitRecordToList(this.newAffidavitRecord);
                 console.log(this.recordservice.getAffidavitList());
 
-           
+                try {that.navCtrl.setRoot(VotePage, {})}
+                catch (EE) {console.log('error in Submitting, exc='+ EE.toString())}
+           /*
            if (!this.recordservice.getNonVoteBool()){
                 try {that.navCtrl.setRoot(VotePage, {})}
                 catch (EE) {console.log('error in Submitting, exc='+ EE.toString())}
@@ -120,6 +122,7 @@ export class AffidavitPage {
                try {that.navCtrl.setRoot(NonvotePage, {})}
                 catch (EE) {console.log('error in Submitting, exc='+ EE.toString())}
          }
+         */
 
 
 

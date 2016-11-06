@@ -92,21 +92,23 @@ checkFieldsForErrors(){
         for (ii=0;ii<this.inilist.length;ii++) {
             var ofr = this.inilist[ii];
             if ((this.mandatoryList[ii]) && (!ofr.candidate)) {
-                if (retmsg = null) {
+                if (retmsg == null) {
                     retmsg = '';
                 } else {
                     retmsg = retmsg + ', and ';
                 }
-                retmsg = retmsg + ofr.electOfficeKey +  ' Vote Required.';
+                retmsg = retmsg + ofr.electOfficeKey +  ' vote required.';
             }
             if (ofr.candidate == '26') {
-                if (retmsg = null) {
+              /*  if (retmsg == null) {
                     retmsg = '';
                 } else {
                     retmsg = retmsg + ', and ';
                 }
                 retmsg = retmsg + ofr.electOfficeKey + 
-                    ' When selecting other please write in candidate name.'
+                    ' (when selecting other please write in candidate name)'
+                    */
+                     retmsg = 'When selecting "Other" please write in candidate name.'
             }
         }
     }
@@ -161,6 +163,7 @@ setOVRRecord(passedRecord){
             this.ovrlist = new Array();
         }
         this.ovrlist.push(ofr);
+        console.log(this.ovrlist);
     }
 
 
@@ -190,6 +193,7 @@ addEligibleOVRRecordsToList(){
         }
         this.inilist.push(passedOfficevoterecord);
         this.mandatoryList.push(mandatory);
+        console.log(this.mandatoryList);
     }
 }
 

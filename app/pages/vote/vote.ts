@@ -72,7 +72,10 @@ export class VotePage {
         this.firstPresVote = null;
         this.secondPresVote = null;
         this.thirdPresVote = null;
+        this.reasonForCouldNotVoteGeneral = null;
+        this.otherReasonForCouldNotVoteGeneral = null;
         this.reasonForCouldNotVotePrimary = null;
+        this.otherReasonForCouldNotVotePrimary = null;
         this.volunteerservice = volunteerservice;
         this.recordservice = recordservice;
         this.newVoteRecord = this.recordservice.createVoidVoteRecord();
@@ -183,6 +186,15 @@ export class VotePage {
 
   // General
 
+      onChangeReasonForCouldNotVoteGeneral(reason){
+          this.reasonForCouldNotVoteGeneral = reason;
+      }
+
+      onChangeOtherReasonForCouldNotVotePGE(reason){
+      this.otherReasonForCouldNotVoteGeneral = reason,
+      this.reasonForCouldNotVoteGeneral = this.otherReasonForCouldNotVoteGeneral;
+      }
+
        onChangeGeneralCastBy(value){
         this.generalCastBy = value;
    }
@@ -256,13 +268,29 @@ export class VotePage {
         try {
             
 
-            if (this.generalCastBy == null) {
+            if (!this.recordservice.getNonVoteBool && this.generalCastBy == null) {
                 let alert = this.alertCtrl.create({
-                    title: 'Cast by selection is required.',
-                    subTitle: 'Please select the candidate you voted for today and specify how you cast your vote, everything else on this page is optional.',
+                    title: 'Selection Required',
+                    subTitle: 'Please select the presidential candidate you voted for today and specify how you cast your vote, everything else on this page is optional.',
                     buttons: ['OK']
                 });
                 alert.present();
+            } else if (this.recordservice.getNonVoteBool && this.reasonForCouldNotVoteGeneral == null) {
+                let alert = this.alertCtrl.create({
+                    title: 'Selection Required',
+                    subTitle: 'Please indicate the reason you could not vote today and who you intended to vote for, everything else on this page is optional.',
+                    buttons: ['OK']
+                });
+                alert.present();
+            
+            } else if (this.recordservice.getNonVoteBool && this.reasonForCouldNotVoteGeneral == 'otherReasonForCouldNotVotePGE') {
+                let alert = this.alertCtrl.create({
+                    title: 'Write In Required',
+                    subTitle: 'Please write in reason for not being able to vote in the general election.',
+                    buttons: ['OK']
+                });
+                alert.present();
+            
             } else {
 
             // logic for write ins
@@ -281,8 +309,8 @@ export class VotePage {
 
              if (this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && !this.otherReasonForCouldNotVotePrimary){
                             let alert = this.alertCtrl.create({
-                            //title: 'Please write in Primary Presidential Vote.',
-                            subTitle: 'Please write in reason for not being able to vote in the primary.',
+                            title: 'Write In Required',
+                            subTitle: 'Please write in reason for not being able to vote in the primary election.',
                             buttons: ['OK']
                             });
                             alert.present();
@@ -358,7 +386,7 @@ export class VotePage {
                 voteRecordKey: null,
                 volunteerKey: this.volunteerservice.getNewVolunteerKey(),
                 generalSuccess: !this.recordservice.getNonVoteBool(),
-                generalCouldNotVoteReason:  null,
+                generalCouldNotVoteReason:  this.reasonForCouldNotVoteGeneral,
                 generalCastBy:  this.generalCastBy,
                 primarySuccess: this.recordservice.getPrimarySuccess(),
                 primaryCouldNotVoteReason: this.reasonForCouldNotVotePrimary,

@@ -24,6 +24,24 @@
         </ion-select>
         </ion-item>
 
+
+         <ion-item *ngIf="recordservice.getNonVoteBool()">
+        <ion-label stacked>Reason for not being able to vote today:</ion-label>
+        <ion-select text-wrap [(ngModel)]="reasonForCouldNotVotePGE" (ionChange)="onChangeReasonForCouldNotVoteGeneral(reasonForCouldNotVotePGE)">
+            <ion-option value="nameNotOnRole">My name was not on the voter role.</ion-option>
+            <ion-option value="incorrectVBM">I was incorrectly designated as a VBM (vote by mail) voter.</ion-option>
+            <ion-option value="inaccessableLocation">Polling location inaccessible due to long lines and/or insufficient parking.</ion-option>
+            <ion-option value="otherReasonForCouldNotVotePGE">Other</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <!--"recordservice.getNonVoteBool() && (reasonForCouldNotVoteGeneral=='otherReasonForCouldNotVotePGE' || reasonForCouldNotVoteGeneral==otherReasonForCouldNotVoteGeneral)"-->
+
+        <ion-item *ngIf="recordservice.getNonVoteBool() && (reasonForCouldNotVoteGeneral=='otherReasonForCouldNotVotePGE' || reasonForCouldNotVoteGeneral==otherReasonForCouldNotVoteGeneral && otherReasonForCouldNotVoteGeneral!=null)">
+        <ion-label stacked>Please explain why you could not vote today:</ion-label>
+        <ion-input type="text" [(ngModel)]="otherReasonForCouldNotVotePGE" (change)="onChangeOtherReasonForCouldNotVotePGE(otherReasonForCouldNotVotePGE)"></ion-input>
+        </ion-item>
+
         <!--ion-label stacked style="color:#999999; margin-left:15px"-->
        
           <ovr-component [electThisOffice]=PRESIDENT></ovr-component>

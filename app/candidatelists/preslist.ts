@@ -9,7 +9,7 @@ export var PRESOFFICE: ElectOffice =
 	electOfficeKey: "2016 General Election Presidential",
 	office: "President",
 	election: "General",
-	mandatory: true
+	mandatory: true,
     }
 
 export var PRESCANDS: Candidate[] =

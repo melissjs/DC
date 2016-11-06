@@ -8,7 +8,7 @@ export var PRIMPRESOFFICE: ElectOffice =
 	electOfficeKey: "2016 Primary President",
 	office: "President",
 	election: "Primary",
-	mandatory: false
+	mandatory: false,
     }
 
 export var PRIMPRESCANDS: Candidate[] = 

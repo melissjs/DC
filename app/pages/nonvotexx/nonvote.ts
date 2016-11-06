@@ -38,6 +38,7 @@ export class NonvotePage {
     primaryCongressVote: string;
 
     constructor(private navCtrl: NavController, private alertCtrl: AlertController, private pollingstationservice: Pollingstationservice, volunteerservice: Volunteerservice, recordservice: Recordservice) {
+        
         this.navCtrl = navCtrl;
         this.presVoteLOS = null;
         this.primaryPresVote = null;
@@ -65,7 +66,14 @@ export class NonvotePage {
         this.pollingstationservice = pollingstationservice;
         this.primaryCongressVoteWriteIn = null;
         this.primaryCongressVote = null;
+        //testing
+        this.volunteerservice.setTestVolunteer();
+        this.pollingstationservice.setTestStation();
+        
         this.inFlorida = this.pollingstationservice.isThisInState('FL');
+
+        
+
 
     }
 
