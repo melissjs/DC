@@ -3,4 +3,5 @@ import { ElectOffice } from './electoffice';
 export class  ElectOfficeGUI {
     inner: ElectOffice;
     candidates: Candidate[];
+    mandatory: boolean;
 }

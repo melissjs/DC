@@ -5,7 +5,8 @@ import { ElectOfficeGUI } from '../electofficegui';
 
 export var PRESOFFICE: ElectOffice =
     {
-	electOfficeKey: "President2016",
+	// changed key to something presentable since mandatory is true below
+	electOfficeKey: "2016 General Election Presidential",
 	office: "President",
 	election: "General",
     }
@@ -44,5 +45,6 @@ export var PRESCANDS: Candidate[] =
 export var PRESIDENT: ElectOfficeGUI = 
     { 
 	inner: PRESOFFICE,
-	candidates: PRESCANDS
+	candidates: PRESCANDS,
+	mandatory: true
     }

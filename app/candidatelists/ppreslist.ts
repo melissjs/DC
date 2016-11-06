@@ -5,7 +5,7 @@ import { ElectOfficeGUI } from '../electofficegui';
 
 export var PRIMPRESOFFICE: ElectOffice =
     {
-	electOfficeKey: "PrimaryPresident2016",
+	electOfficeKey: "2016 Primary President",
 	office: "President",
 	election: "Primary",
     }
@@ -51,5 +51,6 @@ export var PRIMPRESCANDS: Candidate[] =
 export var PRIMARYPRES: ElectOfficeGUI = 
     { 
 	inner: PRIMPRESOFFICE,
-	candidates: PRIMPRESCANDS
+	candidates: PRIMPRESCANDS,
+	mandatory: false
     }

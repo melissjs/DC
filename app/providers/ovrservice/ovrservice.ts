@@ -16,31 +16,23 @@ export class Ovrservice {
   levelOfSupport:string;
   electOffice: ElectOfficeGUI;
   ovrlist: OfficeVoteRecord[];
-  passedRecord1: OfficeVoteRecord;
-  passedRecord2: OfficeVoteRecord;
-  passedRecord3: OfficeVoteRecord;
+  inilist: OfficeVoteRecord[];
+    mandatoryList: boolean[];
 
   constructor(private http: Http, private recordservice: Recordservice, private alertCtrl: AlertController) {
   this.candidate=null;
   this.candidateWriteIn=null;
   this.levelOfSupport=null;
   this.recordservice = recordservice;
-  this.ovrlist = OVRLIST;
-  }
-
-  // clear all records
-  clearAll(){
-  this.candidate=null;
-  this.candidateWriteIn=null;
-  this.levelOfSupport=null;
+  this.ovrlist = null; // OVRLIST;
+      this.inilist = null;
   }
 
   // get void OVR
   getVoidOfficeVoteRecord(){
   this.officeVoteRecord = {
   voteRecordKey: null,
-  office: null,
-  election: null,
+  electOfficeKey: null,
   success: false,
   candidate: null,
   levelOfSupport: null,
@@ -50,15 +42,17 @@ export class Ovrservice {
 
     // get void ElectOffice
   getVoidElectOffice(){
-  this.electOffice = {
-  inner: null,
-  candidates: [],
+      this.electOffice = {
+	  inner: null,
+	  candidates: [],
+	  mandatory: false
   }
   return this.electOffice;
   }
 
 // gePres
 
+/*
 setCandidate(passedString){
 this.candidate = passedString;
 }
@@ -89,35 +83,39 @@ return this.levelOfSupport;
 setElectOffice(passedElectOffice){
 this.electOffice = passedElectOffice;
 }
-
+*/
 
 checkFieldsForErrors(){
   // alert if gePres not filled
-            if (this.electOffice.inner.office=='President' && this.electOffice.inner.election=='General' &&!this.candidate){
-                let alertPR = this.alertCtrl.create({
-                title: 'General Election Presidential Vote Required.',
-                subTitle: 'Please select Presidential Vote.',
-                buttons: ['OK']
-                });
-            alertPR.present();
-            return;
+    var retmsg = null;
+    if (this.inilist != null) {
+	var ii;
+	for (ii=0;ii<this.inilist.length;ii++) {
+	    var ofr = this.inilist[ii];
+	    if ((this.mandatoryList[ii]) && (!ofr.candidate)) {
+		if (retmsg = null) {
+		    retmsg = '';
+		} else {
+		    retmsg = retmsg + ', and ';
+		}
+		retmsg = retmsg + ofr.electOfficeKey +  ' Vote Required.';
             }
-
-            // alert if other but no write in
-            if (this.candidate=='26' && !this.candidateWriteIn){
-                let alertPR = this.alertCtrl.create({
-                title: 'Please write in candidate name.',
-                subTitle: 'When selecting "other" please write in candidate name.',
-                buttons: ['OK']
-                });
-            alertPR.present();
-            return;
-            }
-
+	    if (ofr.candidate == '26') {
+		if (retmsg = null) {
+		    retmsg = '';
+		} else {
+		    retmsg = retmsg + ', and ';
+		}
+		retmsg = retmsg + ofr.electOfficeKey + 
+		    ' When selecting other please write in candidate name.'
+	    }
+	}
+    }
+    return retmsg;
 }
 
 // not using
-fillRecord(){
+fillRecordXX(){
             // logic for candidate
             if (this.candidate=='26' && this.candidateWriteIn){
               this.candidate = this.candidateWriteIn;
@@ -129,8 +127,7 @@ fillRecord(){
 
                 this.officeVoteRecord = {
                 voteRecordKey: null,
-                office: this.electOffice.inner.office,
-                election: this.electOffice.inner.election,
+                electOfficeKey: this.electOffice.inner.electOfficeKey,
                 success: !this.recordservice.getNonVoteBool(),
                 candidate: this.candidate,
                 levelOfSupport: this.levelOfSupport,
@@ -139,39 +136,61 @@ fillRecord(){
                 console.log("from ovr " + this.officeVoteRecord);
 }
 
-setOVRRecord(passedRecord, passedDifVar){
-if (passedDifVar == 'passedRecord1'){
-  this.passedRecord1 = passedRecord;
-}
-if (passedDifVar == 'passedRecord2'){
-  this.passedRecord2 = passedRecord;
-}
-if (passedDifVar == 'passedRecord3'){
-  this.passedRecord3 = passedRecord;
+setOVRRecord(passedRecord){
+    var ii;
+    var found = false
+    if (this.inilist != null) {
+	var ii;
+	for (ii=0;ii<this.inilist.length;ii++) {
+	    var ofr = this.inilist[ii];
+	    if (ofr.electOfficeKey == passedRecord.electOfficeKey) {
+		this.inilist[ii] = passedRecord;
+		found = true;
+		break;
+	    }
+	}
+    }
+    if (!found) {
+	// Error here... report it.
+	console.log('ERROR in ovrservice.. did not find office record for passed in update');
+    }
 }
 
-}
+
+    addOVRToList(ofr) {
+	if (this.ovrlist == null) {
+	    this.ovrlist = new Array();
+	}
+	this.ovrlist.push(ofr);
+    }
+
 
 addEligibleOVRRecordsToList(){
-  if (this.passedRecord1.success || this.passedRecord1.candidate || this.passedRecord1.levelOfSupport) {
-  this.addOVRToList(this.passedRecord1);
-  }
-
-   if (this.passedRecord2.success || this.passedRecord2.candidate || this.passedRecord2.levelOfSupport) {
-  this.addOVRToList(this.passedRecord2);
-  }
-
-   if (this.passedRecord3.success || this.passedRecord3.candidate || this.passedRecord3.levelOfSupport) {
-  this.addOVRToList(this.passedRecord3);
-  }
+    if (this.inilist != null) {
+	var ii;
+	for (ii=0;ii<this.inilist.length;ii++) {
+	    var ofr = this.inilist[ii];
+	    if( (ofr.electOfficeKey.startsWith("President")) && (this.recordservice.getNonVoteBool())) {
+		// switch to false..
+		ofr.success = false;
+	    }
+	    if (ofr.success || ofr.candidate || ofr.levelOfSupport) {
+		this.addOVRToList(ofr);		
+	    }
+	}
+	// since we added them.. remove from inilist
+	this.inilist = null;
+    }
 }
 
-addOVRToList(passedOfficevoterecord){
-this.ovrlist.push(passedOfficevoterecord);
-console.log("list from ovr whole record");
-console.log(this.ovrlist);
-}
 
-
+    sendInitialVoteRecord(passedOfficevoterecord, mandatory) {
+	if (this.inilist == null) {
+	    this.inilist = new Array();
+	    this.mandatoryList = new Array();
+	}
+	this.inilist.push(passedOfficevoterecord);
+	this.mandatoryList.push(mandatory);
+    }
 }
 

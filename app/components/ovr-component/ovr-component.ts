@@ -33,135 +33,92 @@ export class OvrComponent {
     this.choosenCandidate = null;
     this.difVar = null;
     this.ovrservice = ovrservice;
+      // bug here.. this component appears to be called from somewhere with no
+      // initial parameter value.. ??
+      if (!this.checkInitOfficeVoteRecord('initializing'))  {
+
+      }
   }
 
+    checkInitOfficeVoteRecord(setting) {
+	if (this.officevoterecord == null) {
+	    if (this.electThisOffice != null) {
+		this.officevoterecord = {
+		    voteRecordKey: null,
+		    electOfficeKey: this.electThisOffice.inner.electOfficeKey,
+		    success: false,           // will get set by vote.ts call to ovrservice.
+		    candidate: null,
+		    levelOfSupport: null,
+		}
+		this.ovrservice.sendInitialVoteRecord(this.officevoterecord, this.electThisOffice.mandatory);
+	    } else {
+		if (setting == 'initializing') {
+		    console.log('ERROR: Spurious call to ovr-component with no parameter specified!');
+		} else {
+		    console.log('ERROR: Spurious call to set ' + setting + ' in ovr-component without any parameter sent to component');
+		}
+		return false;
+	    }
+	}
+	return true;
+    }
+
 onChangeChoice(candidateChoice){
-  this.choosenCandidate = candidateChoice;
-    console.log(this.choosenCandidate);
-
-
-// logic creating differntiation var
-if (this.electThisOffice.election=="General" && this.electThisOffice.office=="President"){
-this.difVar = 'passedRecord1';
-}
-if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="President"){
-this.difVar = 'passedRecord2';
-}
-if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="Congress"){
-this.difVar = 'passedRecord3';
-}
-
+    this.choosenCandidate = candidateChoice;
+    if (!this.checkInitOfficeVoteRecord('candidateChoice')) {
+	return;
+    }
+    this.officevoterecord.candidate = this.choosenCandidate;
+/*
+MOVED THIS LOGIC TO ovrservice to remove dependency on recordservice here.
 // logic
 if(this.electThisOffice.election=="General" && !this.recordservice.getNonVoteBool()){
   this.successfullyElected = true;
 } else if (this.electThisOffice.election=="Primary" && this.recordservice.getPrimarySuccess()){
 this.successfullyElected = true;
 }
-// fill
-    this.officevoterecord = {
-      voteRecordKey: null,
-      office: this.electThisOffice.inner.office,
-      election: this.electThisOffice.inner.election,
-      success: this.successfullyElected,
-      candidate: this.choosenCandidate,
-      levelOfSupport: this.levelOfSupport,
-    }
-                                                    //console.log("from comp ");
-                                                    //console.log(this.officevoterecord);
+*/
+    this.officevoterecord.success = true; // may be changed by ovrservice.
+    console.log(this.choosenCandidate);
 
   // send
-  this.ovrservice.setOVRRecord(this.officevoterecord, this.difVar);
+    this.ovrservice.setOVRRecord(this.officevoterecord);
  
 
 }
 
 onChangeCandidateVoteWriteIn(candidateVoteWriteIn){
-  if(candidateVoteWriteIn){
-  this.writeInCandidate = candidateVoteWriteIn;
-  this.choosenCandidate = candidateVoteWriteIn
-}
-  //this.ovrservice.setCandidateWriteIn(candidateVoteWriteIn);
-  console.log(this.choosenCandidate);
-  //console.log(candidateVoteWriteIn);
-
-  
-// logic creating differntiation var
-if (this.electThisOffice.election=="General" && this.electThisOffice.office=="President"){
-this.difVar = 'passedRecord1';
-}
-if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="President"){
-this.difVar = 'passedRecord2';
-}
-if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="Congress"){
-this.difVar = 'passedRecord3';
-}
-
-// logic
-if(this.electThisOffice.election=="General" && !this.recordservice.getNonVoteBool()){
-  this.successfullyElected = true;
-} else if (this.electThisOffice.election=="Primary" && this.recordservice.getPrimarySuccess()){
-this.successfullyElected = true;
-}
-// fill
-    this.officevoterecord = {
-      voteRecordKey: null,
-      office: this.electThisOffice.inner.office,
-      election: this.electThisOffice.inner.election,
-      success: this.successfullyElected,
-      candidate: this.choosenCandidate,
-      levelOfSupport: this.levelOfSupport,
+    if (!this.checkInitOfficeVoteRecord('candidateVoteWriteIn')) {
+	return;
     }
-                                            //console.log("from comp ");
-                                          //console.log(this.officevoterecord);
 
-  // send
-  this.ovrservice.setOVRRecord(this.officevoterecord, this.difVar);
-
+    if(candidateVoteWriteIn){
+        this.writeInCandidate = candidateVoteWriteIn;
+        this.onChangeChoice(candidateVoteWriteIn);
+    }
 }
 
 onChangeLos(passedLos){
-  this.levelOfSupport = passedLos;
-  console.log(this.levelOfSupport);
-  this.ovrservice.setLos(passedLos);
-  console.log("from service" + this.ovrservice.getLos());
+    if (!this.checkInitOfficeVoteRecord('levelOfSupport')) {
+	return;
+    }
 
-  
-// logic creating differntiation var
-if (this.electThisOffice.election=="General" && this.electThisOffice.office=="President"){
-this.difVar = 'passedRecord1';
-}
-if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="President"){
-this.difVar = 'passedRecord2';
-}
-if (this.electThisOffice.election=="Primary" && this.electThisOffice.office=="Congress"){
-this.difVar = 'passedRecord3';
-}
+    this.levelOfSupport = passedLos;
+    console.log(this.levelOfSupport);
+    this.officevoterecord.levelOfSupport = this.levelOfSupport;
+    this.officevoterecord.success = true; // may be changed by ovrservice.
 
+/*
+MOVED THIS LOGIC TO ovrservice to remove dependency on recordservice here.
 // logic
 if(this.electThisOffice.election=="General" && !this.recordservice.getNonVoteBool()){
   this.successfullyElected = true;
 } else if (this.electThisOffice.election=="Primary" && this.recordservice.getPrimarySuccess()){
 this.successfullyElected = true;
 }
-// fill
-    this.officevoterecord = {
-      voteRecordKey: null,
-      office: this.electThisOffice.inner.office,
-      election: this.electThisOffice.inner.election,
-      success: this.successfullyElected,
-      candidate: this.choosenCandidate,
-      levelOfSupport: this.levelOfSupport,
-    }
-                                                    //console.log("from comp ");
-                                                    //console.log(this.officevoterecord);
-
-  // send
-  this.ovrservice.setOVRRecord(this.officevoterecord, this.difVar);
+*/
+    this.ovrservice.setOVRRecord(this.officevoterecord);
 
 }
-
-
-
-
 
 }
