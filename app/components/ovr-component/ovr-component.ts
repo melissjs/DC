@@ -62,7 +62,7 @@ this.successfullyElected = true;
       voteRecordKey: null,
       office: this.electThisOffice.inner.office,
       election: this.electThisOffice.inner.election,
-      success: !this.recordservice.getNonVoteBool(),
+      success: this.successfullyElected,
       candidate: this.choosenCandidate,
       levelOfSupport: this.levelOfSupport,
     }
@@ -107,7 +107,7 @@ this.successfullyElected = true;
       voteRecordKey: null,
       office: this.electThisOffice.inner.office,
       election: this.electThisOffice.inner.election,
-      success: !this.recordservice.getNonVoteBool(),
+      success: this.successfullyElected,
       candidate: this.choosenCandidate,
       levelOfSupport: this.levelOfSupport,
     }
@@ -148,7 +148,7 @@ this.successfullyElected = true;
       voteRecordKey: null,
       office: this.electThisOffice.inner.office,
       election: this.electThisOffice.inner.election,
-      success: !this.recordservice.getNonVoteBool(),
+      success: this.successfullyElected,
       candidate: this.choosenCandidate,
       levelOfSupport: this.levelOfSupport,
     }
