@@ -267,119 +267,109 @@ export class VotePage {
        var that = this;
         try {
             
+            var minimum_msg = 'Please specify how you cast your vote AND select the presidential candidate you voted for today, everything else on this page is optional.';
+            var title = null;
+            var subtitle = null;
+            if (!this.recordservice.getNonVoteBool()) {
+                // Voter code-block....
+                if (this.generalCastBy == null) {
+                    title = 'Selection Required';
+                    subtitle = minimum_msg;
+                }
+            } else {
+                // NON Voter code-block...
+                if (this.reasonForCouldNotVoteGeneral == null) {
+                    title = 'Selection Required';
+                    subtitle = 'Please indicate the reason you could not vote today and who you intended to vote for, everything else on this page is optional.';
+                } else if (this.reasonForCouldNotVoteGeneral == 'otherReasonForCouldNotVotePGE') {
+                    title = 'Write In Required';
+                    subtitle = 'Please write in reason for not being able to vote in the general election.';
+                }
+            } 
+            if (title != null) {
+                let alert = this.alertCtrl.create({
+                    title: title,
+                    subTitle: subtitle,
+                    buttons: ['OK']
+                });
+                alert.present();
+                return;
+            }
 
-            if (!this.recordservice.getNonVoteBool && this.generalCastBy == null) {
+            // logic for write ins other issues...
+            var mandatory_exists = !this.recordservice.getNonVoteBool();
+            subtitle = this.ovrservice.checkFieldsForErrors(mandatory_exists,minimum_msg);
+            if (subtitle) {
                 let alert = this.alertCtrl.create({
-                    title: 'Selection Required',
-                    subTitle: 'Please select the presidential candidate you voted for today and specify how you cast your vote, everything else on this page is optional.',
+                    title: 'Election Choices Missing',
+                    subTitle: subtitle,
                     buttons: ['OK']
                 });
                 alert.present();
-            } else if (this.recordservice.getNonVoteBool && this.reasonForCouldNotVoteGeneral == null) {
-                let alert = this.alertCtrl.create({
-                    title: 'Selection Required',
-                    subTitle: 'Please indicate the reason you could not vote today and who you intended to vote for, everything else on this page is optional.',
-                    buttons: ['OK']
-                });
-                alert.present();
-            
-            } else if (this.recordservice.getNonVoteBool && this.reasonForCouldNotVoteGeneral == 'otherReasonForCouldNotVotePGE') {
+                return;
+            }
+
+            if (this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && !this.otherReasonForCouldNotVotePrimary){
                 let alert = this.alertCtrl.create({
                     title: 'Write In Required',
-                    subTitle: 'Please write in reason for not being able to vote in the general election.',
+                    subTitle: 'Please write in reason for not being able to vote in the primary election.',
                     buttons: ['OK']
                 });
                 alert.present();
-            
-            } else {
+                return;
+            } 
 
-            // logic for write ins
-            
+            if (this.recordservice.getPrimaryIntention()==false) {
+                this.reasonForCouldNotVotePrimary = null;
+            }
 
-                var retmsg = this.ovrservice.checkFieldsForErrors();
-                if (retmsg) {
-                    let alert = this.alertCtrl.create({
-                        title: 'Election Choices Missing',
-                        subTitle: retmsg,
-                        buttons: ['OK']
-                    });
-                    alert.present();
-                    return;
-                }
+            if (this.recordservice.getPrimaryIntention() && this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && this.otherReasonForCouldNotVotePrimary){
+                this.reasonForCouldNotVotePrimary = this.otherReasonForCouldNotVotePrimary;
+            }
 
-             if (this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && !this.otherReasonForCouldNotVotePrimary){
-                            let alert = this.alertCtrl.create({
-                            title: 'Write In Required',
-                            subTitle: 'Please write in reason for not being able to vote in the primary election.',
-                            buttons: ['OK']
-                            });
-                            alert.present();
-                            return;
-                        } 
+            if (this.firstPresVote=='writeIn' && !this.firstPresVoteWriteIn){
+                let alert = this.alertCtrl.create({
+                    //title: 'Please write in Primary Presidential Vote.',
+                    subTitle: 'Please Write in First Choice Presidential Vote.',
+                    buttons: ['OK']
+                });
+                alert.present();
+                return;
+            } 
 
+            if (this.secondPresVote=='writeIn' && !this.secondPresVoteWriteIn){
+                let alert = this.alertCtrl.create({
+                    //title: 'Please write in Primary Presidential Vote.',
+                    subTitle: 'Please Write in Second Choice Presidential Vote.',
+                    buttons: ['OK']
+                });
+                alert.present();
+                return;
+            }
 
+            if (this.thirdPresVote=='writeIn' && !this.thirdPresVoteWriteIn){
+                let alert = this.alertCtrl.create({
+                    //title: 'Please write in Primary Presidential Vote.',
+                    subTitle: 'Please Write in Third Choice Presidential Vote.',
+                    buttons: ['OK']
+                });
+                alert.present();
+                return;
+            }
 
-                       if (this.recordservice.getPrimaryIntention()==false) {
-                            this.reasonForCouldNotVotePrimary = null;
-                        }
+            // put in
 
-                        if (this.recordservice.getPrimaryIntention() && this.reasonForCouldNotVotePrimary=='otherReasonForCouldNotVotePrimary' && this.otherReasonForCouldNotVotePrimary){
-                            this.reasonForCouldNotVotePrimary = this.otherReasonForCouldNotVotePrimary;
-                        }
+            if (this.firstPresVote=='writeIn' && !this.firstPresVoteWriteIn){
+                this.firstPresVote = this.firstPresVoteWriteIn;
+            }
 
-                   
+            if (this.secondPresVote=='writeIn' && !this.secondPresVoteWriteIn){
+                this.secondPresVote = this.secondPresVoteWriteIn;
+            }
 
-
-                        if (this.firstPresVote=='writeIn' && !this.firstPresVoteWriteIn){
-                            let alert = this.alertCtrl.create({
-                            //title: 'Please write in Primary Presidential Vote.',
-                            subTitle: 'Please Write in First Choice Presidential Vote.',
-                            buttons: ['OK']
-                            });
-                        alert.present();
-                        return;
-                        } 
-
-
-                        if (this.secondPresVote=='writeIn' && !this.secondPresVoteWriteIn){
-                            let alert = this.alertCtrl.create({
-                            //title: 'Please write in Primary Presidential Vote.',
-                            subTitle: 'Please Write in Second Choice Presidential Vote.',
-                            buttons: ['OK']
-                            });
-                        alert.present();
-                        return;
-                        }
-
-
-
-                        if (this.thirdPresVote=='writeIn' && !this.thirdPresVoteWriteIn){
-                            let alert = this.alertCtrl.create({
-                            //title: 'Please write in Primary Presidential Vote.',
-                            subTitle: 'Please Write in Third Choice Presidential Vote.',
-                            buttons: ['OK']
-                            });
-                        alert.present();
-                        return;
-                        }
-
-
-
-                        // put in
-
-                         if (this.firstPresVote=='writeIn' && !this.firstPresVoteWriteIn){
-                        this.firstPresVote = this.firstPresVoteWriteIn;
-                         }
-
-                         if (this.secondPresVote=='writeIn' && !this.secondPresVoteWriteIn){
-                        this.secondPresVote = this.secondPresVoteWriteIn;
-                         }
-
-                         if (this.thirdPresVote=='writeIn' && this.thirdPresVoteWriteIn){
-                        this.thirdPresVote = this.thirdPresVoteWriteIn;
-                         }
-
-
+            if (this.thirdPresVote=='writeIn' && this.thirdPresVoteWriteIn){
+                this.thirdPresVote = this.thirdPresVoteWriteIn;
+            }
 
             // fill object
             this.newVoteRecord = {
@@ -406,8 +396,6 @@ export class VotePage {
 
             that.navCtrl.setRoot(DemographicsPage, {
             });
-
-            }
 
         } catch (EE) {
             let alert = this.alertCtrl.create({

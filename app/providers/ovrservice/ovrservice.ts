@@ -84,7 +84,7 @@ this.electOffice = passedElectOffice;
 }
 */
 
-checkFieldsForErrors(){
+checkFieldsForErrors(mandatory_exists: boolean, minimum_msg: string){
   // alert if gePres not filled
     var retmsg = null;
     if (this.inilist != null) {
@@ -111,6 +111,8 @@ checkFieldsForErrors(){
                      retmsg = 'When selecting "Other" please write in candidate name.'
             }
         }
+    } else {
+	retmsg = minimum_msg;
     }
     return retmsg;
 }
