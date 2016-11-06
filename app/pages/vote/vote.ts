@@ -360,7 +360,7 @@ export class VotePage {
             console.log(this.recordservice.getVoteList());
 
             // check if ovr is filled enough to send, then push to list from ovrservice
-            this.ovrservice.addEligableOVRRecordsToList();
+            this.ovrservice.addEligibleOVRRecordsToList();
 
             that.navCtrl.setRoot(DemographicsPage, {
             });

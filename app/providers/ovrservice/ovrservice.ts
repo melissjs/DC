@@ -152,7 +152,7 @@ if (passedDifVar == 'passedRecord3'){
 
 }
 
-addEligableOVRRecordsToList(){
+addEligibleOVRRecordsToList(){
   if (this.passedRecord1.success || this.passedRecord1.candidate || this.passedRecord1.levelOfSupport) {
   this.addOVRToList(this.passedRecord1);
   }
