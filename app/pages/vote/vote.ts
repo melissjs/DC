@@ -222,6 +222,7 @@ export class VotePage {
 
        onChangePrimaryCastBy(value){
         this.primaryCastBy = value;
+        console.log(this.primaryCastBy);
      }
 
    // Ranking

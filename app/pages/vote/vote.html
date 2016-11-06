@@ -75,7 +75,7 @@
 
     <ion-item *ngIf="recordservice.getPrimarySuccess()">
     <ion-label stacked>How did you cast your primary vote?</ion-label>
-        <ion-select text-wrap [(ngModel)]="primaryVoteCastBy" (change)="onChangePrimaryCastBy(primaryVoteCastBy)">
+        <ion-select text-wrap [(ngModel)]="primaryVoteCastBy" (ionChange)="onChangePrimaryCastBy(primaryVoteCastBy)">
             <ion-option value="votingMachine">Voting Machine</ion-option>
             <ion-option value="voteByMail">Vote by Mail</ion-option>
             <ion-option value="absentee">Absentee Ballot</ion-option>
