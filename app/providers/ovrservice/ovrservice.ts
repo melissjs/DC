@@ -44,8 +44,7 @@ export class Ovrservice {
   getVoidElectOffice(){
       this.electOffice = {
           inner: null,
-          candidates: [],
-          mandatory: false
+          candidates: []
   }
   return this.electOffice;
   }
