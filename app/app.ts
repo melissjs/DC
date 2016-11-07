@@ -53,7 +53,7 @@ class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page HomePageMa LoginPageMa
-  rootPage: any = VotePage;
+  rootPage: any = LoginPageMa;
   pages: Array<{title: string, component: any}>;
   userDataSvc: UserDataService;
   restservice: RestService;
