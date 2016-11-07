@@ -29,6 +29,7 @@ import {DemographicsPage} from './pages/demographics/demographics';
 import {VotePage} from './pages/vote/vote';
 //import {QuestionsPage} from './pages/questions/questions';
 import {HomePageMa} from './pages/homema/homema';
+import {LoginPageMa} from './pages/loginpagema/loginpagema';
 import {EndPage} from './pages/end/end';
 import {AuthenticationPage} from './pages/authentication/authentication';
 
@@ -52,7 +53,7 @@ class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   // make HelloIonicPage the root (or first) page HomePageMa
-  rootPage: any = VotePage;
+  rootPage: any = LoginPageMa;
   pages: Array<{title: string, component: any}>;
   userDataSvc: UserDataService;
 

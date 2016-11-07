@@ -59,8 +59,8 @@ export class VotePage {
                 private restSvc: RestService) {
 
         //testing
-        this.pollingstationservice.setTestStation();
-        this.volunteerservice.setTestVolunteer();
+        //this.pollingstationservice.setTestStation();
+        //this.volunteerservice.setTestVolunteer();
         
         this.PRESIDENT = PRESIDENT;
         this.PRIMARYCONGRESS = PRIMARYCONGRESS;
