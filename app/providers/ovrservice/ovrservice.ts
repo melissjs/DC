@@ -174,7 +174,11 @@ addEligibleOVRRecordsToList(){
         var ii;
         for (ii=0;ii<this.inilist.length;ii++) {
             var ofr = this.inilist[ii];
-            if( (ofr.electOfficeKey.startsWith("President")) && (this.recordservice.getNonVoteBool())) {
+            if( (ofr.electOfficeKey.match("General")) && (this.recordservice.getNonVoteBool())) {
+                // switch to false..
+                ofr.success = false;
+            }
+            if( (ofr.electOfficeKey.match("Primary")) && (!this.recordservice.getPrimarySuccess())) {
                 // switch to false..
                 ofr.success = false;
             }

@@ -25,6 +25,7 @@ export class VotePage {
     generalCastBy: string;
     primaryLocation: string;
     primaryCastBy: string;
+    newVoteRecordKey: string;
 
     firstPresVote: string;
     secondPresVote: string;
@@ -59,8 +60,8 @@ export class VotePage {
                 private restSvc: RestService) {
 
         //testing
-        //this.pollingstationservice.setTestStation();
-        //this.volunteerservice.setTestVolunteer();
+        this.pollingstationservice.setTestStation();
+        this.volunteerservice.setTestVolunteer();
         
         this.PRESIDENT = PRESIDENT;
         this.PRIMARYCONGRESS = PRIMARYCONGRESS;
@@ -84,6 +85,7 @@ export class VotePage {
         this.thirdPresVoteWriteIn = null;
         this.pollingstationservice = pollingstationservice;
         this.ovrservice = ovrservice;
+        this.newVoteRecordKey = this.recordservice.generateVoteRecordKey();
         this.inFlorida = this.pollingstationservice.isThisInState('FL');
         console.log(this.inFlorida);
         console.log(this.pollingstationservice.selectedStationXX.state);
@@ -245,6 +247,10 @@ export class VotePage {
 
         onChangeFirstPresVoteWriteIn(passedFirstPresVoteWriteIn){
         this.firstPresVoteWriteIn = passedFirstPresVoteWriteIn;
+
+        //if(this.firstPresVote=="writeIn" && passedFirstPresVoteWriteIn){
+        //this.firstPresVote = passedFirstPresVoteWriteIn;
+        //}
    }
 
           onChangeSecondPresVote(value){
@@ -253,6 +259,10 @@ export class VotePage {
 
         onChangeSecondPresVoteWriteIn(passedSecondPresVoteWriteIn){
         this.secondPresVoteWriteIn = passedSecondPresVoteWriteIn;
+
+        //if(this.secondPresVote=="writeIn" && passedSecondPresVoteWriteIn){
+        //this.secondPresVote = passedSecondPresVoteWriteIn;
+        //}
    }
 
           onChangeThirdPresVote(value){
@@ -261,6 +271,10 @@ export class VotePage {
 
         onChangeThirdPresVoteWriteIn(passedThirdPresVoteWriteIn){
         this.thirdPresVoteWriteIn = passedThirdPresVoteWriteIn;
+
+        //if(this.thirdPresVote=="writeIn" && passedThirdPresVoteWriteIn){
+        //this.thirdPresVote = passedThirdPresVoteWriteIn;
+        //}
    }
 
     onSubmit() {
@@ -281,7 +295,7 @@ export class VotePage {
                 if (this.reasonForCouldNotVoteGeneral == null) {
                     title = 'Selection Required';
                     subtitle = 'Please indicate the reason you could not vote today and who you intended to vote for, everything else on this page is optional.';
-                } else if (this.reasonForCouldNotVoteGeneral == 'otherReasonForCouldNotVotePGE') {
+                } else if (this.reasonForCouldNotVoteGeneral == 'otherReasonForCouldNotVotePGE' && !this.otherReasonForCouldNotVoteGeneral) {
                     title = 'Write In Required';
                     subtitle = 'Please write in reason for not being able to vote in the general election.';
                 }
@@ -359,11 +373,11 @@ export class VotePage {
 
             // put in
 
-            if (this.firstPresVote=='writeIn' && !this.firstPresVoteWriteIn){
+            if (this.firstPresVote=='writeIn' && this.firstPresVoteWriteIn){
                 this.firstPresVote = this.firstPresVoteWriteIn;
             }
 
-            if (this.secondPresVote=='writeIn' && !this.secondPresVoteWriteIn){
+            if (this.secondPresVote=='writeIn' && this.secondPresVoteWriteIn){
                 this.secondPresVote = this.secondPresVoteWriteIn;
             }
 
@@ -373,7 +387,7 @@ export class VotePage {
 
             // fill object
             this.newVoteRecord = {
-                voteRecordKey: null,
+                voteRecordKey: this.recordservice.getVoteRecordKey(),
                 volunteerKey: this.volunteerservice.getNewVolunteerKey(),
                 generalSuccess: !this.recordservice.getNonVoteBool(),
                 generalCouldNotVoteReason:  this.reasonForCouldNotVoteGeneral,
@@ -392,7 +406,8 @@ export class VotePage {
             console.log(this.recordservice.getVoteList());
 
             // check if ovr is filled enough to send, then push to list from ovrservice
-            this.ovrservice.addEligibleOVRRecordsToList();                  
+            this.ovrservice.addEligibleOVRRecordsToList();    this.recordservice.setPrimarySuccess(null);  
+            this.recordservice.setPrimaryIntention(false);    
 
             that.navCtrl.setRoot(DemographicsPage, {
             });

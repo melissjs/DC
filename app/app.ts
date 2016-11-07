@@ -52,25 +52,28 @@ import {UserDataService} from './user-data-service';
 class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  // make HelloIonicPage the root (or first) page HomePageMa
-  rootPage: any = LoginPageMa;
+  // make HelloIonicPage the root (or first) page HomePageMa LoginPageMa
+  rootPage: any = VotePage;
   pages: Array<{title: string, component: any}>;
   userDataSvc: UserDataService;
+  restservice: RestService;
 
   constructor(
     public platform: Platform,
       public menu: MenuController,
       userDataSvc: UserDataService,
       pollingStationService: Pollingstationservice,
-      volunteerservice: Volunteerservice
+      volunteerservice: Volunteerservice,
+      restservice: RestService
   ) {
     this.initializeApp();
-
+    this.restservice = restservice;
+/*
     // set our app's pages
     this.pages = [
     //   { title: 'Hello Ionic', component: HelloIonicPage },
     //   { title: 'List', component: ListPage },
-	{ title: 'Home', component: HomePageMa}, 
+	    { title: 'Home', component: HomePageMa}, 
        { title: 'Instructions', component: InstructionsPage },
        { title: 'FAQs', component: FaqsMaPage },
        { title: 'Add New Record', component: AddnewrecordPage },
@@ -81,12 +84,36 @@ class MyApp {
        { title: 'Evening Check Out', component: EveningcheckoutPage },
        { title: 'Volunteer List', component: VolunteerlistPage },
        { title: 'Activity Record', component: ActivityrecordPage },
-	// { title: 'Account Settings', component: AccountsettingsPage },
+	    // { title: 'Account Settings', component: AccountsettingsPage },
        //{ title: 'Amendment Verification', component: AmendmentverificationPage },
-       
-       
-       
     ];
+*/
+if (this.restservice.getLoggedIn()){
+    this.pages = [
+	     { title: 'Log Out', component: HomePageMa}, 
+       { title: 'Instructions', component: InstructionsPage },
+       { title: 'FAQs', component: FaqsMaPage },
+       { title: 'Add New Record', component: AddnewrecordPage },
+       { title: 'Morning Check In', component: MorningcheckinPage },
+       { title: 'Evening Check Out', component: EveningcheckoutPage },
+       { title: 'Volunteer List', component: VolunteerlistPage },
+       { title: 'Activity Record', component: ActivityrecordPage },
+    ]; 
+  }
+
+  if (!this.restservice.getLoggedIn()){
+    this.pages = [
+	     { title: 'Log In', component: HomePageMa}, 
+       { title: 'Instructions', component: InstructionsPage },
+       { title: 'FAQs', component: FaqsMaPage },
+       { title: 'Add New Record', component: AddnewrecordPage },
+       { title: 'Morning Check In', component: MorningcheckinPage },
+       { title: 'Evening Check Out', component: EveningcheckoutPage },
+       { title: 'Volunteer List', component: VolunteerlistPage },
+       { title: 'Activity Record', component: ActivityrecordPage },
+    ];
+  }
+
   }
 
   initializeApp() {

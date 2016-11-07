@@ -340,6 +340,15 @@ generateNextVoteNumber(){
     return null;
 }
 
+generateVoteRecordKey(){
+this.nextVoteNumber = (this.volunteerservice.getNewVolunteerKey() + '-' + (++this.vcounter));
+//return this.nextVoteNumber;
+    return null;
+}
+
+getVoteRecordKey(){
+  return this.nextVoteNumber;
+}
 
 getTotalIndividualVoteRecords(passedVolunteerKey){
   this.totalIndividualVoteRecords = 0;

@@ -102,7 +102,7 @@ volunteerservice: Volunteerservice;
 
             // fill demographics obj
             this.newDemographicsRecord = {
-            voteRecordKey: this.recordservice.generateNextDemographicsNumber(),
+            voteRecordKey: this.recordservice.getVoteRecordKey(),
             volunteerKey: this.volunteerservice.getNewVolunteerKey(),
             sex: this.enterSex,
             age: this.enterAge,
