@@ -60,9 +60,10 @@ export class VotePage {
                 private restSvc: RestService) {
 
         //testing
+
         this.pollingstationservice.setTestStation();
         this.volunteerservice.setTestVolunteer();
-        
+      
         this.PRESIDENT = PRESIDENT;
         this.PRIMARYCONGRESS = PRIMARYCONGRESS;
         this.PRIMARYPRES = PRIMARYPRES;
@@ -90,27 +91,30 @@ export class VotePage {
         console.log(this.inFlorida);
         console.log(this.pollingstationservice.selectedStationXX.state);
        
-        this.restSvc.getObjectsByField('elect-offices','electOfficeKey','President2016'
+        this.restSvc.getObjectsByField('elect-offices','electOfficeKey','2016 General Election Presidential'
                                        ,this.successElectOfficePresCb, this.failureElectOfficePresCb, this);
-        this.restSvc.getObjectsByField('candidates','electOfficeKey','President2016'
+        this.restSvc.getObjectsByField('candidates','electOfficeKey','2016 General Election Presidential'
                                        ,this.successCandsPresCb, this.failureCandsPresCb, this);
 
-        this.restSvc.getObjectsByField('elect-offices','electOfficeKey','PrimaryPresident2016'
+        this.restSvc.getObjectsByField('elect-offices','electOfficeKey','2016 Primary President'
                                        ,this.successElectOfficePrimPresCb, this.failureElectOfficePrimPresCb, this);
-        this.restSvc.getObjectsByField('candidates','electOfficeKey','PrimaryPresident2016'
+        this.restSvc.getObjectsByField('candidates','electOfficeKey','2016 Primary President'
                                        ,this.successCandsPrimPresCb, this.failureCandsPrimPresCb, this);
 
 
-        this.restSvc.getObjectsByField('elect-offices','electOfficeKey','Congress Primary 2016'
+        this.restSvc.getObjectsByField('elect-offices','electOfficeKey','2016 Congress Primary'
                                        ,this.successElectOfficePrimCongCb, this.failureElectOfficePrimCongCb, this);
-        this.restSvc.getObjectsByField('candidates','electOfficeKey','Congress Primary 2016'
+        this.restSvc.getObjectsByField('candidates','electOfficeKey','2016 Congress Primary'
                                        ,this.successCandsPrimCongCb, this.failureCandsPrimCongCb, this);
 
     }
 
     successElectOfficePresCb(that, real, data) {
         if (real) {
-            that.PRESIDENT.inner = data;
+            if (data && data.length > 0) {
+                // leave alone if no data came in
+                that.PRESIDENT.inner = data;
+            }
         } else {
             // If fake.. just keep using the fake data...
         }
@@ -123,7 +127,10 @@ export class VotePage {
 
     successElectOfficePrimPresCb(that, real, data) {
         if (real) {
-            that.PRIMARYPRES.inner = data;
+            if (data && data.length > 0) {
+                // leave alone if no data came in
+                that.PRIMARYPRES.inner = data;
+            }
         } else {
             // If fake.. just keep using the fake data...
         }
@@ -136,7 +143,10 @@ export class VotePage {
 
     successElectOfficePrimCongCb(that, real, data) {
         if (real) {
-            that.PRIMARYCONGRESS.inner = data;
+            if (data && data.length > 0) {
+                // leave alone if no data came in
+                that.PRIMARYCONGRESS.inner = data;
+            }
         } else {
             // If fake.. just keep using the fake data...
         }
@@ -149,7 +159,10 @@ export class VotePage {
 
     successCandsPresCb(that, real, data) {
         if (real) {
-            that.PRESIDENT.candidates = data;
+            if (data && data.length > 0) {
+                // leave alone if no data came in
+                that.PRESIDENT.candidates = data;
+            }
         } else {
             // If fake.. just keep using the fake data...
         }
@@ -162,7 +175,10 @@ export class VotePage {
 
     successCandsPrimPresCb(that, real, data) {
         if (real) {
-            that.PRIMARYPRES.candidates = data;
+            if (data && data.length > 0) {
+                // leave alone if no data came in
+                that.PRIMARYPRES.candidates = data;
+            }
         } else {
             // If fake.. just keep using the fake data...
         }
@@ -175,7 +191,10 @@ export class VotePage {
 
     successCandsPrimCongCb(that, real, data) {
         if (real) {
-            that.PRIMARYCONGRESS.candidates = data;
+            if (data && data.length > 0) {
+                // leave alone if no data came in
+                that.PRIMARYCONGRESS.candidates = data;
+            }
         } else {
             // If fake.. just keep using the fake data...
         }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Ionic</title>
+  <title>DC 2016</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
@@ -16,11 +16,58 @@
     }
   </script>-->
 
+  <script>
+    /* Added code to handle IE Browser problem */
+    navigator.browserInfo= (function(){
+	var ua= navigator.userAgent, tem,
+	    M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+	if(/trident/i.test(M[1])){
+            tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+            return 'IE '+(tem[1] || '');
+	}
+	if(M[1]=== 'Chrome'){
+            tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+            if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+	}
+	M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+	if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+	return M.join(' ');
+    })();
+function checkBrowser() {
+    var whichBrowser = navigator.browserInfo;
+    var noSupport = false;
+    if (whichBrowser.startsWith('IE')) {
+	noSupport = true;
+	var tElem = document.getElementById('tId');
+	var tr = document.createElement("tr");
+	tElem.appendChild(tr);
+	var td = document.createElement("td");
+	var browserSupport = '\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0\u00A0'
+	+ 'Sorry, WE Do Not Support the ' +
+	    whichBrowser + ' Browser, please use Google Chrome, or Firefox';
+	var span = document.createElement("span");
+	span.style.fontSize = "20px";
+	span.appendChild(document.createTextNode(browserSupport));
+	td.appendChild(span);
+	tr.appendChild(td);
+    }
+
+}
+
+  </script>
+
   <link ios-href="build/css/app.ios.css" rel="stylesheet">
   <link md-href="build/css/app.md.css" rel="stylesheet">
-  <link wp-href="build/css/app.wp.css" rel="stylesheet">  
+  <link wp-href="build/css/app.wp.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <link href="build/css/ionicons.min.css" rel="stylesheet">
+
 </head>
-<body>
+
+<body onLoad="checkBrowser();">
+  <br></br>  <br></br>  <br></br>  <br></br>  
+  <table id="tId" border=1px>
+    </table>
 
   <ion-app></ion-app>
 
@@ -33,7 +80,6 @@
   <script src="build/js/zone.js"></script>
   <!-- the bundle which is built from the app's source code -->
   <script src="build/js/app.bundle.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/3.4.1/firebase.js"></script>
-  <script src="build/js/forge.min.js"></script>
+
 </body>
 </html>
