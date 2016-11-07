@@ -44,7 +44,7 @@ export class OvrComponent {
         if (this.officevoterecord == null) {
             if (this.electThisOffice != null) {
                 this.officevoterecord = {
-                    voteRecordKey: this.recordservice.getVoteRecordKey(),
+                    voteRecordKey: null, // DO THIS IN ovrservice..  this.recordservice.getVoteRecordKey(),
                     electOfficeKey: this.electThisOffice.inner.electOfficeKey,
                     success: false,           // will get set by vote.ts call to ovrservice.
                     candidate: null,

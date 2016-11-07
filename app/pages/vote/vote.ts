@@ -25,7 +25,6 @@ export class VotePage {
     generalCastBy: string;
     primaryLocation: string;
     primaryCastBy: string;
-    newVoteRecordKey: string;
 
     firstPresVote: string;
     secondPresVote: string;
@@ -86,7 +85,6 @@ export class VotePage {
         this.thirdPresVoteWriteIn = null;
         this.pollingstationservice = pollingstationservice;
         this.ovrservice = ovrservice;
-        this.newVoteRecordKey = this.recordservice.generateVoteRecordKey();
         this.inFlorida = this.pollingstationservice.isThisInState('FL');
         console.log(this.inFlorida);
         console.log(this.pollingstationservice.selectedStationXX.state);
@@ -404,6 +402,8 @@ export class VotePage {
                 this.thirdPresVote = this.thirdPresVoteWriteIn;
             }
 
+            this.recordservice.generateVoteRecordKey();
+
             // fill object
             this.newVoteRecord = {
                 voteRecordKey: this.recordservice.getVoteRecordKey(),
@@ -425,7 +425,8 @@ export class VotePage {
             console.log(this.recordservice.getVoteList());
 
             // check if ovr is filled enough to send, then push to list from ovrservice
-            this.ovrservice.addEligibleOVRRecordsToList();    this.recordservice.setPrimarySuccess(null);  
+            this.ovrservice.addEligibleOVRRecordsToList();
+            this.recordservice.setPrimarySuccess(null);  
             this.recordservice.setPrimaryIntention(false);    
 
             that.navCtrl.setRoot(DemographicsPage, {

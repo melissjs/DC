@@ -18,13 +18,12 @@ incorrectSelectionWriteIn: string;
 correctSelection: string;
 correctSelectionWriteIn: string;
 affirm: boolean;
-authenticatingVolunteerPhone: string;
+authenticatingVolunteerKey: string;
 authenticatingVolunteerPasscode: string;
 originatingVolunteerPasscode: string;
 volunteerservice: Volunteerservice;
 newAmendmentRecord: AmendmentRecord;
 recordservice: Recordservice;
-authenticatingVolunteerKey: string;
 restSvc: RestService;
 restSvc2: RestService2;
 
@@ -39,7 +38,6 @@ restSvc2: RestService2;
     this.correctSelection = null;
     this.correctSelectionWriteIn = null;
     this.affirm = false;
-    this.authenticatingVolunteerPhone = null;
     this.authenticatingVolunteerPasscode = null;
     this.originatingVolunteerPasscode = null;
     this.recordservice = recordservice;
@@ -70,8 +68,8 @@ onChangeAffirmation(value){
     this.affirm = newval;
 }
 
- onChangeAuthenticatingVolunteerPhone(value){
-    this.authenticatingVolunteerPhone = value;
+ onChangeAuthenticatingVolunteerKey(value){
+    this.authenticatingVolunteerKey = value;
 }
 
  onChangeAuthenticatingVolunteerPasscode(value){
@@ -90,7 +88,7 @@ onChangeAffirmation(value){
         var passcode = null;
 
         try {
-            if (!this.incorrectSelection || !this.correctSelection || !this.authenticatingVolunteerPhone ||!this.authenticatingVolunteerPasscode || !this.originatingVolunteerPasscode || !this.affirm) {
+            if (!this.incorrectSelection || !this.correctSelection || !this.authenticatingVolunteerKey ||!this.authenticatingVolunteerPasscode || !this.originatingVolunteerPasscode || !this.affirm) {
                 let alert = this.alertCtrl.create({
                     title: 'All fields required.',
                     subTitle: 'Amendment records require all fields and two way aunthentication for verification; please ask one of your team members to help you verify this record.',
@@ -100,7 +98,7 @@ onChangeAffirmation(value){
             } else {
 
 		this.restSvc.verifyExtraLogin
-		(this.authenticatingVolunteerPhone, this.authenticatingVolunteerPasscode, true,
+		(this.authenticatingVolunteerKey, this.authenticatingVolunteerPasscode, true,
 		 this.avSuccessCb, this.avFailureCb, this);
 
                 //navigate
@@ -133,16 +131,7 @@ onChangeAffirmation(value){
 
     avSuccessCb(that:any, real: boolean, data: any) {
 	if (!real) {
-	    // For the fake scenario, if phone number was 6666666NNN then we treat is as a failure.
-	    var err = { status: 0, _body: ''};
-	    if (that.authenticatingVolunteerPhone.startsWith("6666666")) {
-		err._body = 'testing error condition';
-		var phoneasnum = this.filterInt(that.authenticatingVolunteerPhone);
-		err.status = phoneasnum - 6666666000;
-		that.avFailureCb(that, err);
-		return;
-	    }
-	    // otherwise success...
+	    // no op
 	}
 	if (!that.restSvc.matchesPasscode(this.originatingVolunteerPasscode)) {
             let alertPass = this.alertCtrl.create({
@@ -198,7 +187,7 @@ onChangeAffirmation(value){
 	switch (err.status) {
 	case 412: // HttpStatus.PRECONDITION_FAILED
 	    // title = 'Authentication cannot be done with only one volunteer.';
-	    subtitle = 'Please ask a team member to help you authenticate this record by entering their phone and passcode.';
+	    subtitle = 'Please ask a team member to help you authenticate this record by entering their key and passcode.';
 	    break;
 	case 424:
 	    // title = 'User is not activated!'

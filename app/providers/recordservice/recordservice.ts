@@ -336,7 +336,7 @@ return this.newVoteRecord;
 }
 
 // These are assigned automatically by the database
-generateNextVoteNumber(){
+generateNextVoteNumberXX(){
 //this.nextVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'v' + (++this.vcounter));
 //return this.nextVoteNumber;
     return null;

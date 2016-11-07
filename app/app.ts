@@ -88,9 +88,9 @@ class MyApp {
        //{ title: 'Amendment Verification', component: AmendmentverificationPage },
     ];
 */
-if (this.restservice.getLoggedIn()){
+/* if (this.restservice.getLoggedIn()){ */
     this.pages = [
-	     { title: 'Log Out', component: HomePageMa}, 
+	{ title: 'Home', component: HomePageMa}, 
        { title: 'Instructions', component: InstructionsPage },
        { title: 'FAQs', component: FaqsMaPage },
        { title: 'Add New Record', component: AddnewrecordPage },
@@ -99,7 +99,7 @@ if (this.restservice.getLoggedIn()){
        { title: 'Volunteer List', component: VolunteerlistPage },
        { title: 'Activity Record', component: ActivityrecordPage },
     ]; 
-  }
+/*   }
 
   if (!this.restservice.getLoggedIn()){
     this.pages = [
@@ -113,7 +113,7 @@ if (this.restservice.getLoggedIn()){
        { title: 'Activity Record', component: ActivityrecordPage },
     ];
   }
-
+*/
   }
 
   initializeApp() {
