@@ -10,25 +10,33 @@
 
 <ion-content padding class="backgroundColor">
 
-  <ion-card padding>
+  <ion-card *ngIf="recordservice.getAuthenticatingVolunteerKey() != null"  padding>
 
-  <button type="submit" (click)="onSubmitVoterRecord()" block large>
+  <button type="button" (click)="onSubmitVoterRecord()" block large>
     Voter Record
   </button>
 
 
-  <button type="submit" (click)="onSubmitNonVoterRecord()" block large>
+  <button type="button" (click)="onSubmitNonVoterRecord()" block large>
     Non Voter Record
   </button>
   
-  <button type="submit" (click)="onSubmitAnomalyRecord()" block large>
+  <button type="button" (click)="onSubmitAnomalyRecord()" block large>
     Anomaly Record
   </button>
   
-  <button type="submit" (click)="onSubmitAmendmentRecord()" block large>
+  <button type="button" (click)="onSubmitAmendmentRecord()" block large>
     Amendment Record
   </button>
 
   </ion-card>
+
+  <ion-card *ngIf="recordservice.getAuthenticatingVolunteerKey() == null"  padding>
+    <button type="button" (click)="onSubmitAuthenticate()" block large>
+      Must Authenticate First
+    </button>
+    
+  </ion-card>
+    
 
 </ion-content>

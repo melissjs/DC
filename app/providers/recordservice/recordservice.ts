@@ -37,6 +37,7 @@ export class Recordservice {
 
   pollingstationservice: Pollingstationservice;
   volunteerservice: Volunteerservice;
+    authenticatingVolunteerKey: string;
 
     // These are assigned automatically by the database
   nextAffidavitNumber: string;
@@ -96,6 +97,7 @@ export class Recordservice {
   this.totalIndividualRecords = 0;
   this.primarySuccess = null;
   this.primaryIntention = false;
+  this.authenticatingVolunteerKey = null;
   }
 
 
@@ -404,7 +406,12 @@ getTimesheetList(){
 
  addTimesheetToList(passedTimesheet){
   this.timesheetList.push(passedTimesheet);
+     this.authenticatingVolunteerKey = passedTimesheet.authenticatingVolunteerKey;
 }
+
+    getAuthenticatingVolunteerKey() {
+	return this.authenticatingVolunteerKey;
+    }
 
 createVoidTimesheet(){
 this.newTimesheet = {

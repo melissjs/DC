@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import {VoterecordPage} from '../voterecord/voterecord';
 import {AmendmentrecordPage} from '../amendmentrecord/amendmentrecord';
 import {AnomalyrecordPage} from '../anomalyrecord/anomalyrecord';
+import {AuthenticationPage} from '../../pages/authentication/authentication';
 import {Recordservice} from '../../providers/recordservice/recordservice';
 
 @Component({
@@ -70,7 +71,14 @@ recordservice: Recordservice;
                     } 
       }
 
-
-
+      onSubmitAuthenticate() {
+                    var that = this;
+                    try {
+                        that.navCtrl.push(AuthenticationPage, {
+                        })
+                    } catch (EE) {
+                        console.log('error in Submitting, exc='+ EE.toString())
+                    } 
+      }
 
 } // class end 
