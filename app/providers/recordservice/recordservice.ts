@@ -119,7 +119,7 @@ export class Recordservice {
       for (ii=0;ii<this.isFlushing.length;ii++) {
           this.isFlushing[ii] = false;
       }
-      this.restSvc.registerLVRCallbacks(this.successLVR, this.failureLVR);
+      this.restSvc.registerLVRCallbacks(this.successLVR, this.failureLVR,this);
       // Just to make sure..
       this.restSvc.getLastVoterRecord();
   }
@@ -127,25 +127,21 @@ export class Recordservice {
     successLVR(that, real, data) {
         if (!real) {
             // For the fake scenario..  we just search the records (if any)
-            this.vcounter = 1;
+            that.vcounter = 1;
         } else {
             if (data) {
                 if (data[0] != null) {
                     data = data[0];
                 }
                 if (data.voteRecordKey != null) {
-                    this.setNextVoteRecordKey(data.voteRecordKey);
+                    that.setNextVoteRecordKey(data.voteRecordKey);
                 }
             }
         }
     }
 
-    failureLVR(that, real, data) {
-        if (!real) {
-            // For the fake scenario..  we just search the records (if any)
-        } else {
-            console.log('failure to retrieve record for voteRecordKey');
-        }
+    failureLVR(that, errStr) {
+        console.log('failure to retrieve record for voteRecordKey');
     }
 
 
@@ -358,7 +354,7 @@ export class Recordservice {
             var idx = lastKey.indexOf('-');
             if (idx >= 0) {
                 var vrc = lastKey.substring(idx+1);
-                this.vcounter = parseInt(vrc) + 1;
+                this.vcounter = parseInt(vrc);
             }
         }
     }

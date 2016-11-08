@@ -26,6 +26,7 @@ export class RestService {
     lastPollingStationDate: any;
     successLVR: any;
     failureLVR: any;
+    cbobj: any;
 
     public loggedIn: boolean;
 
@@ -44,6 +45,7 @@ export class RestService {
         this.lastPollingStationDate = null;
         this.successLVR = null;
         this.failureLVR = null;
+        this.cbobj = null;
 
         // submit call to initialize ionic.
         this.initIonic(false,null);
@@ -607,16 +609,17 @@ export class RestService {
         }, () => {console.log('get polling station data complete')});
     }
 
-    registerLVRCallbacks(successLVR, failureLVR) {
+    registerLVRCallbacks(successLVR, failureLVR, cbobj) {
         this.successLVR = successLVR;
         this.failureLVR = failureLVR;
+        this.cbobj = cbobj;
     }
 
     getLastVoterRecord() {
         var volkey = this.volSvc.getNewVolunteerKey();
         if ((volkey != null) && (this.successLVR != null)) {
             this.getObjectsByField('vote-record','volunteerKey', volkey
-                                   ,this.successLVR, this.failureLVR, this);
+                                   ,this.successLVR, this.failureLVR, this.cbobj);
         }
     }
 
