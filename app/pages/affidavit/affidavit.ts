@@ -106,7 +106,7 @@ export class AffidavitPage {
                 zip: value.zipCode,
                 comments: value.comments,
                 emailAddress: value.emailAddress,
-                evidence: value.photoReceipt,
+                evidence: (value.photoReceipt != null),
            }
            console.log(this.newAffidavitRecord);
            this.recordservice.addAffidavitRecordToList(this.newAffidavitRecord);
@@ -131,10 +131,10 @@ export class AffidavitPage {
        /* var that = this;
         try {
                 if ((this.fullName == null) ||
-		    (this.addressNumName == null) ||
-		    (this.zipCode == null) ||
-		    (this.signature == false))
-		{
+                    (this.addressNumName == null) ||
+                    (this.zipCode == null) ||
+                    (this.signature == false))
+                {
                 let alert = this.alertCtrl.create({
                     title: 'The top four fields are required.',
                     subTitle: 'Please fill out your name, partial address and signature, everything else on this page is optional.',

@@ -71,6 +71,7 @@ export class Recordservice {
     inilist: OfficeVoteRecord[];
     mandatoryList: boolean[];
     lastWarning: number;
+    isFlushing: boolean[];
     MIN_SAVE_WAIT_TIME: number = 60000; // 1 minute
     // END: Originally from Ovrservice
 
@@ -113,8 +114,40 @@ export class Recordservice {
       this.ovrlist = null; // OVRLIST;
       this.inilist = null;
       this.lastWarning = 0;
-
+      var ii;
+      this.isFlushing = new Array(10);
+      for (ii=0;ii<this.isFlushing.length;ii++) {
+          this.isFlushing[ii] = false;
+      }
+      this.restSvc.registerLVRCallbacks(this.successLVR, this.failureLVR);
+      // Just to make sure..
+      this.restSvc.getLastVoterRecord();
   }
+
+    successLVR(that, real, data) {
+        if (!real) {
+            // For the fake scenario..  we just search the records (if any)
+            this.vcounter = 1;
+        } else {
+            if (data) {
+                if (data[0] != null) {
+                    data = data[0];
+                }
+                if (data.voteRecordKey != null) {
+                    this.setNextVoteRecordKey(data.voteRecordKey);
+                }
+            }
+        }
+    }
+
+    failureLVR(that, real, data) {
+        if (!real) {
+            // For the fake scenario..  we just search the records (if any)
+        } else {
+            console.log('failure to retrieve record for voteRecordKey');
+        }
+    }
+
 
     // ANOMALY
 
@@ -128,6 +161,7 @@ export class Recordservice {
     addAnomalyRecordToList(passedAnomalyRecord){
         this.getAnomalyList().push(passedAnomalyRecord);
         this.totalIndividualAnomalyRecords++;
+        this.attemptToSendToDatabase();
     }
 
     createVoidAnomalyRecord(){
@@ -316,6 +350,17 @@ export class Recordservice {
         //this.nextVoteNumber = (this.volunteerservice.getNewVolunteerKey() + this.pollingstationservice.getStationKey() + 'v' + (++this.vcounter));
         //return this.nextVoteNumber;
         return null;
+    }
+
+    setNextVoteRecordKey(lastKey) {
+        // parse out after the -
+        if (lastKey != null) {
+            var idx = lastKey.indexOf('-');
+            if (idx >= 0) {
+                var vrc = lastKey.substring(idx+1);
+                this.vcounter = parseInt(vrc) + 1;
+            }
+        }
     }
 
     generateVoteRecordKey(){
@@ -589,51 +634,65 @@ export class Recordservice {
         }
     }
 
-    needsFlushArray(arr) {
-        return ((arr != null) && (arr.length > 0));
+    needsFlushArray(arr,idx) {
+        return ((arr != null) && (arr.length > 0) && !this.isFlushing[idx]);
     }
 
 
     needsFlush() {
-        return this.needsFlushArray(this.ovrlist)
-            || this.needsFlushArray(this.demographicsRecordList)
-            || this.needsFlushArray(this.voteRecordList)
-            || this.needsFlushArray(this.amendmentRecordList)
-            || this.needsFlushArray(this.affidavitRecordList)
-            || this.needsFlushArray(this.timesheetList)
-            || this.needsFlushArray(this.voteRecordList);
+        return this.needsFlushArray(this.ovrlist,0)
+            || this.needsFlushArray(this.demographicsRecordList,1)
+            || this.needsFlushArray(this.voteRecordList,2)
+            || this.needsFlushArray(this.amendmentRecordList,3)
+            || this.needsFlushArray(this.affidavitRecordList,4)
+            || this.needsFlushArray(this.timesheetList,5)
+            || this.needsFlushArray(this.anomalyRecordList,6)
+        
+;
     }
 
     attemptToSendToDatabase() {
-        if (this.needsFlushArray(this.ovrlist)) {
+        if (this.needsFlushArray(this.ovrlist,0)) {
             var ofr = this.ovrlist[0];
+            this.isFlushing[0] = true;
             this.restSvc.saveObject('office-vote-records',ofr,true,
                                     this.successCb, this.failureCb, this);
         }
-        if (this.needsFlushArray(this.demographicsRecordList)) {
+        if (this.needsFlushArray(this.demographicsRecordList,1)) {
             var dr = this.demographicsRecordList[0];
+            this.isFlushing[1] = true;
             this.restSvc.saveObject('demographics-records',dr,true,
-                                    this.successDrCb, this.failureCb, this);
+                                    this.successDrCb, this.failureDrCb, this);
         }
-        if (this.needsFlushArray(this.voteRecordList)) {
+        if (this.needsFlushArray(this.voteRecordList,2)) {
             var vr = this.voteRecordList[0];
+            this.isFlushing[2] = true;
             this.restSvc.saveObject('vote-records',vr,true,
-                                    this.successVrCb, this.failureCb, this);
+                                    this.successVrCb, this.failureVrCb, this);
         }
-        if (this.needsFlushArray(this.amendmentRecordList)) {
+        if (this.needsFlushArray(this.amendmentRecordList,3)) {
             var amr = this.amendmentRecordList[0];
+            this.isFlushing[3] = true;
             this.restSvc.saveObject('amendment-records',amr,true,
-                                    this.successAmrCb, this.failureCb, this);
+                                    this.successAmrCb, this.failureAmrCb, this);
         }
-        if (this.needsFlushArray(this.affidavitRecordList)) {
-            var afr = this.amendmentRecordList[0];
+        if (this.needsFlushArray(this.affidavitRecordList,4)) {
+            var afr = this.affidavitRecordList[0];
+            this.isFlushing[4] = true;
             this.restSvc.saveObject('affidavit-records',afr,true,
-                                    this.successAfrCb, this.failureCb, this);
+                                    this.successAfrCb, this.failureAfrCb, this);
         }
-        if (this.needsFlushArray(this.timesheetList)) {
+        if (this.needsFlushArray(this.timesheetList,5)) {
             var ats = this.timesheetList[0];
+            this.isFlushing[5] = true;
             this.restSvc.saveObject('timesheets',ats,true,
-                                    this.successAtsCb, this.failureCb, this);
+                                    this.successAtsCb, this.failureAtsCb, this);
+        }
+        if (this.needsFlushArray(this.anomalyRecordList,6)) {
+            var ans = this.anomalyRecordList[0];
+            this.isFlushing[6] = true;
+            this.restSvc.saveObject('anomaly-records',ans,true,
+                                    this.successAnsCb, this.failureAnsCb, this);
         }
     }
 
@@ -643,6 +702,7 @@ export class Recordservice {
         }
         // If successful..  attempt to do the next one..
         that.ovrlist.shift();
+        that.isFlushing[0] = false;
         that.attemptToSendToDatabase();
     }
 
@@ -652,6 +712,7 @@ export class Recordservice {
         }
         // If successful..  attempt to do the next one..
         that.demographicsRecordList.shift();
+        that.isFlushing[1] = false;
         that.attemptToSendToDatabase();
     }
 
@@ -661,6 +722,7 @@ export class Recordservice {
         }
         // If successful..  attempt to do the next one..
         that.voteRecordList.shift();
+        that.isFlushing[2] = false;
         that.attemptToSendToDatabase();
     }
 
@@ -670,6 +732,7 @@ export class Recordservice {
         }
         // If successful..  attempt to do the next one..
         that.amendmentRecordList.shift();
+        that.isFlushing[3] = false;
         that.attemptToSendToDatabase();
     }
 
@@ -679,6 +742,7 @@ export class Recordservice {
         }
         // If successful..  attempt to do the next one..
         that.affidavitRecordList.shift();
+        that.isFlushing[4] = false;
         that.attemptToSendToDatabase();
     }
 
@@ -688,10 +752,21 @@ export class Recordservice {
         }
         // If successful..  attempt to do the next one..
         that.timesheetList.shift();
+        that.isFlushing[5] = false;
         that.attemptToSendToDatabase();
     }
 
-    failureCb(that, errStr) {
+    successAnsCb(that, real, data) {
+        if (real) {
+            // successful save of record..
+        }
+        // If successful..  attempt to do the next one..
+        that.anomalyRecordList.shift();
+        that.isFlushing[6] = false;
+        that.attemptToSendToDatabase();
+    }
+
+    failureCbAll(that, errStr) {
         // If we fail to save the data.. we wait till next time..
 
         var dnow = new Date();
@@ -704,10 +779,53 @@ export class Recordservice {
         let alert = that.alertCtrl.create({
             title: 'Error Saving Voter Data',
             subTitle: 'We will keep attempting to save the data each time, but make sure you flush the data before logging out!',
-            buttons: ['OK']
+            buttons: [{
+                text: 'OK',
+                handler: () => {
+                    alert.dismiss();
+                }
+            }]
         });
-        alert.present();
+        //timeout the error to let other modals finish dismissing.
+        setTimeout(()=>{
+            alert.present();
+        },250);
         return;
+    }
+
+    failureCb(that, errStr) {
+        that.isFlushing[0] = false;
+        that.failureCbAll(that,errStr);
+    }
+
+    failureDrCb(that, errStr) {
+        that.isFlushing[1] = false;
+        that.failureCbAll(that, errStr);
+    }
+
+    failureVrCb(that, errStr) {
+        that.isFlushing[2] = false;
+        that.failureCbAll(that, errStr);
+    }
+
+    failureAmrCb(that, errStr) {
+        that.isFlushing[3] = false;
+        that.failureCbAll(that, errStr);
+    }
+
+    failureAfrCb(that, errStr) {
+        that.isFlushing[4] = false;
+        that.failureCbAll(that, errStr);
+    }
+
+    failureAtsCb(that, errStr) {
+        that.isFlushing[5] = false;
+        that.failureCbAll(that, errStr);
+    }
+
+    failureAnsCb(that, errStr) {
+        that.isFlushing[6] = false;
+        that.failureCbAll(that, errStr);
     }
 
     sendInitialVoteRecord(passedOfficevoterecord, mandatory) {

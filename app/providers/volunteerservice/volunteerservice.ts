@@ -46,7 +46,7 @@ export class Volunteerservice {
         this.associatedVolunteerArray = [];
         this.shiftsFilled = 0;
         this.usingReal = false;
-	this.activeVolunteers = 1; // this volunteer for now..
+        this.activeVolunteers = 1; // this volunteer for now..
 
         // if no one is logged in creat void volunteer 
         // this.restSvc.checkLoggedIn(this.setLoginTrue, this.setLoginFalse,this);
@@ -352,7 +352,11 @@ generateStationStats( /* passedStationKey */){
 
     // Used in DC app only
     getNewVolunteerKey(){
-        return this.currentVolunteer.volunteerKey;
+        if (this.currentVolunteer) {
+            return this.currentVolunteer.volunteerKey;
+        } else {
+            return null;
+        }
     }
 
     getNewVolunteerPollingStationKey(){
@@ -364,10 +368,10 @@ generateStationStats( /* passedStationKey */){
         return this.associatedVolunteerArray;
     }
     getVolunteerCount(){
-	return this.volunteerCount;
+        return this.volunteerCount;
     }
     getVolunteersActive() {
-	return this.activeVolunteers;
+        return this.activeVolunteers;
     }
 
 

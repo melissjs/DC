@@ -5,5 +5,5 @@ voteRecordKey: string;
 electOfficeKey: string;
 success: boolean;
 candidate: string;
-levelOfSupport: string;
+levelOfSupport?: string;
 }

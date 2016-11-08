@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
+import { Geolocation } from 'ionic-native';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
 import {RestService} from '../../providers/rest-service/rest-service';
@@ -51,10 +52,31 @@ export class AuthenticationPage {
     this.newTimesheet = this.recordservice.createVoidTimesheet();
     this.errorMessage = null;
     this.chkBoxLabelState = 0;
+    this.onChangegeoLocation(null);
+
   }
 
   onChangegeoLocation(value){
-  this.geoLocation = value;
+      if (value == null) {
+
+          Geolocation.getCurrentPosition().then((position) => {
+              
+              this.geoLocation = 
+                  position.coords.latitude + ',' + 
+                  position.coords.longitude;
+              
+          }, (err) => {
+              if (err.code == 1) {
+                  this.errorMessage = 'MUST allow Geo Location to be detected! ( ' + err.code + ' ) '+ err.message;
+                  this.geoLocation = null; // unknown
+                  this.errorMessage = this.errorMessage + ', You may need to refresh page, or restart App';
+              } else {
+                  this.errorMessage = 'Should allow Geo Location to be detected! ( ' + err.code + ' ) '+ err.toString();
+                  this.geoLocation = '0,0'; // unknown            
+              }
+              console.log(err);
+          });
+      }
   }
 
   onChangeAffirmation(value){
@@ -86,22 +108,20 @@ export class AuthenticationPage {
     
       // make sure all fields are present
        if (!this.authenticatingVolunteerPasscode || !this.geoLocation || !this.authenticatingVolunteerKey || !this.affirm) {
-                let alert = this.alertCtrl.create({
-                    title: 'All fields required.',
-                    subTitle: 'Signing in requires two way authentication; please ask one of your team members to help you verify this record.',
-                    buttons: ['OK']
-                });
-                alert.present();
-                return;
+           this.errorMessage = 'All fields required';
+           if ((!this.authenticatingVolunteerPasscode) || (!this.authenticatingVolunteerKey)) {
+               this.errorMessage = this.errorMessage +  ' :Signing in requires two way authentication; please ask one of your team members to help you verify this record.';
+           } else if (!this.affirm) {
+               this.errorMessage = 'MUST check the confirmation box';
+           } else if (!this.geoLocation) {
+               this.errorMessage = 'MUST allow Geo Location to be detected! Try restarting App, or refreshing page with GeoLocation detection allowed';
+           }
        } else {
 
            this.restSvc.verifyExtraLogin
            (this.authenticatingVolunteerKey, this.authenticatingVolunteerPasscode, false,
             this.avSuccessCb, this.avFailureCb, this);
-
-
        }
-
   }
 
     avSuccessCb(that:any, real: boolean, data: any) {
@@ -109,7 +129,22 @@ export class AuthenticationPage {
             // For the fake scenario, just succeed
             var err = { status: 0, _body: ''};
             // otherwise success...
+            // Expecting the string coming back from the server to say:
+            // Authentication Success, ps=VAL
+            // where VAL is the key for the associated polling station
+            // We need to set that value
+            var vol2 = that.volunteerservice.getVolunteerbyKeyXX
+            (that.authenticatingVolunteerKey);
+            var ps = vol2.associatedPollingStationKey;
+            
+            data = { _body: 'Authentication success, ps=' + ps };
         }
+
+        // parse out polling station key from success string.
+        var retstat = data._body;
+        var eIdx = retstat.indexOf('ps=');
+        var ps2 = retstat.substring(eIdx+3);
+
         // fill timesheet 
         that.newTimesheet = {
             volunteerKey: that.volunteerservice.getNewVolunteer().volunteerKey,
@@ -118,49 +153,31 @@ export class AuthenticationPage {
             checkOuttime: null,
             geoLocation: that.geoLocation,
         }
-	var vol = that.volunteerservice.getNewVolunteer();
-	if ((vol.shifts == null) || (vol.shifts.length == 0)) {
-	    // Update the shifts value to "now" to allow this one to authenticate.
-	    vol.shifts = 'now';
-	    // Attempt to Save the volunteer data..
-	    that.restSvc.saveObject('volunteers',vol,false,null,null,that);
-	}
+        var vol = that.volunteerservice.getNewVolunteer();
+        if ((vol.shifts == null) || (vol.shifts.length == 0) ||
+            (vol.associatedPollingStationKey == null) ||
+            (vol.associatedPollingStationKey != ps2)) {
+            // Update the shifts value to "now" to allow this one to authenticate.
+            vol.shifts = 'now';
+            vol.associatedPollingStationKey = ps2;
+            // Attempt to Save the volunteer data..
+            that.restSvc.saveObject('volunteers',vol,false,null,null,that);
+        }
         that.recordservice.addTimesheetToList(that.newTimesheet);
+
+        var pst = that.pollingstationservice.getPollingStationbyKey(ps2);
+        that.pollingstationservice.setStation(pst);
+
         console.log(that.recordservice.getTimesheetList());
-    }
 
-    avFailureCb(that:any, err: any) {
-        that.errorMessage = err._body;
-        return;
-    }
-
-
-    amFailureCb(that:any, errStr: string) {
-        // Handle error to write amendment record...
-        var title = 'Error Saving Amendment Record';
-        let alert = that.alertCtrl.create({
-            title: title,
-            subTitle: errStr + ':Flush Data when connected to Internet',
+        let alertOne = that.alertCtrl.create({
+            title: 'Successful Authentication',
             buttons: [{
                 text: 'OK',
                 handler: () => {
-                    alert.dismiss();
+                    alertOne.dismiss();
                 }
             }]
-        });
-        // navigate 
-
-        that.navCtrl.setRoot(SigninsuccessPage, {});
-
-    }
-
-    amSuccessCb(that:any, real: boolean, data: any) {
-        if (!real) {
-            // act like success anyway..
-        }
-        let alertOne = that.alertCtrl.create({
-            title: 'Successful Save of Time Sheet Record',
-            buttons: ['OK']
         });
         alertOne.present();
 
@@ -168,6 +185,11 @@ export class AuthenticationPage {
 
         that.navCtrl.setRoot(SigninsuccessPage, {});
 
+    }
+
+    avFailureCb(that:any, err: any) {
+        that.errorMessage = err._body;
+        return;
     }
 
     getChkBoxLabelState() {

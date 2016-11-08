@@ -11,6 +11,8 @@
 
 //For Testing locally, uncomment the following.
 //export var MT_HOST  = 'http://localhost:8088';
+//export var MT_HOST  = 'http://192.168.1.126:8088';
+//export var MT_HOST  = 'https://volunteer-dc.herokuapp.com';
 export var MT_HOST  = '';
 export var AUTHY_VER_URL = MT_HOST + '/api/verificationinit/';
 export var AUTHY_CHK_URL = MT_HOST + '/api/verificationcheck/';

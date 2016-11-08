@@ -57,35 +57,43 @@ this.evidence = value;
 }
 
 onSubmit(){
- if (this.nature == null) {
-                let alert = this.alertCtrl.create({
-                    title: 'Nature of anomaly is required.',
-                    subTitle: 'Please specify the nature of the anomaly, everything else on this page is optional.',
-                    buttons: ['OK']
-                });
-                alert.present();
-            } else {
+    if (this.nature == null) {
+        let alert = this.alertCtrl.create({
+            title: 'Nature of anomaly is required.',
+            subTitle: 'Please specify the nature of the anomaly, everything else on this page is optional.',
+            buttons: [{
+                text: 'OK',
+                handler: () => {
+                    alert.dismiss();
+                }
+            }]
+        });
+        //timeout the error to let other modals finish dismissing.
+        setTimeout(()=>{
+            alert.present();
+        },250);
+    } else {
 
 
-  var that = this;
-  // fill anomaly obj
-this.newAnomalyRecord ={
-volunteerKey: this.volunteerservice.getNewVolunteerKey(),
-nature: this.nature,
-fullName: this.fullName,
-emailAddress: this.emailAddress,
-comments: this.comments,
-evidence: this.evidence,
-}
-console.log(this.newAnomalyRecord);
-this.recordservice.addAnomalyRecordToList(this.newAnomalyRecord);
-                console.log(this.recordservice.getAnomalyList());
+        var that = this;
+        // fill anomaly obj
+        this.newAnomalyRecord ={
+            volunteerKey: this.volunteerservice.getNewVolunteerKey(),
+            nature: this.nature,
+            fullName: this.fullName,
+            emailAddress: this.emailAddress,
+            comments: this.comments,
+            evidence: (this.evidence != null),
+        }
+        console.log(this.newAnomalyRecord);
+        this.recordservice.addAnomalyRecordToList(this.newAnomalyRecord);
+        console.log(this.recordservice.getAnomalyList());
 
 
-  // nav to voterecord
-  try {that.navCtrl.setRoot(VoterecordPage, {})}
-  catch (EE) {console.log('error in Submitting, exc='+ EE.toString())}
-}
+        // nav to voterecord
+        try {that.navCtrl.setRoot(VoterecordPage, {})}
+        catch (EE) {console.log('error in Submitting, exc='+ EE.toString())}
+    }
 }
 
 }

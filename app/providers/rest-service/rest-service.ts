@@ -24,6 +24,8 @@ export class RestService {
     hashedPassCode: number;
     attemptedPassCode: number;
     lastPollingStationDate: any;
+    successLVR: any;
+    failureLVR: any;
 
     public loggedIn: boolean;
 
@@ -40,6 +42,8 @@ export class RestService {
         this.hashedPassCode = 0;
         this.attemptedPassCode = 0;
         this.lastPollingStationDate = null;
+        this.successLVR = null;
+        this.failureLVR = null;
 
         // submit call to initialize ionic.
         this.initIonic(false,null);
@@ -589,6 +593,7 @@ export class RestService {
             console.log('successful get polling station data call:' + data);
             if (data != null) {
                 this.lastPollingStationDate = this.polSvc.addPollingStations(data);
+                this.getLastVoterRecord();
             } else {
                 console.log('error getting polling station data call:' + data.message);
             }
@@ -600,6 +605,19 @@ export class RestService {
                 return;
             }
         }, () => {console.log('get polling station data complete')});
+    }
+
+    registerLVRCallbacks(successLVR, failureLVR) {
+        this.successLVR = successLVR;
+        this.failureLVR = failureLVR;
+    }
+
+    getLastVoterRecord() {
+        var volkey = this.volSvc.getNewVolunteerKey();
+        if ((volkey != null) && (this.successLVR != null)) {
+            this.getObjectsByField('vote-record','volunteerKey', volkey
+                                   ,this.successLVR, this.failureLVR, this);
+        }
     }
 
     sendCollab(collabForm: any) {

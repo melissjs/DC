@@ -15,9 +15,13 @@
  <ion-list>
 
     <ion-item>
-     <ion-icon name="md-locate" item-right></ion-icon> 
+     <ion-icon name="md-locate" item-right (click)="onChangegeoLocation(geoLocation)"></ion-icon> 
      <ion-label stacked>Set Geolocation:</ion-label>
-     <ion-input type="text" [(ngModel)]="geoLocation" (click)="onChangegeoLocation(geoLocation)"></ion-input>
+     <ion-input readOnly=true value="{{geoLocation}}" ></ion-input>
+     <!--
+     <ion-input type="text" [(ngModel)]="geoLocation"  readOnly
+                    (click)="onChangegeoLocation(geoLocation)" 
+                    ></ion-input>-->
      </ion-item>
 
     <ion-item text-wrap>
