@@ -3,7 +3,6 @@ import { NavController, AlertController } from 'ionic-angular';
 import {VoterecordPage} from '../voterecord/voterecord';
 import {Recordservice} from '../../providers/recordservice/recordservice';
 import {RestService} from '../../providers/rest-service/rest-service';
-import {RestService2} from '../../providers/rest-service2/rest-service2';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
 import {AmendmentRecord} from '../../amendmentrecord';
 
@@ -25,12 +24,11 @@ volunteerservice: Volunteerservice;
 newAmendmentRecord: AmendmentRecord;
 recordservice: Recordservice;
 restSvc: RestService;
-restSvc2: RestService2;
+voteRecordKey: string;
 
     constructor(private navCtrl: NavController, 
 		private alertCtrl: AlertController, volunteerservice: Volunteerservice,
-		recordservice: Recordservice, restSvc: RestService, 
-		restSvc2: RestService2) {
+		recordservice: Recordservice, restSvc: RestService) {
     this.navCtrl = navCtrl;
     this.volunteerservice = volunteerservice;
     this.incorrectSelection = null;
@@ -44,8 +42,12 @@ restSvc2: RestService2;
     this.newAmendmentRecord = this.recordservice.createVoidAmendmentRecord();
     this.authenticatingVolunteerKey = null;
     this.restSvc = restSvc;
-    this.restSvc2 = restSvc2;
+    this.voteRecordKey = null;
   }
+
+onChangeVRK(value){
+    this.voteRecordKey = value;
+}
 
 onChangeIncorrectSelection(value){
     this.incorrectSelection = value;
@@ -153,6 +155,7 @@ onChangeAffirmation(value){
 
         // fill amendment object
         that.newAmendmentRecord = {
+	    voteRecordKey: that.voteRecordKey,
             volunteerKey: that.volunteerservice.getNewVolunteerKey(),
             incorrectSelection: that.incorrectSelection,
             correctSelection: that.correctSelection,
@@ -162,8 +165,6 @@ onChangeAffirmation(value){
 
         that.recordservice.addAmendmentRecordToList(that.newAmendmentRecord);
         console.log(that.recordservice.getAmendmentList());
-	that.restSvc2.saveAmendmentList(that.amSuccessCb, that.amFailureCb, that);
-
     }
 
     amFailureCb(that:any, errStr: string) {

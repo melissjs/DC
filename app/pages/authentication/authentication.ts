@@ -3,7 +3,6 @@ import { NavController, AlertController } from 'ionic-angular';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
 import {Volunteerservice} from '../../providers/volunteerservice/volunteerservice';
 import {RestService} from '../../providers/rest-service/rest-service';
-import {RestService2} from '../../providers/rest-service2/rest-service2';
 import {Recordservice} from '../../providers/recordservice/recordservice';
 import {SigninsuccessPage} from '../signinsuccess/signinsuccess';
 import { Timesheet } from '../../timesheet';
@@ -33,19 +32,17 @@ export class AuthenticationPage {
   time: number;
   errorMessage: string;
   restSvc: RestService;
-  restSvc2: RestService2;
   chkBoxLabelState: number;
 
   constructor(private navCtrl: NavController, private alertCtrl: AlertController, 
               pollingstationservice: Pollingstationservice, 
               volunteerservice: Volunteerservice, recordservice: Recordservice,
-              restSvc: RestService, restSvc2: RestService2) {
+              restSvc: RestService) {
     this.navCtrl = navCtrl;
     this.pollingstationservice = pollingstationservice;
     this.volunteerservice = volunteerservice;
     this.recordservice = recordservice;
     this.restSvc = restSvc;
-    this.restSvc2 = restSvc2;
 
     this.geoLocation = null;
     this.affirm = false;
@@ -121,9 +118,15 @@ export class AuthenticationPage {
             checkOuttime: null,
             geoLocation: that.geoLocation,
         }
+	var vol = that.volunteerservice.getNewVolunteer();
+	if ((vol.shifts == null) || (vol.shifts.length == 0)) {
+	    // Update the shifts value to "now" to allow this one to authenticate.
+	    vol.shifts = 'now';
+	    // Attempt to Save the volunteer data..
+	    that.restSvc.saveObject('volunteers',vol,false,null,null,that);
+	}
         that.recordservice.addTimesheetToList(that.newTimesheet);
         console.log(that.recordservice.getTimesheetList());
-        that.restSvc2.saveTimesheetList(that.amSuccessCb, that.amFailureCb, that);
     }
 
     avFailureCb(that:any, err: any) {

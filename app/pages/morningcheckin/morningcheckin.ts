@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import {Recordservice} from '../../providers/recordservice/recordservice';
+import {CheckLogin } from '../../components/check-login/check-login';
 
 /*
   Generated class for the MorningcheckinPage page.
@@ -9,11 +11,16 @@ import { NavController } from 'ionic-angular';
 */
 @Component({
   templateUrl: 'build/pages/morningcheckin/morningcheckin.html',
+  directives: [CheckLogin],
 })
 export class MorningcheckinPage {
 
-  constructor(private navCtrl: NavController) {
+    constructor(private navCtrl: NavController, private recordservice: Recordservice) {
 
-  }
+    }
+
+    onSubmit() {
+	console.log("no op for now");
+    }
 
 }

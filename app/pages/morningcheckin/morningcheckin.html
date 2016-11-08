@@ -10,7 +10,8 @@
 
 
 <ion-content padding>
-        <form name="affidavit" novalidate>
+
+  <form name="affidavit" novalidate>
         
         
         <ion-card>
@@ -46,13 +47,16 @@
     </ion-item>
 
         
-
         </ion-list>
         </ion-card>  
 
-        <button type="submit" (click)="onSubmit()" block large>
-         Submit 
+        <button *ngIf="(recordservice.getAuthenticatingVolunteerKey() != null)" 
+		type="button" (click)="onSubmit()" block large>
+          Submit
          </button>
 
       </form>
+
+  <check-login></check-login>
+
       </ion-content>

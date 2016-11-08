@@ -1,0 +1,16 @@
+<!--
+  Generated template for the CheckLogin component.
+
+  See https://angular.io/docs/ts/latest/api/core/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+<ion-card *ngIf="!restSvc.getLoggedIn()"  padding>
+  <button type="button" (click)="onSubmitLogin()" block large>
+    Must Login First
+  </button>
+</ion-card>
+<ion-card *ngIf="restSvc.getLoggedIn() && (recordservice.getAuthenticatingVolunteerKey() == null)"  padding>
+  <button type="button" (click)="onSubmitAuthenticate()" block large>
+    Must Authenticate First
+  </button>
+</ion-card>

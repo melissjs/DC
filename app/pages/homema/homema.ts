@@ -5,7 +5,8 @@ import { NavController, MenuController, NavParams } from 'ionic-angular';
 import { Volunteer} from '../../volunteer';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { Volunteerservice } from '../../providers/volunteerservice/volunteerservice';
-import {RestService} from '../../providers/rest-service/rest-service';
+import { Recordservice} from '../../providers/recordservice/recordservice';
+import { RestService} from '../../providers/rest-service/rest-service';
 //import { AccountsettingsPage } from '../accountsettings/accountsettings';
 //import { ResetpasswordPage } from '../resetpassword/resetpassword';
 import { LoginPageMa } from '../loginpagema/loginpagema';
@@ -18,13 +19,13 @@ export class HomePageMa {
 
 
 //  userDataSvc: UserDataService;
-  restSvc: RestService;
+    errorMessage: string;
 
   constructor(public navCtrl: NavController, navParams: NavParams,
-  	      /* userDataSvc: UserDataService, */ restSvc: RestService) {
+  	      private restSvc: RestService, private recordservice: Recordservice) {
 
       this.navCtrl = navCtrl;
-      this.restSvc = restSvc;
+      this.errorMessage = null;
       //  this.loggedIn = this.restSvc.getLoggedIn();
       // console.log(this.loggedIn);
       /* 
@@ -45,7 +46,7 @@ export class HomePageMa {
     }  
 
     onLogout() {
-	this.restSvc.onLogout(this,this.displayError);
+	this.recordservice.onLogout(this,this.displayError,null);
     }
 
     displayError(that:any,text: string,subtitle: string) {

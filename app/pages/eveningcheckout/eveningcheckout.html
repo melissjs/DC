@@ -40,13 +40,12 @@
 
 
 
-
-
-  <button block large type="submit" (click)="onSubmit()">Check Out</button>
-
-
-
+	<button *ngIf="(recordservice.getAuthenticatingVolunteerKey() != null)" 
+		block large type="submit" (click)="onSubmit()">Check Out</button>
              
        
         </form>
+
+	<check-login></check-login>
+
       </ion-content>

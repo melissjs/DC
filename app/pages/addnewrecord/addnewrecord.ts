@@ -3,11 +3,13 @@ import { NavController } from 'ionic-angular';
 import {VoterecordPage} from '../voterecord/voterecord';
 import {AmendmentrecordPage} from '../amendmentrecord/amendmentrecord';
 import {AnomalyrecordPage} from '../anomalyrecord/anomalyrecord';
-import {AuthenticationPage} from '../../pages/authentication/authentication';
 import {Recordservice} from '../../providers/recordservice/recordservice';
+import {CheckLogin } from '../../components/check-login/check-login';
+
 
 @Component({
   templateUrl: 'build/pages/addnewrecord/addnewrecord.html',
+  directives: [CheckLogin],
 })
 export class AddnewrecordPage {
 recordservice: Recordservice;
@@ -31,8 +33,6 @@ recordservice: Recordservice;
                     }
 
         }
-
-
 
         onSubmitNonVoterRecord() {
                     var that = this;
@@ -71,14 +71,5 @@ recordservice: Recordservice;
                     } 
       }
 
-      onSubmitAuthenticate() {
-                    var that = this;
-                    try {
-                        that.navCtrl.push(AuthenticationPage, {
-                        })
-                    } catch (EE) {
-                        console.log('error in Submitting, exc='+ EE.toString())
-                    } 
-      }
 
 } // class end 

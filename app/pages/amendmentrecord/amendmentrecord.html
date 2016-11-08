@@ -15,6 +15,11 @@
 <ion-list>
 
   <ion-item>
+    <ion-label stacked>Voter Record Number (optional):</ion-label>    
+    <ion-input type="text" [(ngModel)]="voteRecordKey" (click)="onChangeVRK(voteRecordKey)"></ion-input>
+  </ion-item>
+
+  <ion-item>
            <ion-label stacked>Incorrect Selection:</ion-label>
 
             <ion-select text-wrap [(ngModel)]="incorrectSelection" (change)="onChangeIncorrectSelection(incorrectSelection)">

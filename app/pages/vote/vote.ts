@@ -5,7 +5,6 @@ import {Volunteerservice} from '../../providers/volunteerservice/volunteerservic
 import {Recordservice} from '../../providers/recordservice/recordservice';
 import {Pollingstationservice} from '../../providers/pollingstationservice/pollingstationservice';
 import {RestService} from '../../providers/rest-service/rest-service';
-import {Ovrservice} from '../../providers/ovrservice/ovrservice';
 import {OvrComponent} from '../../components/ovr-component/ovr-component';
 import {VoteRecord} from '../../voterecord';
 import {OfficeVoteRecord} from '../../officevoterecord';
@@ -55,14 +54,10 @@ export class VotePage {
     constructor(private navCtrl: NavController, private alertCtrl: AlertController,
                 private pollingstationservice: Pollingstationservice,
                 private volunteerservice: Volunteerservice,
-                private recordservice: Recordservice, private ovrservice: Ovrservice,
-                private restSvc: RestService) {
+                private recordservice: Recordservice, private restSvc: RestService) {
 
         //testing
 
-        this.pollingstationservice.setTestStation();
-        this.volunteerservice.setTestVolunteer();
-      
         this.PRESIDENT = PRESIDENT;
         this.PRIMARYCONGRESS = PRIMARYCONGRESS;
         this.PRIMARYPRES = PRIMARYPRES;
@@ -84,7 +79,6 @@ export class VotePage {
         this.secondPresVoteWriteIn = null;
         this.thirdPresVoteWriteIn = null;
         this.pollingstationservice = pollingstationservice;
-        this.ovrservice = ovrservice;
         this.inFlorida = this.pollingstationservice.isThisInState('FL');
         console.log(this.inFlorida);
         console.log(this.pollingstationservice.selectedStationXX.state);
@@ -329,7 +323,7 @@ export class VotePage {
 
             // logic for write ins other issues...
             var mandatory_exists = !this.recordservice.getNonVoteBool();
-            subtitle = this.ovrservice.checkFieldsForErrors(mandatory_exists,minimum_msg);
+            subtitle = this.recordservice.checkFieldsForErrors(mandatory_exists,minimum_msg);
             if (subtitle) {
                 let alert = this.alertCtrl.create({
                     title: 'Election Choices Missing',
@@ -424,8 +418,8 @@ export class VotePage {
             this.recordservice.addVoteRecordToList(this.newVoteRecord);
             console.log(this.recordservice.getVoteList());
 
-            // check if ovr is filled enough to send, then push to list from ovrservice
-            this.ovrservice.addEligibleOVRRecordsToList();
+            // check if ovr is filled enough to send, then push to list from recordservice
+            this.recordservice.addEligibleOVRRecordsToList();
             this.recordservice.setPrimarySuccess(null);  
             this.recordservice.setPrimaryIntention(false);    
 

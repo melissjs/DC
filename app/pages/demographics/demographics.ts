@@ -100,26 +100,28 @@ volunteerservice: Volunteerservice;
                 this.enterParty = this.enterPartyWriteIn;
             }
 
+	    
             // fill demographics obj
-            this.newDemographicsRecord = {
-            voteRecordKey: this.recordservice.getVoteRecordKey(),
-            volunteerKey: this.volunteerservice.getNewVolunteerKey(),
-            sex: this.enterSex,
-            age: this.enterAge,
-            ethnicity: this.enterEthnicity,
-            partyAffiliation: this.enterParty,
-            annualIncome: this.enterIncome,
-            education: this.enterEducation ,
-            maritalStatus: this.enterMaritalStatus,
-            naturalizedCitizen: this.enterNaturalizedCitizen,
-            countryOfOrigin: this.enterCountryOfOrigin,
-            firstTimeVoter: this.enterFirstTimeVoter,
-            }
-            console.log(this.newDemographicsRecord);
-            this.recordservice.addDemographicsRecordToList(this.newDemographicsRecord);
+	    this.newDemographicsRecord = {
+		voteRecordKey: this.recordservice.getVoteRecordKey(),
+		volunteerKey: this.volunteerservice.getNewVolunteerKey(),
+		sex: this.enterSex,
+		age: this.enterAge,
+		ethnicity: this.enterEthnicity,
+		partyAffiliation: this.enterParty,
+		annualIncome: this.enterIncome,
+		education: this.enterEducation ,
+		maritalStatus: this.enterMaritalStatus,
+		naturalizedCitizen: this.enterNaturalizedCitizen,
+		countryOfOrigin: this.enterCountryOfOrigin,
+		firstTimeVoter: this.enterFirstTimeVoter,
+	    }
+	    if (this.newDemographicsRecord != this.recordservice.createVoidDemographicsRecord()) {
+		// At least one field was filled out.
+		console.log(this.newDemographicsRecord);
+		this.recordservice.addDemographicsRecordToList(this.newDemographicsRecord);
                 console.log(this.recordservice.getDemographicsList());
-
-
+	    }
 
             that.navCtrl.setRoot(VoterecordPage, {
             });

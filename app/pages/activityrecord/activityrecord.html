@@ -12,7 +12,7 @@
                
         <ion-content padding>
 
-            <ion-card>
+            <ion-card *ngIf="initialized">
               <ion-list>
                 <ion-list-header>Activity Record: {{currentVolunteer.fullName}}</ion-list-header>
 
@@ -48,6 +48,7 @@
             </ion-card>
 
 
+	    <!--
             <ion-card>
               <ion-list>
                 <ion-list-header>Activity Record: Team {{precinctNumber}} </ion-list-header>
@@ -82,9 +83,9 @@
 
               </ion-list>
             </ion-card>
+	    -->
 
-
-            <ion-card>
+            <ion-card *ngIf="initialized">
               <ion-list>
                 <ion-list-header>Team Stats</ion-list-header>
 
@@ -93,12 +94,27 @@
                 </ion-item>
 
                 <ion-item>
-                <ion-label>Total Currently Active Volunteers: {{currentTeam.totalActiveVolunteers}}</ion-label>
+                <ion-label>Total Currently Active Volunteers: {{totalActiveVolunteers}}</ion-label>
                 </ion-item>
 
               </ion-list>
             </ion-card>
 
 
+	    <ion-card *ngIf="!initialized">
+	      <ion-list-header text-wrap>Team Stats
+	      </ion-list-header>
+	      <ion-item text-wrap>
+		<ion-label text-wrap>
+		  You must login and authenticate and you must be at a polling station before this will show any data.
+		</ion-label>
+	      </ion-item>
+	    </ion-card>
+
+            <button type="button" (click)="onRefresh()" block large>
+              Refresh
+            </button>
+
+	    <check-login></check-login>
 
       </ion-content>

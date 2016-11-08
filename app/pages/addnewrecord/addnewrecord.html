@@ -31,12 +31,6 @@
 
   </ion-card>
 
-  <ion-card *ngIf="recordservice.getAuthenticatingVolunteerKey() == null"  padding>
-    <button type="button" (click)="onSubmitAuthenticate()" block large>
-      Must Authenticate First
-    </button>
-    
-  </ion-card>
-    
+  <check-login></check-login>
 
 </ion-content>
