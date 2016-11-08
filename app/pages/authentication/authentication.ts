@@ -67,8 +67,8 @@ export class AuthenticationPage {
               
           }, (err) => {
               if (err.code == 1) {
-                  this.errorMessage = 'MUST allow Geo Location to be detected! ( ' + err.code + ' ) '+ err.message;
-                  this.geoLocation = null; // unknown
+                  this.errorMessage = 'Should allow Geo Location to be detected! ( ' + err.code + ' ) '+ err.message;
+                  this.geoLocation = '0,0'; // unknown
                   this.errorMessage = this.errorMessage + ', You may need to refresh page, or restart App';
               } else {
                   this.errorMessage = 'Should allow Geo Location to be detected! ( ' + err.code + ' ) '+ err.toString();
