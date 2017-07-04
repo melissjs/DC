@@ -59,8 +59,13 @@ export class RestService {
         // let options = new RequestOptions({ headers: headers });
         var url = config.MT_HOST + '/api/ionicinit' + this.cacheBuster(true);
 
+        let headers = new Headers();
+        headers.append('Access-Control-Allow-Origin', '*');
+        headers.append('Access-Control-Allow-Headers', 'Content-Type');
+        headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+
         // var retval1 = this.http.post(url, params, { headers: headers });
-        var retval1 = this.http.get(url);
+        var retval1 = this.http.get(url, {"headers":headers});
         
         // body, options
 
@@ -274,9 +279,7 @@ export class RestService {
         var params = /* 'json=' +  */ json;
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'application/json;charset=UTF-8');
         let options = new RequestOptions({ headers: headers, withCredentials: true});
 
@@ -290,9 +293,7 @@ export class RestService {
     loginUser(phoneNumber: string, passcode: string) {
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         var body = 'j_username=' + phoneNumber + '&j_password=' + passcode +
             '&remember-me=true&submit=Login';
@@ -335,9 +336,7 @@ export class RestService {
         var params = null;
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'application/json;charset=UTF-8');
         let options = new RequestOptions({ headers: headers, withCredentials: true});
 
@@ -409,9 +408,7 @@ export class RestService {
     resetPasswordInit(emailAddress: string) {
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'text/plain;charset=UTF-8');
         var body = emailAddress;
         let options = new RequestOptions({ headers: headers, withCredentials: true});
@@ -430,9 +427,7 @@ export class RestService {
         var params = /* 'json=' +  */ json;
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'application/json;charset=UTF-8');
         let options = new RequestOptions({ headers: headers, withCredentials: true});
 
@@ -448,9 +443,7 @@ export class RestService {
         var params = /* 'json=' +  */ newPassword; // json;
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'application/json;charset=UTF-8');
         let options = new RequestOptions({ headers: headers, withCredentials: true});
 
@@ -512,9 +505,7 @@ export class RestService {
         var params = /* 'json=' +  */ json;
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'application/json;charset=UTF-8');
         let options = new RequestOptions({ headers: headers, withCredentials: true});
 
@@ -629,9 +620,7 @@ export class RestService {
         var params = /* 'json=' +  */ json;
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'application/json;charset=UTF-8');
         let options = new RequestOptions({ headers: headers, withCredentials: true});
 
@@ -658,9 +647,7 @@ export class RestService {
         var params = /* 'json=' +  */ json;
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'application/json;charset=UTF-8');
         let options = new RequestOptions({ headers: headers, withCredentials: true});
 
@@ -688,9 +675,7 @@ export class RestService {
         var params = /* 'json=' +  */ json;
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'application/json;charset=UTF-8');
         let options = new RequestOptions({ headers: headers, withCredentials: true});
 
@@ -729,9 +714,7 @@ export class RestService {
         var params = JSON.stringify(objdata);
         let headers = new Headers();
         headers.append('Accept', 'application/json, text/plain, */*');
-        if (this.csrf_token != null) {
-            headers.append('X-CSRF-TOKEN', this.csrf_token);
-        }
+        this.addHeader(headers);
         headers.append('Content-Type', 'application/json;charset=UTF-8');
         let options = new RequestOptions({ headers: headers, withCredentials: true});
 
@@ -841,5 +824,15 @@ export class RestService {
                 failurecb(thatobj,errStr);
             }
         }, () => {console.log('get ' + query + ' data complete')});
+    }
+
+    addHeader(headers) {
+        if (this.csrf_token != null) {
+            headers.append('X-CSRF-TOKEN', this.csrf_token);
+            headers.append('X-XSRF-TOKEN', this.csrf_token);
+            headers.append('Access-Control-Allow-Origin', '*');
+            headers.append('Access-Control-Allow-Headers', 'Content-Type');
+            headers.append('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+        }
     }
 }
